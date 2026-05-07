@@ -1,1 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AYMPONSOMU ASTRO-STRATEGIC GLOBAL COUNCIL</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      font-family:'Poppins',sans-serif;
+      background:#050816;
+      color:white;
+      overflow-x:hidden;
+      line-height:1.7;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      width:100%;
+      height:100%;
+      background:
+      radial-gradient(circle at top,#2d1b69 0%,transparent 30%),
+      radial-gradient(circle at bottom,#0d1b3d 0%,transparent 35%),
+      #050816;
+      z-index:-2;
+    }
+
+    .stars{
+      position:fixed;
+      width:100%;
+      height:100%;
+      background-image:url('https://www.transparenttextures.com/patterns/stardust.png');
+      opacity:0.3;
+      z-index:-1;
+      animation:moveStars 80s linear infinite;
+    }
+
+    @keyframes moveStars{
+      from{transform:translateY(0px);}
+      to{transform:translateY(-1000px);}
+    }
+
+    header{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:40px 20px;
+      text-align:center;
+      position:relative;
+    }
+
+    .hero{
+      max-width:1200px;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:50px;
+      align-items:center;
+    }
+
+    .hero-image img{
+      width:100%;
+      max-width:500px;
+      border-radius:30px;
+      border:3px solid rgba(255,215,0,0.5);
+      box-shadow:0 0 40px rgba(255,215,0,0.4);
+    }
+
+    .hero-content h1{
+      font-family:'Cinzel',serif;
+      font-size:55px;
+      color:#ffd700;
+      margin-bottom:20px;
+      text-shadow:0 0 15px rgba(255,215,0,0.5);
+    }
+
+    .hero-content h2{
+      font-size:24px;
+      margin-bottom:20px;
+      color:#ffffff;
+    }
+
+    .hero-content p{
+      font-size:18px;
+      color:#d6d6d6;
+      margin-bottom:30px;
+    }
+
+    .buttons{
+      display:flex;
+      gap:15px;
+      flex-wrap:wrap;
+      justify-content:center;
+    }
+
+    .btn{
+      padding:15px 28px;
+      border:none;
+      border-radius:40px;
+      background:linear-gradient(45deg,#c9a227,#ffdf6b);
+      color:#111;
+      font-weight:600;
+      text-decoration:none;
+      transition:0.4s;
+      box-shadow:0 0 20px rgba(255,215,0,0.3);
+    }
+
+    .btn:hover{
+      transform:translateY(-5px) scale(1.05);
+      box-shadow:0 0 30px rgba(255,215,0,0.6);
+    }
+
+    section{
+      padding:90px 20px;
+    }
+
+    .container{
+      max-width:1200px;
+      margin:auto;
+    }
+
+    .section-title{
+      text-align:center;
+      font-family:'Cinzel',serif;
+      font-size:40px;
+      color:#ffd700;
+      margin-bottom:50px;
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:25px;
+    }
+
+    .card{
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,215,0,0.2);
+      padding:30px;
+      border-radius:25px;
+      backdrop-filter:blur(10px);
+      transition:0.4s;
+    }
+
+    .card:hover{
+      transform:translateY(-8px);
+      border-color:#ffd700;
+      box-shadow:0 0 25px rgba(255,215,0,0.3);
+    }
+
+    .card h3{
+      color:#ffd700;
+      margin-bottom:15px;
+      font-size:24px;
+    }
+
+    .about-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:40px;
+      align-items:center;
+    }
+
+    .about-grid img{
+      width:100%;
+      border-radius:25px;
+      box-shadow:0 0 35px rgba(255,215,0,0.3);
+    }
+
+    .yantra-gallery{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:20px;
+    }
+
+    .yantra-gallery img{
+      width:100%;
+      border-radius:20px;
+      border:2px solid rgba(255,215,0,0.3);
+      transition:0.4s;
+    }
+
+    .yantra-gallery img:hover{
+      transform:scale(1.03);
+      box-shadow:0 0 25px rgba(255,215,0,0.4);
+    }
+
+    .free-box{
+      background:linear-gradient(135deg,#1a1f45,#3d2352);
+      border:2px solid rgba(255,215,0,0.3);
+      border-radius:30px;
+      padding:50px;
+      text-align:center;
+      box-shadow:0 0 40px rgba(255,215,0,0.2);
+    }
+
+    .free-box h2{
+      color:#ffd700;
+      font-size:40px;
+      margin-bottom:20px;
+      font-family:'Cinzel',serif;
+    }
+
+    .social-links{
+      display:flex;
+      justify-content:center;
+      gap:20px;
+      flex-wrap:wrap;
+      margin-top:30px;
+    }
+
+    footer{
+      padding:40px 20px;
+      text-align:center;
+      border-top:1px solid rgba(255,215,0,0.2);
+      color:#d1d1d1;
+    }
+
+    .whatsapp{
+      position:fixed;
+      right:20px;
+      bottom:20px;
+      background:#25d366;
+      color:white;
+      padding:18px 22px;
+      border-radius:50px;
+      text-decoration:none;
+      font-weight:bold;
+      box-shadow:0 0 25px rgba(0,0,0,0.5);
+      z-index:999;
+    }
+
+    @media(max-width:900px){
+      .hero,
+      .about-grid{
+        grid-template-columns:1fr;
+      }
+
+      .hero-content h1{
+        font-size:38px;
+      }
+
+      .hero-content h2{
+        font-size:20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="stars"></div>
+
+<header>
+  <div class="hero">
+
+    <div class="hero-image">
+      <img src="images/your-photo.jpg" alt="AYMPONSOMU" />
+    </div>
+
+    <div class="hero-content">
+      <h1>AYMPONSOMU ASTRO-STRATEGIC GLOBAL COUNCIL</h1>
+
+      <h2>Ancient Spiritual Intelligence For Modern Global Leaders</h2>
+
+      <p>
+        27+ years of deep experience in Astrology, Yantra, Herbal Remedies,
+        Spiritual Energy Alignment, and Tantric Guidance.
+      </p>
+
+      <div class="buttons">
+        <a class="btn" href="https://youtube.com/@aymponsomu?si=mY5Eaf_UQ0ns4FF9" target="_blank">YouTube</a>
+
+        <a class="btn" href="https://imponsomu.blogspot.com/?m=1" target="_blank">Official Blog</a>
+
+        <a class="btn" href="https://www.facebook.com/share/18fKVUMmZF/" target="_blank">Facebook</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="container">
+    <h2 class="section-title">Strategic Spiritual Expertise</h2>
+
+    <div class="cards">
+
+      <div class="card">
+        <h3>Astrology Consultation</h3>
+        <p>
+          Deep birth chart analysis to identify hidden planetary influences affecting life, career, wealth, and relationships.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Planetary Energy Correction</h3>
+        <p>
+          Spiritual methods to strengthen weakened planetary energies using traditional Siddha approaches.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Yantra & Tantra</h3>
+        <p>
+          Sacred geometric yantras and spiritual energy systems designed for prosperity, protection, and transformation.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Herbal Spiritual Guidance</h3>
+        <p>
+          Ancient herbal methods inspired by Siddha traditions to support energetic balance and spiritual wellness.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container about-grid">
+
+    <div>
+      <img src="images/certificate.jpg" alt="Certificate" />
+    </div>
+
+    <div>
+      <h2 class="section-title">27+ Years Of Experience</h2>
+
+      <p>
+        AYMPONSOMU has dedicated more than two decades to the study and practice of astrology, yantra science, spiritual energy systems, and Siddha-inspired remedies.
+      </p>
+
+      <br>
+
+      <p>
+        Every consultation is designed to provide deep insight into the hidden energetic patterns influencing an individual’s destiny.
+      </p>
+
+      <br>
+
+      <a class="btn" href="#">Request Private Consultation</a>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <div class="container">
+
+    <h2 class="section-title">Sacred Yantra Collection</h2>
+
+    <div class="yantra-gallery">
+      <img src="images/yantra1.jpg" alt="Yantra 1">
+      <img src="images/yantra2.jpg" alt="Yantra 2">
+      <img src="images/yantra3.jpg" alt="Yantra 3">
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <div class="container">
+
+    <div class="free-box">
+      <h2>FREE Cosmic Insight</h2>
+
+      <p>
+        Selected visitors can receive a FREE mini planetary guidance insight.
+      </p>
+
+      <br>
+
+      <div class="buttons">
+        <a class="btn" href="#">Free Planet Strength Check</a>
+        <a class="btn" href="#">Free Destiny Insight</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <div class="container">
+
+    <h2 class="section-title">Connect Globally</h2>
+
+    <div class="social-links">
+      <a class="btn" href="https://x.com/somus1963/header_photo" target="_blank">X Profile</a>
+
+      <a class="btn" href="https://youtube.com/@aymponsomu?si=mY5Eaf_UQ0ns4FF9" target="_blank">YouTube</a>
+
+      <a class="btn" href="https://imponsomu.blogspot.com/?m=1" target="_blank">Blog</a>
+
+      <a class="btn" href="https://www.facebook.com/share/18fKVUMmZF/" target="_blank">Facebook</a>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <h3>AYMPONSOMU ASTRO-STRATEGIC GLOBAL COUNCIL</h3>
+  <p>
+    Strategic Astrology • Spiritual Intelligence • Siddha Energy Guidance
+  </p>
+
+  <br>
+
+  <p>
+    “Transforming Destiny Through Cosmic Alignment”
+  </p>
+</footer>
+
+<a class="whatsapp" href="https://wa.me/918903924996" target="_blank">
+  WhatsApp
+</a>
+
+</body>
+</html>
 
