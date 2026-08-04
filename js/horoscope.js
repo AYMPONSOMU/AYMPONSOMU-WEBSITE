@@ -1,7 +1,7 @@
 fetch("data/all_zodiac_v1.json")
   .then(response => {
     if (!response.ok) {
-      throw new Error("Unable to load data/all_zodiac_v1.json");
+      throw new Error("Unable to load all_zodiac_v1.json");
     }
     return response.json();
   })
