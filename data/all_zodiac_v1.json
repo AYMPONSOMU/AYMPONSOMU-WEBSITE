@@ -439,7 +439,7 @@
       "Pariharam": "agni.png",
       "Mantra": "Om Suryaya Namaha",
       "God": "Lord Surya"
-  },
+    },
     "Day41": {
       "Prediction": "Divine blessings guide you towards success.",
       "LuckyNumber": 5,
@@ -549,9 +549,9 @@
       "Pariharam": "agni.png",
       "Mantra": "Om Suryaya Namaha",
       "God": "Lord Surya"
-      }
-     },
-     "Taurus": {
+    }
+  },
+  "Taurus": {
     "Day1": {
       "Prediction": "Patience brings lasting success.",
       "LuckyNumber": 6,
@@ -1101,9 +1101,9 @@
       "Pariharam": "agni.png",
       "Mantra": "Om Suryaya Namaha",
       "God": "Lord Surya"
-     }
-    },
-    "Gemini": {
+    }
+  },
+  "Gemini": {
     "Day1": {
       "Prediction": "Communication opens new opportunities today.",
       "LuckyNumber": 5,
@@ -1433,7 +1433,7 @@
       "Pariharam": "agni.png",
       "Mantra": "Om Agnaye Namaha",
       "God": "Agni Deva"
-  },
+    },
     "Day31": {
       "Prediction": "Your confidence attracts success and recognition.",
       "LuckyNumber": 1,
@@ -1543,7 +1543,7 @@
       "Pariharam": "agni.png",
       "Mantra": "Om Suryaya Namaha",
       "God": "Lord Surya"
-  },
+    },
     "Day41": {
       "Prediction": "Divine grace removes obstacles and brings peace.",
       "LuckyNumber": 5,
@@ -1653,10 +1653,10 @@
       "Pariharam": "agni.png",
       "Mantra": "Om Suryaya Namaha",
       "God": "Lord Surya"
-       }
-      },
-      "Cancer": {
-      "Day1": {
+    }
+  },
+  "Cancer": {
+    "Day1": {
       "Prediction": "Your kindness attracts unexpected blessings today.",
       "LuckyNumber": 2,
       "LuckyColor": "White",
@@ -2095,7 +2095,7 @@
       "Pariharam": "agni.png",
       "Mantra": "Om Suryaya Namaha",
       "God": "Lord Surya"
-  },
+    },
     "Day41": {
       "Prediction": "Divine blessings guide your important decisions today.",
       "LuckyNumber": 5,
@@ -2205,9 +2205,9 @@
       "Pariharam": "agni.png",
       "Mantra": "Om Suryaya Namaha",
       "God": "Lord Surya"
-     }
-    },
-    "Leo": {
+    }
+  },
+  "Leo": {
     "Day1": {
       "Prediction": "Your leadership attracts success and respect today.",
       "LuckyNumber": 1,
@@ -2757,9 +2757,9 @@
       "Pariharam": "agni.png",
       "Mantra": "Om Suryaya Namaha",
       "God": "Lord Surya"
-      }
-     },
-     "Virgo": {
+    }
+  },
+  "Virgo": {
     "Day1": {
       "Prediction": "Your careful planning brings excellent results today.",
       "LuckyNumber": 5,
@@ -2870,7 +2870,7 @@
       "Mantra": "Om Suryaya Namaha",
       "God": "Lord Surya"
     },
-      "Day11": {
+    "Day11": {
       "Prediction": "Your patience brings excellent rewards today.",
       "LuckyNumber": 3,
       "LuckyColor": "Pink",
@@ -3309,9 +3309,9 @@
       "Pariharam": "agni.png",
       "Mantra": "Om Suryaya Namaha",
       "God": "Lord Surya"
-     }
-    },
-     "Libra": {
+    }
+  },
+  "Libra": {
     "Day1": {
       "Prediction": "Balance and harmony bring success today.",
       "LuckyNumber": 6,
@@ -3861,9 +3861,9 @@
       "Pariharam": "agni.png",
       "Mantra": "Om Suryaya Namaha",
       "God": "Lord Surya"
-     }
-    },
-    "Scorpio": {
+    }
+  },
+  "Scorpio": {
     "Day1": {
       "Prediction": "Your determination leads to remarkable success today.",
       "LuckyNumber": 9,
@@ -4193,7 +4193,7 @@
       "Pariharam": "agni.png",
       "Mantra": "Om Agnaye Namaha",
       "God": "Agni Deva"
-  },
+    },
     "Day31": {
       "Prediction": "Your confidence attracts success and respect today.",
       "LuckyNumber": 1,
@@ -4413,9 +4413,9 @@
       "Pariharam": "agni.png",
       "Mantra": "Om Suryaya Namaha",
       "God": "Lord Surya"
-     }
-    },
-    "Sagittarius": {
+    }
+  },
+  "Sagittarius": {
     "Day1": {
       "Prediction": "Today brings new opportunities for learning and success.",
       "LuckyNumber": 3,
@@ -4745,7 +4745,7 @@
       "Pariharam": "agni.png",
       "Mantra": "Om Agnaye Namaha",
       "God": "Agni Deva"
-  },
+    },
     "Day31": {
       "Prediction": "Your confidence attracts success and respect today.",
       "LuckyNumber": 1,
@@ -4855,7 +4855,7 @@
       "Pariharam": "agni.png",
       "Mantra": "Om Suryaya Namaha",
       "God": "Lord Surya"
-  },
+    },
     "Day41": {
       "Prediction": "Divine blessings guide your important decisions today.",
       "LuckyNumber": 5,
@@ -4965,9 +4965,9 @@
       "Pariharam": "agni.png",
       "Mantra": "Om Suryaya Namaha",
       "God": "Lord Surya"
-     }
-    },
-    "Capricorn": {
+    }
+  },
+  "Capricorn": {
     "Day1": {
       "Prediction": "Your discipline brings success in every effort today.",
       "LuckyNumber": 8,
@@ -5517,9 +5517,9 @@
       "Pariharam": "agni.png",
       "Mantra": "Om Suryaya Namaha",
       "God": "Lord Surya"
-     }
-    },
-    "Aquarius": {
+    }
+  },
+  "Aquarius": {
     "Day1": {
       "Prediction": "Fresh opportunities bring positive changes into your life.",
       "LuckyNumber": 4,
@@ -6069,9 +6069,9 @@
       "Pariharam": "agni.png",
       "Mantra": "Om Suryaya Namaha",
       "God": "Lord Surya"
-     }
-    },
-   "Pisces": {
+    }
+  },
+  "Pisces": {
     "Day1": {
       "Prediction": "Your intuition leads you toward the right decisions today.",
       "LuckyNumber": 7,
@@ -6621,16 +6621,6 @@
       "Pariharam": "agni.png",
       "Mantra": "Om Suryaya Namaha",
       "God": "Lord Surya"
-        }
-      }
-
-  
-    
-  
-
-    
-      
-     
-    
-
-     }}}}}}}}}}}
+    }
+  }
+  }
