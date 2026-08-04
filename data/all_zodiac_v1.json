@@ -1101,6 +1101,7 @@
       "Pariharam": "agni.png",
       "Mantra": "Om Suryaya Namaha",
       "God": "Lord Surya"
+     }
     },
     "Gemini": {
     "Day1": {
@@ -1652,6 +1653,7 @@
       "Pariharam": "agni.png",
       "Mantra": "Om Suryaya Namaha",
       "God": "Lord Surya"
+       }
       },
       "Cancer": {
       "Day1": {
@@ -2203,6 +2205,7 @@
       "Pariharam": "agni.png",
       "Mantra": "Om Suryaya Namaha",
       "God": "Lord Surya"
+     }
     },
     "Leo": {
     "Day1": {
@@ -2754,6 +2757,7 @@
       "Pariharam": "agni.png",
       "Mantra": "Om Suryaya Namaha",
       "God": "Lord Surya"
+      }
      },
      "Virgo": {
     "Day1": {
@@ -3305,6 +3309,7 @@
       "Pariharam": "agni.png",
       "Mantra": "Om Suryaya Namaha",
       "God": "Lord Surya"
+     }
     },
      "Libra": {
     "Day1": {
@@ -3856,6 +3861,7 @@
       "Pariharam": "agni.png",
       "Mantra": "Om Suryaya Namaha",
       "God": "Lord Surya"
+     }
     },
     "Scorpio": {
     "Day1": {
@@ -4407,6 +4413,7 @@
       "Pariharam": "agni.png",
       "Mantra": "Om Suryaya Namaha",
       "God": "Lord Surya"
+     }
     },
     "Sagittarius": {
     "Day1": {
@@ -4958,6 +4965,7 @@
       "Pariharam": "agni.png",
       "Mantra": "Om Suryaya Namaha",
       "God": "Lord Surya"
+     }
     },
     "Capricorn": {
     "Day1": {
@@ -5509,6 +5517,7 @@
       "Pariharam": "agni.png",
       "Mantra": "Om Suryaya Namaha",
       "God": "Lord Surya"
+     }
     },
     "Aquarius": {
     "Day1": {
@@ -6060,6 +6069,7 @@
       "Pariharam": "agni.png",
       "Mantra": "Om Suryaya Namaha",
       "God": "Lord Surya"
+     }
     },
    "Pisces": {
     "Day1": {
@@ -6613,7 +6623,7 @@
       "God": "Lord Surya"
         }
       }
-    
+
   
     
   
@@ -6622,4 +6632,4 @@
       
      
     
-    }}}}}}}}}}}}
+}}}}}}}}}}  
