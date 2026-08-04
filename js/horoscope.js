@@ -10,7 +10,7 @@ fetch("all_zodiac_v1.json")
     const oneDay = 1000*60*60*24;
     const dayNumber = Math.floor(diff/oneDay);
 
-    const dayKey = "Day" + dayNumber;
+    const dayKey = "Day1";
 
     const zodiacs = [
         "Aries",
