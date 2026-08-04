@@ -550,7 +550,6 @@
       "Mantra": "Om Suryaya Namaha",
       "God": "Lord Surya"
      },
-    
      "Taurus": {
     "Day1": {
       "Prediction": "Patience brings lasting success.",
@@ -1653,8 +1652,8 @@
       "Mantra": "Om Suryaya Namaha",
       "God": "Lord Surya"
       },
-    "Cancer": {
-    "Day1": {
+      "Cancer": {
+      "Day1": {
       "Prediction": "Your kindness attracts unexpected blessings today.",
       "LuckyNumber": 2,
       "LuckyColor": "White",
@@ -3857,7 +3856,7 @@
       "Mantra": "Om Suryaya Namaha",
       "God": "Lord Surya"
     },
-     "Scorpio": {
+    "Scorpio": {
     "Day1": {
       "Prediction": "Your determination leads to remarkable success today.",
       "LuckyNumber": 9,
@@ -4408,7 +4407,7 @@
       "Mantra": "Om Suryaya Namaha",
       "God": "Lord Surya"
     },
-   "Sagittarius": {
+    "Sagittarius": {
     "Day1": {
       "Prediction": "Today brings new opportunities for learning and success.",
       "LuckyNumber": 3,
@@ -6621,4 +6620,5 @@
     
       
      
+    
     }
