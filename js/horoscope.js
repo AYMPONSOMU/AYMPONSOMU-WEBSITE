@@ -45,11 +45,8 @@ fetch("data/all_zodiac_v1.json")
           </div>`;
         return;
       }
-
-      const h = data[sign][dayKey];
-      alert(sign + "\n" + JSON.stringify(h));
-
-      html += `
+     const h = data[sign][dayKey];
+          html += `
       <div style="background:#13264a;border:1px solid gold;border-radius:10px;padding:15px;margin-bottom:20px;">
         <h2 style="color:gold;">${sign}</h2>
         <pre>${JSON.stringify(h, null, 2)}</pre>
