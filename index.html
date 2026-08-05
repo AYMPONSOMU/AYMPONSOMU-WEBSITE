@@ -261,7 +261,7 @@
   </style>
 </head>
 <body>
-
+<div id="google_translate_element" style="text-align:right;padding:10px;"></div>
 <div class="stars"></div>
 
 <header>
@@ -514,6 +514,16 @@ FREE WEEKLY HOROSCOPE
 <a class="whatsapp" href="https://wa.me/918903924996" target="_blank">
   WhatsApp
 </a>
+<script>
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    includedLanguages: 'en,ta,hi,te,ml,kn,es,fr,de,ar,ja,ko,zh-CN',
+    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+  }, 'google_translate_element');
+}
+</script>
 
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
