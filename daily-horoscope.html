@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Daily Horoscope</title>
+<title>AYMP Cosmic Kingdom | Daily Horoscope</title>
 
 <style>
 
@@ -12,19 +14,26 @@
    BODY
 ========================== */
 
-body{
+*{
     margin:0;
-    padding:20px;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
     background:#09142a;
     color:white;
     font-family:Arial,sans-serif;
     overflow-x:hidden;
     position:relative;
-    line-height:1.8;
+    padding:15px;
+    line-height:1.7;
+
 }
 
 /* ==========================
-   GOLDEN STARS BACKGROUND
+   COSMIC STARS
 ========================== */
 
 body::before{
@@ -46,30 +55,19 @@ pointer-events:none;
 background-image:
 
 radial-gradient(circle,#FFD700 1px,transparent 2px),
-
-radial-gradient(circle,#FFF8DC 1.5px,transparent 2px),
-
+radial-gradient(circle,#FFF8DC 1px,transparent 2px),
 radial-gradient(circle,#FFD700 2px,transparent 3px);
 
 background-size:
-
 180px 180px,
-
 260px 260px,
-
-350px 350px;
-
-background-position:
-
-0 0,
-
-80px 120px,
-
-150px 60px;
+340px 340px;
 
 animation:twinkle 6s infinite alternate;
 
-opacity:.75;
+opacity:.8;
+
+z-index:-1;
 
 }
 
@@ -77,122 +75,87 @@ opacity:.75;
 
 0%{
 opacity:.35;
-filter:brightness(90%);
 }
 
 50%{
 opacity:1;
-filter:brightness(180%);
 }
 
 100%{
-opacity:.45;
-filter:brightness(120%);
+opacity:.55;
 }
 
 }
 
 /* ==========================
-   GOOGLE TRANSLATE
+GOOGLE TRANSLATE
 ========================== */
 
 #google_translate_element{
 
-text-align:right;
+text-align:center;
 
-margin-bottom:20px;
+margin:15px auto 25px auto;
 
 }
 
 .goog-te-gadget{
 
-font-size:22px !important;
+font-size:20px !important;
 
 font-weight:bold;
-
-color:white !important;
 
 }
 
 .goog-te-gadget select{
 
-font-size:22px !important;
-
-padding:12px 20px;
-
-min-width:280px;
-
-height:55px;
-
-border-radius:12px;
-
-border:3px solid gold;
-
 background:#13264a;
 
 color:white;
 
+border:2px solid gold;
+
+border-radius:10px;
+
+padding:10px;
+
+font-size:20px !important;
+
 font-weight:bold;
 
-cursor:pointer;
-
-box-shadow:0 0 15px gold;
+min-width:260px;
 
 }
 
 /* ==========================
-   HEADING
+TITLE
 ========================== */
 
 h1{
 
-color:gold;
-
-font-size:48px;
-
 text-align:center;
 
-margin-top:10px;
-
-}
-
-h2{
-
 color:gold;
 
-font-size:36px;
+font-size:40px;
 
-margin-bottom:15px;
+margin-bottom:20px;
 
-}
-
-/* ==========================
-   PARAGRAPH
-========================== */
-
-p{
-
-font-size:28px;
-
-color:white;
-
-margin:10px 0;
-
-}
-
-b,strong{
-
-color:#FFD700;
-
-font-size:30px;
+text-shadow:0 0 15px gold;
 
 }
 
 /* ==========================
-   CARD
+HOROSCOPE CARD
 ========================== */
 
 .card{
+
+width:95%;
+
+max-width:480px;
+
+margin:18px auto;
 
 background:#13264a;
 
@@ -200,21 +163,61 @@ border:2px solid gold;
 
 border-radius:15px;
 
-padding:25px;
+padding:18px;
 
-margin:25px 0;
+box-shadow:0 0 12px rgba(255,215,0,.30);
 
-box-shadow:0 0 18px rgba(255,215,0,.35);
+transition:.3s;
 
 }
+
+.card:hover{
+
+transform:scale(1.02);
+
+box-shadow:0 0 20px gold;
+
+}
+
+.card h2{
+
+text-align:center;
+
+font-size:30px;
+
+color:gold;
+
+margin-bottom:15px;
+
+}
+
+.card p{
+
+font-size:20px;
+
+margin:8px 0;
+
+line-height:1.6;
+
+}
+
+.card b{
+
+color:#FFD700;
+
+}
+
+/* ==========================
+YANTRA IMAGE
+========================== */
 
 .card img{
 
 display:block;
 
-margin:auto;
+width:170px;
 
-width:240px;
+margin:15px auto;
 
 border-radius:12px;
 
@@ -225,38 +228,48 @@ box-shadow:0 0 15px gold;
 }
 
 /* ==========================
-   MOBILE
+MOBILE
 ========================== */
 
 @media(max-width:768px){
 
 h1{
-font-size:40px;
+
+font-size:34px;
+
 }
 
-h2{
-font-size:32px;
+.card{
+
+max-width:95%;
+
+padding:15px;
+
 }
 
-p{
-font-size:24px;
-}
+.card h2{
 
-b,strong{
 font-size:26px;
+
+}
+
+.card p{
+
+font-size:18px;
+
+}
+
+.card img{
+
+width:150px;
+
 }
 
 .goog-te-gadget select{
 
 width:100%;
 
-font-size:20px !important;
-
-}
-
-.card img{
-
-width:200px;
+font-size:18px !important;
 
 }
 
@@ -265,18 +278,19 @@ width:200px;
 </style>
 
 </head>
-
 <body>
 
 <div id="google_translate_element"></div>
 
-<h1>FREE DAILY HOROSCOPE</h1>
+<h1>🔮 FREE DAILY HOROSCOPE 🔮</h1>
 
 <div id="horoscope"></div>
 
+<!-- Horoscope Data -->
 <script src="js/horoscope.js"></script>
 
-<script>
+<!-- Google Translate -->
+<script type="text/javascript">
 
 function googleTranslateElementInit(){
 
@@ -286,7 +300,8 @@ new google.translate.TranslateElement(
 
 pageLanguage:'en',
 
-includedLanguages:'en,ta,hi,te,ml,kn,bn,gu,mr,pa,ur,ar,fr,de,es,it,pt,ru,ja,ko,zh-CN',
+includedLanguages:
+'en,ta,hi,te,ml,kn,bn,gu,mr,pa,ur,ar,fr,de,es,it,pt,ru,ja,ko,zh-CN',
 
 layout:google.translate.TranslateElement.InlineLayout.SIMPLE
 
@@ -304,4 +319,4 @@ layout:google.translate.TranslateElement.InlineLayout.SIMPLE
 
 </body>
 
-</html>
+   </html>
