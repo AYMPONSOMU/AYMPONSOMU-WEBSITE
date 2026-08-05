@@ -33,7 +33,7 @@ fetch("data/all_zodiac_v1.json")
       }
 
       const h = data[sign][dayKey];
-
+      console.log(sign, Object.keys(h));
       html += `
       <div style="background:#13264a;border:1px solid gold;border-radius:10px;padding:15px;margin:20px 0;">
         <h2 style="color:gold;">${sign}</h2>
