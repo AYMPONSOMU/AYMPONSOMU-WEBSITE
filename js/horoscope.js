@@ -5,8 +5,25 @@ fetch("data/all_zodiac_v1.json")
     const today = new Date();
     const start = new Date(today.getFullYear(), 0, 0);
     const dayOfYear = Math.floor((today - start) / (1000 * 60 * 60 * 24));
-    const dayNumber = ((dayOfYear - 1) % 50) + 1;
-    const dayKey = "Day" + dayNumber;
+    const zodiacOffset = {
+  Aries: 0,
+  Taurus: 4,
+  Gemini: 8,
+  Cancer: 12,
+  Leo: 16,
+  Virgo: 20,
+  Libra: 24,
+  Scorpio: 28,
+  Sagittarius: 32,
+  Capricorn: 36,
+  Aquarius: 40,
+  Pisces: 44
+};
+
+const dayNumber = ((dayOfYear + zodiacOffset[sign] - 1) % 50) + 1;
+const dayKey = "Day" + dayNumber;
+
+const h = data[sign][dayKey];
 
     const zodiacs = [
       "Aries",
