@@ -85,17 +85,17 @@ fetch("data/all_zodiac_v1.json")
             <p><b>Mantra :</b> ${h.Mantra}</p>
 
             <p><b>God :</b> ${h.God}</p>
-      <p><b>Today's AYMP Research Yantra</b></p>
+    <p><b>Today's AYMP Research Yantra</b></p>
 
-<img src="images/yantras/${h.Action}"
+<img src="images/${h.Action}"
      alt="AYMP Research Yantra"
-     style="width:220px;border:2px solid gold;border-radius:12px;display:block;margin:10px auto;">
+     style="width:220px;border:2px solid gold;border-radius:10px;display:block;margin:auto;">
 
-<p><b>Recommended Yantra</b></p>
+<br>
 
-<img src="images/yantras/${h.Pariharam}"
-     alt="AYMP Pariharam Yantra"
-     style="width:220px;border:2px solid gold;border-radius:12px;display:block;margin:10px auto;">
+<img src="images/${h.Pariharam}"
+     alt="AYMP Energy Symbol"
+     style="width:220px;border:2px solid gold;border-radius:10px;display:block;margin:auto;">
         </div>`;
     }
 
