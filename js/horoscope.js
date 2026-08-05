@@ -61,7 +61,6 @@ fetch("data/all_zodiac_v1.json")
         const h = data[sign][dayKey];
 
         html += `
-        <div style="
             <div class="card">
         ">
             <h2 style="color:gold;">${sign}</h2>
