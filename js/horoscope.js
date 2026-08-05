@@ -62,11 +62,7 @@ fetch("data/all_zodiac_v1.json")
 
         html += `
         <div style="
-            background:#13264a;
-            border:1px solid gold;
-            border-radius:12px;
-            padding:18px;
-            margin:20px 0;
+            <div class="card">
         ">
             <h2 style="color:gold;">${sign}</h2>
 
