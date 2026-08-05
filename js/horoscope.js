@@ -52,14 +52,7 @@ fetch("data/all_zodiac_v1.json")
       html += `
       <div style="background:#13264a;border:1px solid gold;border-radius:10px;padding:15px;margin-bottom:20px;">
         <h2 style="color:gold;">${sign}</h2>
-
-        <p><strong>Prediction:</strong> ${h.Prediction}</p>
-        <p><strong>Lucky Number:</strong> ${h.LuckyNumber}</p>
-        <p><strong>Lucky Color:</strong> ${h.LuckyColor}</p>
-        <p><strong>Lucky Direction:</strong> ${h.LuckyDirection}</p>
-        <p><strong>Lucky Time:</strong> ${h.LuckyTime}</p>
-        <p><strong>Mantra:</strong> ${h.Mantra}</p>
-        <p><strong>God:</strong> ${h.God}</p>
+        <pre>${JSON.stringify(h, null, 2)}</pre>
       </div>`;
     });
 
