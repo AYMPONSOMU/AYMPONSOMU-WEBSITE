@@ -1,42 +1,78 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Daily Horoscope</title>
-  <style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-/* Background */
+<title>Daily Horoscope</title>
+
+<style>
+
+/* ==========================
+   BODY
+========================== */
+
 body{
     margin:0;
     padding:20px;
     background:#09142a;
+    color:white;
+    font-family:Arial,sans-serif;
     overflow-x:hidden;
     position:relative;
+    line-height:1.8;
 }
 
-/* Golden Stars */
+/* ==========================
+   GOLDEN STARS BACKGROUND
+========================== */
+
 body::before{
-    content:"";
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    pointer-events:none;
 
-    background-image:
-    radial-gradient(circle,#FFD700 1px,transparent 2px),
-    radial-gradient(circle,#FFF8DC 1.5px,transparent 2px),
-    radial-gradient(circle,#FFD700 2px,transparent 3px);
+content:"";
 
-    background-size:180px 180px,260px 260px,350px 350px;
-    background-position:0 0,80px 120px,150px 60px;
+position:fixed;
 
-    animation:twinkle 6s infinite alternate;
-    opacity:.75;
+top:0;
+
+left:0;
+
+width:100%;
+
+height:100%;
+
+pointer-events:none;
+
+background-image:
+
+radial-gradient(circle,#FFD700 1px,transparent 2px),
+
+radial-gradient(circle,#FFF8DC 1.5px,transparent 2px),
+
+radial-gradient(circle,#FFD700 2px,transparent 3px);
+
+background-size:
+
+180px 180px,
+
+260px 260px,
+
+350px 350px;
+
+background-position:
+
+0 0,
+
+80px 120px,
+
+150px 60px;
+
+animation:twinkle 6s infinite alternate;
+
+opacity:.75;
+
 }
 
-/* Twinkle Animation */
 @keyframes twinkle{
 
 0%{
@@ -56,138 +92,216 @@ filter:brightness(120%);
 
 }
 
-</style>
-    /* Google Translate Box */
+/* ==========================
+   GOOGLE TRANSLATE
+========================== */
+
 #google_translate_element{
-    text-align:center;
-    margin:20px 0;
+
+text-align:right;
+
+margin-bottom:20px;
+
 }
 
-/* முழு Widget */
 .goog-te-gadget{
-    font-size:48px !important;
-    color:white !important;
-    font-weight:bold;
+
+font-size:22px !important;
+
+font-weight:bold;
+
+color:white !important;
+
 }
 
-/* Dropdown */
 .goog-te-gadget select{
-    font-size:22px !important;
-    font-weight:bold;
-    padding:12px 20px;
-    min-width:280px;
-    height:55px;
-    border:3px solid gold;
-    border-radius:12px;
-    background:#13264a;
-    color:white;
-    cursor:pointer;
-    box-shadow:0 0 12px gold;
+
+font-size:22px !important;
+
+padding:12px 20px;
+
+min-width:280px;
+
+height:55px;
+
+border-radius:12px;
+
+border:3px solid gold;
+
+background:#13264a;
+
+color:white;
+
+font-weight:bold;
+
+cursor:pointer;
+
+box-shadow:0 0 15px gold;
+
 }
-body{
-    background:#09142a;
-    color:white;
-    font-family:Arial,sans-serif;
-    font-size:20px;
-    line-height:1.8;
-    padding:20px;
-}
+
+/* ==========================
+   HEADING
+========================== */
 
 h1{
-    color:gold;
-    font-size:42px;
-    text-align:center;
+
+color:gold;
+
+font-size:48px;
+
+text-align:center;
+
+margin-top:10px;
+
 }
 
 h2{
-    color:gold;
-    font-size:32px;
+
+color:gold;
+
+font-size:36px;
+
+margin-bottom:15px;
+
 }
+
+/* ==========================
+   PARAGRAPH
+========================== */
 
 p{
-    font-size:22px;
+
+font-size:28px;
+
+color:white;
+
+margin:10px 0;
+
 }
 
+b,strong{
+
+color:#FFD700;
+
+font-size:30px;
+
+}
+
+/* ==========================
+   CARD
+========================== */
+
 .card{
-    background:#13264a;
-    border:2px solid gold;
-    border-radius:15px;
-    padding:25px;
-    margin:25px 0;
-    box-shadow:0 0 15px rgba(255,215,0,0.3);
+
+background:#13264a;
+
+border:2px solid gold;
+
+border-radius:15px;
+
+padding:25px;
+
+margin:25px 0;
+
+box-shadow:0 0 18px rgba(255,215,0,.35);
+
 }
 
 .card img{
-    width:250px;
-    border-radius:12px;
-    display:block;
-    margin:15px auto;
+
+display:block;
+
+margin:auto;
+
+width:240px;
+
+border-radius:12px;
+
+border:2px solid gold;
+
+box-shadow:0 0 15px gold;
+
 }
 
-#google_translate_element{
-    text-align:right;
-    margin-bottom:20px;
-}
-    /* தலைப்பு */
+/* ==========================
+   MOBILE
+========================== */
+
+@media(max-width:768px){
+
 h1{
-    font-size:48px;
-    color:gold;
-    text-align:center;
+font-size:40px;
 }
 
-/* ராசி பெயர் */
 h2{
-    font-size:38px;
-    color:gold;
-    margin-bottom:15px;
+font-size:32px;
 }
 
-/* அனைத்து தகவல்களும் */
 p{
-    font-size:28px;
-    line-height:1.8;
-    color:white;
+font-size:24px;
 }
 
-/* கார்டு */
-.card{
-    background:#13264a;
-    border:2px solid gold;
-    border-radius:15px;
-    padding:25px;
-    margin:25px 0;
-}
-
-/* Bold எழுத்துகள் */
 b,strong{
-    font-size:30px;
-    color:#FFD700;
-  }
+font-size:26px;
+}
+
+.goog-te-gadget select{
+
+width:100%;
+
+font-size:20px !important;
+
+}
+
+.card img{
+
+width:200px;
+
+}
+
+}
+
 </style>
+
 </head>
 
-<body style="background:#09142a;color:white;font-family:Arial;padding:20px;">
-<div id="google_translate_element" style="text-align:right;padding:10px;"></div>
-<h1 style="color:gold;text-align:center;">
-FREE DAILY HOROSCOPE
-</h1>
+<body>
+
+<div id="google_translate_element"></div>
+
+<h1>FREE DAILY HOROSCOPE</h1>
 
 <div id="horoscope"></div>
 
 <script src="js/horoscope.js"></script>
-<script type="text/javascript">
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement(
-    {
-      pageLanguage: 'en',
-      includedLanguages: 'en,ta,hi,te,ml,kn,bn,gu,mr,pa,ur,ar,fr,de,es,it,pt,ru,ja,ko,zh-CN',
-      layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-    },
-    'google_translate_element'
-  );
+
+<script>
+
+function googleTranslateElementInit(){
+
+new google.translate.TranslateElement(
+
+{
+
+pageLanguage:'en',
+
+includedLanguages:'en,ta,hi,te,ml,kn,bn,gu,mr,pa,ur,ar,fr,de,es,it,pt,ru,ja,ko,zh-CN',
+
+layout:google.translate.TranslateElement.InlineLayout.SIMPLE
+
+},
+
+'google_translate_element'
+
+);
+
 }
+
 </script>
 
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 </body>
+
 </html>
