@@ -5,7 +5,7 @@
 document.addEventListener("DOMContentLoaded", function () {
 
     const popup = document.getElementById("guidancePopup");
-    const openBtn = document.getElementById("openGuidance");
+    const openBtn = document.getElementById("openGuidanceBtn");
     const closeBtn = document.querySelector(".closePopup");
     const form = document.getElementById("guidanceForm");
 
