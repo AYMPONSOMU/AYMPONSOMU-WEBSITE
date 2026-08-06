@@ -9,6 +9,39 @@
   gtag('js', new Date());
 
   gtag('config', 'G-WJ2586QGDH');
+  const popup=document.getElementById("guidancePopup");
+
+document.getElementById("openGuidance").onclick=function(){
+
+popup.style.display="block";
+
+}
+
+document.querySelector(".closePopup").onclick=function(){
+
+popup.style.display="none";
+
+}
+
+window.onclick=function(e){
+
+if(e.target==popup){
+
+popup.style.display="none";
+
+}
+
+}
+
+document.getElementById("guidanceForm").onsubmit=function(e){
+
+e.preventDefault();
+
+alert("AYMP Personal Guidance Engine Coming Soon!");
+
+popup.style.display="none";
+
+  }
                   </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
