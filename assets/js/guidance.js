@@ -267,11 +267,99 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("guidancePlace").value.trim();
 
 
-            // ======================================
-            // SELECT PERSONAL PATTERN
-            // ======================================
+ // ======================================
+// SELECT DAILY PERSONAL PATTERN
+// Changes once every 24 hours
+// ======================================
 
-            let total = 0;
+const DAILY_GUIDANCE_KEY = "AYMP_DAILY_GUIDANCE";
+
+const now = Date.now();
+
+let savedGuidance = null;
+
+try {
+    savedGuidance = JSON.parse(
+        localStorage.getItem(DAILY_GUIDANCE_KEY)
+    );
+} catch (error) {
+    savedGuidance = null;
+}
+
+
+// Check whether 24 hours have passed
+const twentyFourHours = 24 * 60 * 60 * 1000;
+
+let patternIndex;
+
+
+// If a saved pattern exists and is still within 24 hours
+if (
+    savedGuidance &&
+    typeof savedGuidance.patternIndex === "number" &&
+    typeof savedGuidance.timestamp === "number" &&
+    (now - savedGuidance.timestamp) < twentyFourHours
+) {
+
+    patternIndex = savedGuidance.patternIndex;
+
+}
+
+
+// Otherwise create today's new pattern
+else {
+
+    let total = 0;
+
+    // Name
+    for (let i = 0; i < name.length; i++) {
+
+        total += name.charCodeAt(i);
+
+    }
+
+    // Date of birth
+    for (let i = 0; i < dob.length; i++) {
+
+        const digit = parseInt(dob[i]);
+
+        if (!isNaN(digit)) {
+
+            total += digit;
+
+        }
+
+    }
+
+    // Birth time
+    for (let i = 0; i < birthTime.length; i++) {
+
+        const digit = parseInt(birthTime[i]);
+
+        if (!isNaN(digit)) {
+
+            total += digit;
+
+        }
+
+    }
+
+
+    // Create a new daily pattern
+    patternIndex =
+        total % soundPatterns.length;
+
+
+    // Save it for 24 hours
+    localStorage.setItem(
+        DAILY_GUIDANCE_KEY,
+        JSON.stringify({
+            patternIndex: patternIndex,
+            timestamp: now
+        })
+    );
+
+            }
 
             for (let i = 0; i < dob.length; i++) {
 
