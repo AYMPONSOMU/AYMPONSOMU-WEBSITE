@@ -1,111 +1,582 @@
-// ===============================
-// AYMP Personal Guidance
-// ===============================
+// ======================================
+// AYMP PERSONAL GUIDANCE ENGINE
+// ======================================
 
 document.addEventListener("DOMContentLoaded", function () {
 
     const popup = document.getElementById("guidancePopup");
     const openBtn = document.getElementById("openGuidanceBtn");
-    const closeBtn = document.querySelector(".closePopup");
+    const closeBtn = document.querySelector(".close-popup");
     const form = document.getElementById("guidanceForm");
 
-    // Open Popup
-    if (openBtn && popup) {
-        openBtn.addEventListener("click", function () {
-            popup.style.display = "block";
-        });
-    }
+    // ======================================
+    // 30 AYMP SACRED SOUND PATTERNS
+    // ======================================
 
-    // Close Popup
-    if (closeBtn && popup) {
-        closeBtn.addEventListener("click", function () {
-            popup.style.display = "none";
-        });
-    }
+    const soundPatterns = [
 
-    // Click Outside Popup
-    window.addEventListener("click", function (e) {
-        if (e.target === popup) {
-            popup.style.display = "none";
+        {
+            title: "Peace",
+            sound: "OM • SHREEM • AIM • HREEM • YAV • VAV • OM",
+            intention: "Peace, calmness and inner clarity."
+        },
+
+        {
+            title: "Clarity",
+            sound: "AIM • HREEM • KLEEM • YAV • SANG • MANG • AIM",
+            intention: "Clear thinking and thoughtful decisions."
+        },
+
+        {
+            title: "Confidence",
+            sound: "SHREEM • KLEEM • HREEM • SHAV • VAV • YAV • SHREEM",
+            intention: "Courage and self-confidence."
+        },
+
+        {
+            title: "Positive Beginning",
+            sound: "OM • AIM • SHREEM • YAV • VASI • HREEM • OM",
+            intention: "A positive and peaceful beginning."
+        },
+
+        {
+            title: "Focus",
+            sound: "AIM • YAV • YAV • SANG • MANG • NANG • AIM",
+            intention: "Concentration and disciplined attention."
+        },
+
+        {
+            title: "Emotional Balance",
+            sound: "HREEM • VAV • YAV • MANG • NANG • YASI • HREEM",
+            intention: "Emotional balance and calm reflection."
+        },
+
+        {
+            title: "Patience",
+            sound: "OM • VAV • MANG • NANG • YAV • SANG • OM",
+            intention: "Patience during difficult situations."
+        },
+
+        {
+            title: "Inner Strength",
+            sound: "HREEM • SHAV • VAV • MANG • YAV • KLEEM • HREEM",
+            intention: "Inner strength and resilience."
+        },
+
+        {
+            title: "Hope",
+            sound: "SHREEM • YAV • AIM • VASI • YASI • OM • SHREEM",
+            intention: "Hope and positive expectation."
+        },
+
+        {
+            title: "Protection",
+            sound: "OM • HREEM • SHAV • VAV • MANG • NANG • OM",
+            intention: "A sense of safety, courage and protection."
+        },
+
+        {
+            title: "Wisdom",
+            sound: "AIM • SANG • MANG • YAV • VANG • HREEM • AIM",
+            intention: "Wisdom before action."
+        },
+
+        {
+            title: "Communication",
+            sound: "YAV • VAV • AIM • YASI • VASI • MANG • YAV",
+            intention: "Clear and respectful communication."
+        },
+
+        {
+            title: "Harmony",
+            sound: "KLEEM • SHREEM • YAV • VASI • YASI • HREEM • KLEEM",
+            intention: "Harmony in relationships."
+        },
+
+        {
+            title: "Forgiveness",
+            sound: "OM • MANG • NANG • YASI • VASI • YAV • OM",
+            intention: "Letting go of anger and moving toward forgiveness."
+        },
+
+        {
+            title: "Renewal",
+            sound: "SHREEM • HREEM • YAV • AIM • VAV • YASI • SHREEM",
+            intention: "A fresh beginning."
+        },
+
+        {
+            title: "Motivation",
+            sound: "KLEEM • AIM • MANG • YAV • VANG • HREEM • KLEEM",
+            intention: "Motivation to take constructive action."
+        },
+
+        {
+            title: "Stability",
+            sound: "VANG • MANG • NANG • YAV • VAV • SHREEM • VANG",
+            intention: "Stability and grounded thinking."
+        },
+
+        {
+            title: "Creativity",
+            sound: "AIM • YASI • VASI • MANG • SANG • YAV • AIM",
+            intention: "Creativity and new ideas."
+        },
+
+        {
+            title: "Positive Relationships",
+            sound: "KLEEM • VASI • YASI • MASI • YAV • SHREEM • KLEEM",
+            intention: "Kindness, understanding and healthy relationships."
+        },
+
+        {
+            title: "Letting Go",
+            sound: "OM • NASI • YASI • VAV • NANG • HREEM • OM",
+            intention: "Release unnecessary worry and mental tension."
+        },
+
+        {
+            title: "Gratitude",
+            sound: "SHREEM • AIM • OM • YAV • VASI • HREEM • SHREEM",
+            intention: "Gratitude for the good things in life."
+        },
+
+        {
+            title: "Inner Silence",
+            sound: "OM • HREEM • OM • YAV • NANG • OM • HREEM",
+            intention: "Quiet reflection and mindfulness."
+        },
+
+        {
+            title: "Determination",
+            sound: "KLEEM • MANG • YAV • VANG • SANG • HREEM • KLEEM",
+            intention: "Determination to complete meaningful goals."
+        },
+
+        {
+            title: "Understanding",
+            sound: "AIM • SANG • VANG • YASI • VASI • YAV • AIM",
+            intention: "Understanding before judgment."
+        },
+
+        {
+            title: "Balance",
+            sound: "SHREEM • HREEM • VAV • YAV • MANG • AIM • SHREEM",
+            intention: "Balance between thought, emotion and action."
+        },
+
+        {
+            title: "Transformation",
+            sound: "OM • KLEEM • HREEM • MANG • YAV • VASI • OM",
+            intention: "Positive personal transformation."
+        },
+
+        {
+            title: "Compassion",
+            sound: "YASI • VASI • NASI • YAV • MANG • SHREEM • YASI",
+            intention: "Compassion toward yourself and others."
+        },
+
+        {
+            title: "Gratitude & Hope",
+            sound: "SHREEM • OM • YAV • AIM • HREEM • VASI • SHREEM",
+            intention: "Gratitude today and hope for tomorrow."
+        },
+
+        {
+            title: "Personal Intention",
+            sound: "AIM • HREEM • KLEEM • YAV • VAV • SHREEM • OM",
+            intention: "Hold one clear personal intention."
+        },
+
+        {
+            title: "Universal Peace",
+            sound: "OM • SHREEM • AIM • HREEM • KLEEM • YAV • SHREEM • OM",
+            intention: "Peace, understanding and goodwill for all."
         }
+
+    ];
+
+
+    // ======================================
+    // OPEN POPUP
+    // ======================================
+
+    if (openBtn && popup) {
+
+        openBtn.addEventListener("click", function () {
+
+            popup.style.display = "block";
+
+        });
+
+    }
+
+
+    // ======================================
+    // CLOSE POPUP
+    // ======================================
+
+    if (closeBtn && popup) {
+
+        closeBtn.addEventListener("click", function () {
+
+            popup.style.display = "none";
+
+        });
+
+    }
+
+
+    // ======================================
+    // CLICK OUTSIDE
+    // ======================================
+
+    window.addEventListener("click", function (e) {
+
+        if (e.target === popup) {
+
+            popup.style.display = "none";
+
+        }
+
     });
 
-    // Submit Form
+
+    // ======================================
+    // PERSONAL GUIDANCE RESULT
+    // ======================================
+
     if (form) {
+
         form.addEventListener("submit", function (e) {
 
             e.preventDefault();
 
-            const name = document.getElementById("guidanceName").value;
-            const dob = document.getElementById("guidanceDob").value;
-            const birthTime = document.getElementById("guidanceTime").value;
-            const birthPlace = document.getElementById("guidancePlace").value;
 
-            const result = `
-                <div class="guidance-result">
+            const name =
+                document.getElementById("guidanceName").value.trim();
 
-                    <h2>✨ AYMP PERSONAL GUIDANCE</h2>
+            const dob =
+                document.getElementById("guidanceDob").value;
 
-                    <h3>Welcome, ${name}</h3>
+            const birthTime =
+                document.getElementById("guidanceTime").value;
 
-                    <p>
-                        Your personal guidance request has been received.
-                    </p>
+            const birthPlace =
+                document.getElementById("guidancePlace").value.trim();
 
-                    <hr>
 
-                    <p><strong>📅 Date of Birth:</strong> ${dob}</p>
+            // ======================================
+            // SELECT PERSONAL PATTERN
+            // ======================================
 
-                    <p><strong>⏰ Birth Time:</strong> ${birthTime}</p>
+            let total = 0;
 
-                    <p><strong>📍 Birth Place:</strong> ${birthPlace}</p>
+            for (let i = 0; i < dob.length; i++) {
 
-                    <hr>
+                const digit = parseInt(dob[i]);
 
-                    <h3>🔮 Your Personal Insight</h3>
+                if (!isNaN(digit)) {
 
-                    <p>
-                        Your personal cosmic guidance is being prepared
-                        from the information you provided.
-                    </p>
+                    total += digit;
 
-                    <h3>🧿 AYMP Guidance</h3>
+                }
 
-                    <p>
-                        Take a moment for calm reflection today.
-                        Focus on clarity, positive intention and
-                        thoughtful action.
-                    </p>
+            }
 
-                    <h3>🌌 AYMP Universal Sound Code</h3>
 
-                    <p>
-                        AYM – SHRI – KLEEM
-                    </p>
+            for (let i = 0; i < birthTime.length; i++) {
 
-                    <p>
-                        Use this sound sequence as a personal
-                        meditation and reflection practice.
-                    </p>
+                const digit = parseInt(birthTime[i]);
 
-                    <hr>
+                if (!isNaN(digit)) {
 
-                    <p>
-                        🙏 This guidance is provided for
-                        personal reflection and spiritual practice.
-                    </p>
+                    total += digit;
 
-                    <button type="button"
-                            onclick="location.reload()">
-                        🔄 NEW GUIDANCE
+                }
+
+            }
+
+
+            for (let i = 0; i < name.length; i++) {
+
+                total += name.charCodeAt(i);
+
+            }
+
+
+            const patternIndex =
+                total % soundPatterns.length;
+
+
+            const pattern =
+                soundPatterns[patternIndex];
+
+
+            // ======================================
+            // RESULT SCREEN
+            // ======================================
+
+            popup.querySelector(".guidance-content").innerHTML = `
+
+                <div class="aymp-guidance-result">
+
+                    <div class="power-art-glow">
+
+                        <div class="energy-orbit"></div>
+
+                        <div class="power-core">
+                            ✦
+                        </div>
+
+                    </div>
+
+
+                    <h2>
+                        ✨ AYMP PERSONAL GUIDANCE
+                    </h2>
+
+
+                    <h3>
+                        Welcome, ${name}
+                    </h3>
+
+
+                    <div class="birth-summary">
+
+                        <p>
+                            📅 <strong>Date:</strong> ${dob}
+                        </p>
+
+                        <p>
+                            ⏰ <strong>Time:</strong> ${birthTime}
+                        </p>
+
+                        <p>
+                            📍 <strong>Place:</strong> ${birthPlace}
+                        </p>
+
+                    </div>
+
+
+                    <div class="guidance-card">
+
+                        <h3>
+                            🌌 Your Cosmic Insight
+                        </h3>
+
+                        <p>
+                            Your personal guidance experience
+                            has been prepared from the details
+                            you provided.
+                        </p>
+
+                    </div>
+
+
+                    <div class="sound-card">
+
+                        <div class="sound-label">
+                            🔊 AYMP SACRED SOUND
+                        </div>
+
+                        <div id="changingSound"
+                             class="changing-sound">
+
+                            ${pattern.sound}
+
+                        </div>
+
+                        <div class="sound-title">
+                            ${pattern.title}
+                        </div>
+
+                    </div>
+
+
+                    <div class="guidance-card">
+
+                        <h3>
+                            🙏 Personal Intention
+                        </h3>
+
+                        <p>
+                            ${pattern.intention}
+                        </p>
+
+                    </div>
+
+
+                    <div class="practice-card">
+
+                        <h3>
+                            🧘 Practice
+                        </h3>
+
+                        <p>
+                            Repeat the sound pattern
+                            <strong>108 times</strong>
+                            at a comfortable time,
+                            if suitable for your personal
+                            practice.
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        id="anotherGuidanceBtn">
+
+                        🔮 EXPERIENCE ANOTHER GUIDANCE
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        id="closeGuidanceResult">
+
+                        ✕ CLOSE
+
                     </button>
 
                 </div>
+
             `;
 
-            popup.querySelector(".guidance-content").innerHTML = result;
+
+            // ======================================
+            // START SOUND ANIMATION
+            // ======================================
+
+            startSoundAnimation();
+
+
+            // ======================================
+            // ANOTHER GUIDANCE
+            // ======================================
+
+            const anotherBtn =
+                document.getElementById("anotherGuidanceBtn");
+
+
+            if (anotherBtn) {
+
+                anotherBtn.addEventListener("click", function () {
+
+                    const newIndex =
+                        Math.floor(
+                            Math.random() *
+                            soundPatterns.length
+                        );
+
+
+                    const newPattern =
+                        soundPatterns[newIndex];
+
+
+                    const soundElement =
+                        document.getElementById("changingSound");
+
+
+                    if (soundElement) {
+
+                        soundElement.classList.remove(
+                            "sound-animate"
+                        );
+
+
+                        void soundElement.offsetWidth;
+
+
+                        soundElement.innerText =
+                            newPattern.sound;
+
+
+                        soundElement.classList.add(
+                            "sound-animate"
+                        );
+
+                    }
+
+
+                    const titleElement =
+                        document.querySelector(".sound-title");
+
+
+                    if (titleElement) {
+
+                        titleElement.innerText =
+                            newPattern.title;
+
+                    }
+
+
+                    const intentionElement =
+                        document.querySelector(
+                            ".guidance-card:nth-of-type(2) p"
+                        );
+
+
+                    if (intentionElement) {
+
+                        intentionElement.innerText =
+                            newPattern.intention;
+
+                    }
+
+                });
+
+            }
+
+
+            // ======================================
+            // CLOSE RESULT
+            // ======================================
+
+            const closeResult =
+                document.getElementById(
+                    "closeGuidanceResult"
+                );
+
+
+            if (closeResult) {
+
+                closeResult.addEventListener(
+                    "click",
+                    function () {
+
+                        popup.style.display = "none";
+
+                    }
+                );
+
+            }
 
         });
+
+    }
+
+
+    // ======================================
+    // SOUND CHANGING EFFECT
+    // ======================================
+
+    function startSoundAnimation() {
+
+        const soundElement =
+            document.getElementById("changingSound");
+
+
+        if (!soundElement) return;
+
+
+        soundElement.classList.add(
+            "sound-animate"
+        );
+
     }
 
 });
