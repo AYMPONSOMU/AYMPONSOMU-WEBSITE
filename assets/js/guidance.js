@@ -628,7 +628,7 @@ const pattern =
             // START SOUND ANIMATION
             // ======================================
 
-            startSoundAnimation();
+           // startSoundAnimation();
 
 
             // ======================================
