@@ -15,17 +15,17 @@ document.addEventListener("DOMContentLoaded", function () {
 const guidanceMusic = document.getElementById("guidanceMusic");
 
 const guidanceMusicList = [
-    "assets/music/blue-silence.mp3",
-    "assets/music/celestial-breath.mp3",
-    "assets/music/cosmic-peace.mp3",
-    "assets/music/divine-glow.mp3",
-    "assets/music/golden-energy.mp3",
-    "assets/music/heart-harmony.mp3",
-    "assets/music/inner-light.mp3",
-    "assets/music/moon-serenity.mp3",
-    "assets/music/mystic-guidance.mp3",
-    "assets/music/power-art-awakening.mp3",
-    "assets/music/sacred-space.mp3"
+    "blue-silence.mp3",
+    "celestial-breath.mp3",
+    "cosmic-peace.mp3",
+    "divine-glow.mp3",
+    "golden-energy.mp3",
+    "heart-harmony.mp3",
+    "inner-light.mp3",
+    "moon-serenity.mp3",
+    "mystic-guidance.mp3",
+    "power-art-awakening.mp3",
+    "sacred-space.mp3"
 ];
 
 function playGuidanceMusic() {
