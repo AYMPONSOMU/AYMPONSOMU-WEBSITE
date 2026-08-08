@@ -32,11 +32,17 @@ function playGuidanceMusic() {
 
     if (!guidanceMusic) return;
 
-    const musicIndex =
-        Math.floor(Date.now() / 86400000) %
-        guidanceMusicList.length;
+    const today = new Date();
 
-    guidanceMusic.src = guidanceMusicList[musicIndex];
+    const dayNumber = Math.floor(
+        today.getTime() / 86400000
+    );
+
+    const musicIndex =
+        dayNumber % guidanceMusicList.length;
+
+    guidanceMusic.src =
+        guidanceMusicList[musicIndex];
 
     guidanceMusic.currentTime = 0;
 
