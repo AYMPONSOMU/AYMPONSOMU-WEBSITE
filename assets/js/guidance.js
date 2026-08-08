@@ -8,7 +8,44 @@ document.addEventListener("DOMContentLoaded", function () {
     const openBtn = document.getElementById("openGuidanceBtn");
     const closeBtn = document.querySelector(".close-popup");
     const form = document.getElementById("guidanceForm");
+// ===============================
+// AYMP PERSONAL GUIDANCE MUSIC
+// ===============================
 
+const guidanceMusic = document.getElementById("guidanceMusic");
+
+const guidanceMusicList = [
+    "assets/music/blue-silence.mp3",
+    "assets/music/celestial-breath.mp3",
+    "assets/music/cosmic-peace.mp3",
+    "assets/music/divine-glow.mp3",
+    "assets/music/golden-energy.mp3",
+    "assets/music/heart-harmony.mp3",
+    "assets/music/inner-light.mp3",
+    "assets/music/moon-serenity.mp3",
+    "assets/music/mystic-guidance.mp3",
+    "assets/music/power-art-awakening.mp3",
+    "assets/music/sacred-space.mp3"
+];
+
+function playGuidanceMusic() {
+
+    if (!guidanceMusic) return;
+
+    const musicIndex =
+        Math.floor(Date.now() / 86400000) %
+        guidanceMusicList.length;
+
+    guidanceMusic.src = guidanceMusicList[musicIndex];
+
+    guidanceMusic.currentTime = 0;
+
+    guidanceMusic.volume = 0.35;
+
+    guidanceMusic.play().catch(function () {
+        console.log("Music waiting for user interaction.");
+    });
+}
     // ======================================
     // 30 AYMP SACRED SOUND PATTERNS
     // ======================================
