@@ -267,61 +267,119 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("guidancePlace").value.trim();
 
 
- // ======================================
+            // ======================================
 // SELECT DAILY PERSONAL PATTERN
 // Changes once every 24 hours
 // ======================================
 
-const DAILY_GUIDANCE_KEY = "AYMP_DAILY_GUIDANCE";
+const baseKey =
+    name + "|" + dob + "|" + birthTime + "|" + birthPlace;
+
+const DAILY_GUIDANCE_KEY =
+    "AYMP_DAILY_GUIDANCE_" +
+    btoa(unescape(encodeURIComponent(baseKey)));
 
 const now = Date.now();
+
+const twentyFourHours =
+    24 * 60 * 60 * 1000;
 
 let savedGuidance = null;
 
 try {
+
     savedGuidance = JSON.parse(
         localStorage.getItem(DAILY_GUIDANCE_KEY)
     );
+
 } catch (error) {
+
     savedGuidance = null;
+
 }
 
-
-// Check whether 24 hours have passed
-const twentyFourHours = 24 * 60 * 60 * 1000;
 
 let patternIndex;
 
 
-// If a saved pattern exists and is still within 24 hours
+// ======================================
+// EXISTING DAILY GUIDANCE
+// ======================================
+
 if (
     savedGuidance &&
     typeof savedGuidance.patternIndex === "number" &&
-    typeof savedGuidance.timestamp === "number" &&
-    (now - savedGuidance.timestamp) < twentyFourHours
+    typeof savedGuidance.timestamp === "number"
 ) {
 
-    patternIndex = savedGuidance.patternIndex;
+    const elapsed =
+        now - savedGuidance.timestamp;
+
+
+    // Still within 24 hours
+    if (elapsed < twentyFourHours) {
+
+        patternIndex =
+            savedGuidance.patternIndex;
+
+    }
+
+    // 24 hours completed → next pattern
+    else {
+
+        patternIndex =
+            (savedGuidance.patternIndex + 1)
+            % soundPatterns.length;
+
+        localStorage.setItem(
+            DAILY_GUIDANCE_KEY,
+            JSON.stringify({
+
+                patternIndex:
+                    patternIndex,
+
+                timestamp:
+                    now
+
+            })
+        );
+
+    }
 
 }
 
 
-// Otherwise create today's new pattern
+// ======================================
+// FIRST PERSONAL GUIDANCE
+// ======================================
+
 else {
 
     let total = 0;
 
+
     // Name
-    for (let i = 0; i < name.length; i++) {
+    for (
+        let i = 0;
+        i < name.length;
+        i++
+    ) {
 
-        total += name.charCodeAt(i);
+        total +=
+            name.charCodeAt(i);
 
     }
 
-    // Date of birth
-    for (let i = 0; i < dob.length; i++) {
 
-        const digit = parseInt(dob[i]);
+    // Date of Birth
+    for (
+        let i = 0;
+        i < dob.length;
+        i++
+    ) {
+
+        const digit =
+            parseInt(dob[i]);
 
         if (!isNaN(digit)) {
 
@@ -331,10 +389,16 @@ else {
 
     }
 
-    // Birth time
-    for (let i = 0; i < birthTime.length; i++) {
 
-        const digit = parseInt(birthTime[i]);
+    // Birth Time
+    for (
+        let i = 0;
+        i < birthTime.length;
+        i++
+    ) {
+
+        const digit =
+            parseInt(birthTime[i]);
 
         if (!isNaN(digit)) {
 
@@ -345,63 +409,42 @@ else {
     }
 
 
-    // Create a new daily pattern
+    // Birth Place
+    for (
+        let i = 0;
+        i < birthPlace.length;
+        i++
+    ) {
+
+        total +=
+            birthPlace.charCodeAt(i);
+
+    }
+
+
     patternIndex =
         total % soundPatterns.length;
 
 
-    // Save it for 24 hours
+    // Save for 24 hours
     localStorage.setItem(
         DAILY_GUIDANCE_KEY,
         JSON.stringify({
-            patternIndex: patternIndex,
-            timestamp: now
+
+            patternIndex:
+                patternIndex,
+
+            timestamp:
+                now
+
         })
     );
 
-            }
-
-            for (let i = 0; i < dob.length; i++) {
-
-                const digit = parseInt(dob[i]);
-
-                if (!isNaN(digit)) {
-
-                    total += digit;
-
-                }
-
-            }
+}
 
 
-            for (let i = 0; i < birthTime.length; i++) {
-
-                const digit = parseInt(birthTime[i]);
-
-                if (!isNaN(digit)) {
-
-                    total += digit;
-
-                }
-
-            }
-
-
-            for (let i = 0; i < name.length; i++) {
-
-                total += name.charCodeAt(i);
-
-            }
-
-
-            const patternIndex =
-                total % soundPatterns.length;
-
-
-            const pattern =
-                soundPatterns[patternIndex];
-
-
+const pattern =
+    soundPatterns[patternIndex];
             // ======================================
             // RESULT SCREEN
             // ======================================
