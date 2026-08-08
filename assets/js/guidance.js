@@ -289,6 +289,7 @@ function playGuidanceMusic() {
         form.addEventListener("submit", function (e) {
 
             e.preventDefault();
+            playGuidanceMusic();
 
 
             const name =
