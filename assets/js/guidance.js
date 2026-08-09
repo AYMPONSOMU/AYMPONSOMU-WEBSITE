@@ -251,7 +251,7 @@ function playGuidanceMusic() {
 
             popup.style.display = "block";
 
-            playGuidancemusic():
+            playGuidanceMusic():
 
         });
 
