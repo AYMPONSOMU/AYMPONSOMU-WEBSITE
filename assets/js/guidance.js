@@ -8,50 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const openBtn = document.getElementById("openGuidanceBtn");
     const closeBtn = document.querySelector(".close-popup");
     const form = document.getElementById("guidanceForm");
-// ===============================
-// AYMP PERSONAL GUIDANCE MUSIC
-// ===============================
 
-const guidanceMusic = document.getElementById("guidanceMusic");
-
-const guidanceMusicList = [
-    "blue-silence.mp3",
-    "celestial-breath.mp3",
-    "cosmic-peace.mp3",
-    "divine-glow.mp3",
-    "golden-energy.mp3",
-    "heart-harmony.mp3",
-    "inner-light.mp3",
-    "moon-serenity.mp3",
-    "mystic-guidance.mp3",
-    "power-art-awakening.mp3",
-    "sacred-space.mp3"
-];
-
-function playGuidanceMusic() {
-
-    if (!guidanceMusic) return;
-
-    const today = new Date();
-
-    const dayNumber = Math.floor(
-        today.getTime() / 86400000
-    );
-
-    const musicIndex =
-        dayNumber % guidanceMusicList.length;
-
-    guidanceMusic.src =
-        guidanceMusicList[musicIndex];
-
-    guidanceMusic.currentTime = 0;
-
-    guidanceMusic.volume = 0.35;
-
-    guidanceMusic.play().catch(function () {
-        console.log("Music waiting for user interaction.");
-    });
-}
     // ======================================
     // 30 AYMP SACRED SOUND PATTERNS
     // ======================================
@@ -251,8 +208,6 @@ function playGuidanceMusic() {
 
             popup.style.display = "block";
 
-            playGuidanceMusic():
-
         });
 
     }
@@ -274,7 +229,7 @@ function playGuidanceMusic() {
 
 
     // ======================================
-    // CLICK OUTSIDE
+    // CLICK OUTSIDE POPUP
     // ======================================
 
     window.addEventListener("click", function (e) {
@@ -297,8 +252,11 @@ function playGuidanceMusic() {
         form.addEventListener("submit", function (e) {
 
             e.preventDefault();
-            playGuidanceMusic();
 
+
+            // ======================================
+            // GET USER DETAILS
+            // ======================================
 
             const name =
                 document.getElementById("guidanceName").value.trim();
@@ -314,190 +272,300 @@ function playGuidanceMusic() {
 
 
             // ======================================
-// SELECT DAILY PERSONAL PATTERN
-// Changes once every 24 hours
-// ======================================
+            // VALIDATION
+            // ======================================
 
-const baseKey =
-    name + "|" + dob + "|" + birthTime + "|" + birthPlace;
+            if (name === "") {
 
-const DAILY_GUIDANCE_KEY =
-    "AYMP_DAILY_GUIDANCE_" +
-    btoa(unescape(encodeURIComponent(baseKey)));
+                alert("Please enter your name.");
 
-const now = Date.now();
+                return;
 
-const twentyFourHours =
-    24 * 60 * 60 * 1000;
+            }
 
-let savedGuidance = null;
 
-try {
+            if (dob === "") {
 
-    savedGuidance = JSON.parse(
-        localStorage.getItem(DAILY_GUIDANCE_KEY)
-    );
+                alert("Please select your date of birth.");
 
-} catch (error) {
+                return;
 
-    savedGuidance = null;
+            }
 
-}
 
+            if (birthTime === "") {
 
-let patternIndex;
+                alert("Please select your birth time.");
 
+                return;
 
-// ======================================
-// EXISTING DAILY GUIDANCE
-// ======================================
+            }
 
-if (
-    savedGuidance &&
-    typeof savedGuidance.patternIndex === "number" &&
-    typeof savedGuidance.timestamp === "number"
-) {
 
-    const elapsed =
-        now - savedGuidance.timestamp;
+            if (birthPlace === "") {
 
+                alert("Please enter your place of birth.");
 
-    // Still within 24 hours
-    if (elapsed < twentyFourHours) {
+                return;
 
-        patternIndex =
-            savedGuidance.patternIndex;
+            }
 
-    }
 
-    // 24 hours completed → next pattern
-    else {
+            // ======================================
+            // DAILY GUIDANCE STORAGE
+            // ======================================
 
-        patternIndex =
-            (savedGuidance.patternIndex + 1)
-            % soundPatterns.length;
+            const DAILY_GUIDANCE_KEY =
+                "AYMP_DAILY_GUIDANCE";
 
-        localStorage.setItem(
-            DAILY_GUIDANCE_KEY,
-            JSON.stringify({
+            const now =
+                Date.now();
 
-                patternIndex:
-                    patternIndex,
+            const twentyFourHours =
+                24 * 60 * 60 * 1000;
 
-                timestamp:
-                    now
+            let savedGuidance = null;
 
-            })
-        );
 
-    }
+            try {
 
-}
+                savedGuidance =
+                    JSON.parse(
+                        localStorage.getItem(
+                            DAILY_GUIDANCE_KEY
+                        )
+                    );
 
+            }
 
-// ======================================
-// FIRST PERSONAL GUIDANCE
-// ======================================
+            catch (error) {
 
-else {
+                savedGuidance = null;
 
-    let total = 0;
+            }
 
 
-    // Name
-    for (
-        let i = 0;
-        i < name.length;
-        i++
-    ) {
+            // ======================================
+            // VARIABLES
+            // ======================================
 
-        total +=
-            name.charCodeAt(i);
+            let patternIndex;
 
-    }
+            let total = 0;
 
 
-    // Date of Birth
-    for (
-        let i = 0;
-        i < dob.length;
-        i++
-    ) {
+            // ======================================
+            // USE SAVED DAILY PATTERN
+            // ======================================
 
-        const digit =
-            parseInt(dob[i]);
+            if (
 
-        if (!isNaN(digit)) {
+                savedGuidance &&
 
-            total += digit;
+                typeof savedGuidance.patternIndex === "number" &&
 
-        }
+                typeof savedGuidance.timestamp === "number" &&
 
-    }
+                (now - savedGuidance.timestamp) <
+                    twentyFourHours &&
 
+                savedGuidance.patternIndex >= 0 &&
 
-    // Birth Time
-    for (
-        let i = 0;
-        i < birthTime.length;
-        i++
-    ) {
+                savedGuidance.patternIndex <
+                    soundPatterns.length
 
-        const digit =
-            parseInt(birthTime[i]);
+            ) {
 
-        if (!isNaN(digit)) {
+                patternIndex =
+                    savedGuidance.patternIndex;
 
-            total += digit;
+            }
 
-        }
 
-    }
+            // ======================================
+            // CREATE NEW DAILY PATTERN
+            // ======================================
 
+            else {
 
-    // Birth Place
-    for (
-        let i = 0;
-        i < birthPlace.length;
-        i++
-    ) {
 
-        total +=
-            birthPlace.charCodeAt(i);
+                // ======================================
+                // NAME VALUE
+                // ======================================
 
-    }
+                for (
+                    let i = 0;
+                    i < name.length;
+                    i++
+                ) {
 
+                    total +=
+                        name.charCodeAt(i);
 
-    patternIndex =
-        total % soundPatterns.length;
+                }
 
 
-    // Save for 24 hours
-    localStorage.setItem(
-        DAILY_GUIDANCE_KEY,
-        JSON.stringify({
+                // ======================================
+                // DATE OF BIRTH VALUE
+                // ======================================
 
-            patternIndex:
-                patternIndex,
+                for (
+                    let i = 0;
+                    i < dob.length;
+                    i++
+                ) {
 
-            timestamp:
-                now
+                    const digit =
+                        parseInt(dob[i]);
 
-        })
-    );
+                    if (!isNaN(digit)) {
 
-}
+                        total += digit;
 
+                    }
 
-const pattern =
-    soundPatterns[patternIndex];
+                }
+
+
+                // ======================================
+                // BIRTH TIME VALUE
+                // ======================================
+
+                for (
+                    let i = 0;
+                    i < birthTime.length;
+                    i++
+                ) {
+
+                    const digit =
+                        parseInt(birthTime[i]);
+
+                    if (!isNaN(digit)) {
+
+                        total += digit;
+
+                    }
+
+                }
+
+
+                // ======================================
+                // BIRTH PLACE VALUE
+                // ======================================
+
+                for (
+                    let i = 0;
+                    i < birthPlace.length;
+                    i++
+                ) {
+
+                    total +=
+                        birthPlace.charCodeAt(i);
+
+                }
+
+
+                // ======================================
+                // SELECT PATTERN
+                // ======================================
+
+                patternIndex =
+                    total %
+                    soundPatterns.length;
+
+
+                // ======================================
+                // SAVE PATTERN FOR 24 HOURS
+                // ======================================
+
+                try {
+
+                    localStorage.setItem(
+
+                        DAILY_GUIDANCE_KEY,
+
+                        JSON.stringify({
+
+                            patternIndex:
+                                patternIndex,
+
+                            timestamp:
+                                now
+
+                        })
+
+                    );
+
+                }
+
+                catch (error) {
+
+                    console.warn(
+                        "AYMP: Unable to save daily guidance.",
+                        error
+                    );
+
+                }
+
+            }
+
+
+            // ======================================
+            // GET SELECTED PATTERN
+            // ======================================
+
+            const pattern =
+                soundPatterns[patternIndex];
+
+
+            if (!pattern) {
+
+                console.error(
+                    "AYMP Guidance Pattern Not Found"
+                );
+
+                alert(
+                    "Unable to create Personal Guidance."
+                );
+
+                return;
+
+            }
+
+
+            // ======================================
+            // RESULT CONTAINER
+            // ======================================
+
+            const guidanceContent =
+                popup.querySelector(
+                    ".guidance-content"
+                );
+
+
+            if (!guidanceContent) {
+
+                console.error(
+                    "AYMP: .guidance-content not found."
+                );
+
+                alert(
+                    "Personal Guidance display area not found."
+                );
+
+                return;
+
+            }
+
+
             // ======================================
             // RESULT SCREEN
             // ======================================
 
-            popup.querySelector(".guidance-content").innerHTML = `
+            guidanceContent.innerHTML = `
 
                 <div class="aymp-guidance-result">
+
 
                     <div class="power-art-glow">
 
@@ -516,22 +584,30 @@ const pattern =
 
 
                     <h3>
-                        Welcome, ${name}
+                        Welcome, ${escapeHtml(name)}
                     </h3>
 
 
                     <div class="birth-summary">
 
                         <p>
-                            📅 <strong>Date:</strong> ${dob}
+                            📅
+                            <strong>Date:</strong>
+                            ${escapeHtml(dob)}
                         </p>
 
-                        <p>
-                            ⏰ <strong>Time:</strong> ${birthTime}
-                        </p>
 
                         <p>
-                            📍 <strong>Place:</strong> ${birthPlace}
+                            ⏰
+                            <strong>Time:</strong>
+                            ${escapeHtml(birthTime)}
+                        </p>
+
+
+                        <p>
+                            📍
+                            <strong>Place:</strong>
+                            ${escapeHtml(birthPlace)}
                         </p>
 
                     </div>
@@ -542,6 +618,7 @@ const pattern =
                         <h3>
                             🌌 Your Cosmic Insight
                         </h3>
+
 
                         <p>
                             Your personal guidance experience
@@ -555,18 +632,30 @@ const pattern =
                     <div class="sound-card">
 
                         <div class="sound-label">
+
                             🔊 AYMP SACRED SOUND
-                        </div>
-
-                        <div id="changingSound"
-                             class="changing-sound">
-
-                            ${pattern.sound}
 
                         </div>
+
+
+                        <div
+                            id="changingSound"
+                            class="changing-sound"
+                        >
+
+                            ${escapeHtml(
+                                pattern.sound
+                            )}
+
+                        </div>
+
 
                         <div class="sound-title">
-                            ${pattern.title}
+
+                            ${escapeHtml(
+                                pattern.title
+                            )}
+
                         </div>
 
                     </div>
@@ -578,8 +667,13 @@ const pattern =
                             🙏 Personal Intention
                         </h3>
 
-                        <p>
-                            ${pattern.intention}
+
+                        <p id="guidanceIntention">
+
+                            ${escapeHtml(
+                                pattern.intention
+                            )}
+
                         </p>
 
                     </div>
@@ -591,12 +685,19 @@ const pattern =
                             🧘 Practice
                         </h3>
 
+
                         <p>
+
                             Repeat the sound pattern
-                            <strong>108 times</strong>
+
+                            <strong>
+                                108 times
+                            </strong>
+
                             at a comfortable time,
                             if suitable for your personal
                             practice.
+
                         </p>
 
                     </div>
@@ -604,7 +705,8 @@ const pattern =
 
                     <button
                         type="button"
-                        id="anotherGuidanceBtn">
+                        id="anotherGuidanceBtn"
+                    >
 
                         🔮 EXPERIENCE ANOTHER GUIDANCE
 
@@ -613,11 +715,13 @@ const pattern =
 
                     <button
                         type="button"
-                        id="closeGuidanceResult">
+                        id="closeGuidanceResult"
+                    >
 
                         ✕ CLOSE
 
                     </button>
+
 
                 </div>
 
@@ -625,10 +729,18 @@ const pattern =
 
 
             // ======================================
+            // SHOW RESULT
+            // ======================================
+
+            popup.style.display =
+                "block";
+
+
+            // ======================================
             // START SOUND ANIMATION
             // ======================================
 
-           // startSoundAnimation();
+            startSoundAnimation();
 
 
             // ======================================
@@ -636,75 +748,86 @@ const pattern =
             // ======================================
 
             const anotherBtn =
-                document.getElementById("anotherGuidanceBtn");
+                document.getElementById(
+                    "anotherGuidanceBtn"
+                );
 
 
             if (anotherBtn) {
 
-                anotherBtn.addEventListener("click", function () {
-
-                    const newIndex =
-                        Math.floor(
-                            Math.random() *
-                            soundPatterns.length
-                        );
+                anotherBtn.addEventListener(
+                    "click",
+                    function () {
 
 
-                    const newPattern =
-                        soundPatterns[newIndex];
+                        const newIndex =
+                            Math.floor(
+                                Math.random() *
+                                soundPatterns.length
+                            );
 
 
-                    const soundElement =
-                        document.getElementById("changingSound");
+                        const newPattern =
+                            soundPatterns[newIndex];
 
 
-                    if (soundElement) {
-
-                        soundElement.classList.remove(
-                            "sound-animate"
-                        );
-
-
-                        void soundElement.offsetWidth;
+                        const soundElement =
+                            document.getElementById(
+                                "changingSound"
+                            );
 
 
-                        soundElement.innerText =
-                            newPattern.sound;
+                        if (soundElement) {
 
 
-                        soundElement.classList.add(
-                            "sound-animate"
-                        );
+                            soundElement.classList.remove(
+                                "sound-animate"
+                            );
+
+
+                            void soundElement.offsetWidth;
+
+
+                            soundElement.innerText =
+                                newPattern.sound;
+
+
+                            soundElement.classList.add(
+                                "sound-animate"
+                            );
+
+                        }
+
+
+                        const titleElement =
+                            document.querySelector(
+                                ".sound-title"
+                            );
+
+
+                        if (titleElement) {
+
+                            titleElement.innerText =
+                                newPattern.title;
+
+                        }
+
+
+                        const intentionElement =
+                            document.getElementById(
+                                "guidanceIntention"
+                            );
+
+
+                        if (intentionElement) {
+
+                            intentionElement.innerText =
+                                newPattern.intention;
+
+                        }
 
                     }
-
-
-                    const titleElement =
-                        document.querySelector(".sound-title");
-
-
-                    if (titleElement) {
-
-                        titleElement.innerText =
-                            newPattern.title;
-
-                    }
-
-
-                    const intentionElement =
-                        document.querySelector(
-                            ".guidance-card:nth-of-type(2) p"
-                        );
-
-
-                    if (intentionElement) {
-
-                        intentionElement.innerText =
-                            newPattern.intention;
-
-                    }
-
-                });
+                );
 
             }
 
@@ -725,7 +848,8 @@ const pattern =
                     "click",
                     function () {
 
-                        popup.style.display = "none";
+                        popup.style.display =
+                            "none";
 
                     }
                 );
@@ -738,16 +862,66 @@ const pattern =
 
 
     // ======================================
+    // SAFE HTML TEXT
+    // ======================================
+
+    function escapeHtml(value) {
+
+        return String(value)
+
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+
+            .replace(
+                /</g,
+                "&lt;"
+            )
+
+            .replace(
+                />/g,
+                "&gt;"
+            )
+
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+
+            .replace(
+                /'/g,
+                "&#039;"
+            );
+
+    }
+
+
+    // ======================================
     // SOUND CHANGING EFFECT
     // ======================================
 
     function startSoundAnimation() {
 
         const soundElement =
-            document.getElementById("changingSound");
+            document.getElementById(
+                "changingSound"
+            );
 
 
-        if (!soundElement) return;
+        if (!soundElement) {
+
+            return;
+
+        }
+
+
+        soundElement.classList.remove(
+            "sound-animate"
+        );
+
+
+        void soundElement.offsetWidth;
 
 
         soundElement.classList.add(
