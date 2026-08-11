@@ -79,8 +79,14 @@
 
         <div class="research-section">
           <h3>🔱 Yantra Research</h3>
-          <div class="research-grid">
-            ${yantras.map(y => `<div class="research-card yantra-card"><img src="assets/images/${esc(y.image)}" alt="${esc(y.name_en)}" onerror="this.style.display='none'"><strong>${esc(y.name_en)}</strong></div>`).join('')}
+          <div class="research-grid yantra-image-grid">
+            ${yantras.map(y => `
+              <div class="research-card yantra-card">
+                <img src="images/${esc(y.image)}" alt="${esc(y.name_en)}" loading="lazy"
+                  onerror="this.style.display='none'; this.nextElementSibling.classList.add('image-missing');">
+                <strong>${esc(y.name_en)}</strong>
+                <span class="yantra-image-status">Traditional Yantra Image</span>
+              </div>`).join('')}
           </div>
         </div>
 
