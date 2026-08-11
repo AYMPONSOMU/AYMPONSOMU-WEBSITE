@@ -1,11 +1,13 @@
-// AYMP Lagna Research Result Engine v1
-// Connects the calculated sidereal Lagna to the approved/user-provided research rules.
+// AYMP Lagna Research Result Engine v2
+// Connects calculated sidereal Lagna + life concern to the AYMP planetary research database.
 // Unverified mappings remain explicitly pending; this module does not invent Yantra/Herb assignments.
 (function () {
   'use strict';
 
   const RULES_URL = 'data/aymp_lagna_research_rules_v1.json';
+  const PLANETARY_DB_URL = 'data/planetary_research_database_v1.json';
   let rulesPromise = null;
+  let planetaryPromise = null;
   let mounted = false;
 
   function loadRules() {
@@ -16,6 +18,16 @@
       });
     }
     return rulesPromise;
+  }
+
+  function loadPlanetaryDatabase() {
+    if (!planetaryPromise) {
+      planetaryPromise = fetch(PLANETARY_DB_URL, { cache: 'no-store' }).then(function (r) {
+        if (!r.ok) throw new Error('AYMP Planetary Research Database could not be loaded.');
+        return r.json();
+      });
+    }
+    return planetaryPromise;
   }
 
   function esc(v) {
@@ -43,6 +55,21 @@
     return 'business';
   }
 
+  function findPlanetaryLagnaRule(db, lagna) {
+    const rules = db && Array.isArray(db.lagna_research_rules) ? db.lagna_research_rules : [];
+    return rules.find(function (r) { return String(r.lagna || '').toLowerCase() === String(lagna || '').toLowerCase(); }) || null;
+  }
+
+  function planetById(db, id) {
+    const planets = db && Array.isArray(db.planets) ? db.planets : [];
+    return planets.find(function (p) { return p.id === id; }) || null;
+  }
+
+  function focusIds(rule) {
+    if (!rule) return [];
+    return Array.isArray(rule.planetary_focus) ? rule.planetary_focus : [];
+  }
+
   function addStyles() {
     if (document.getElementById('aympLagnaResearchResultCSS')) return;
     const style = document.createElement('style');
@@ -57,12 +84,54 @@
       .aymp-lagna-herbs{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}.aymp-lagna-herbs span{padding:5px 8px;border-radius:999px;background:rgba(255,215,120,.09);border:1px solid rgba(255,215,120,.16);font-size:.72rem;color:#ffe39a}
       .aymp-lagna-pending{padding:13px;border-radius:12px;border:1px dashed rgba(255,215,120,.28);margin-top:12px;color:#ddd;line-height:1.5}
       .aymp-lagna-status{display:inline-block;margin-top:10px;color:#ffd66a;font-size:.72rem}
-      @media(max-width:600px){.aymp-lagna-result-grid{grid-template-columns:1fr}}
+      .aymp-planetary-link-wrap{margin-top:14px;padding:13px;border-radius:13px;border:1px solid rgba(255,215,120,.14);background:rgba(0,0,0,.12)}
+      .aymp-planetary-link-title{margin:0 0 4px;color:#ffd66a;font-size:1rem}.aymp-planetary-link-sub{margin:0 0 10px;opacity:.65;font-size:.76rem}
+      .aymp-planetary-link-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+      .aymp-planetary-link-card{padding:10px;border-radius:11px;border:1px solid rgba(255,215,120,.16);background:rgba(255,215,120,.045)}
+      .aymp-planetary-link-card.focus{border-color:rgba(255,215,120,.55);background:rgba(255,215,120,.10)}
+      .aymp-planetary-link-card strong{display:block;font-size:.84rem}.aymp-planetary-link-card small{display:block;margin-top:3px;opacity:.6;font-size:.68rem}
+      .aymp-planetary-link-card .pstatus{display:block;margin-top:7px;color:#ffd66a;font-size:.64rem}.aymp-planetary-meta{margin-top:8px;font-size:.65rem;opacity:.5}
+      .aymp-focus-badge{display:inline-block;margin-top:5px;padding:3px 6px;border-radius:999px;background:#ffd66a;color:#171026;font-size:.58rem;font-weight:700}
+      @media(max-width:600px){.aymp-lagna-result-grid{grid-template-columns:1fr}.aymp-planetary-link-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
     `;
     document.head.appendChild(style);
   }
 
-  function mount(rules) {
+  function planetaryConnectionHTML(planetaryDb, rule) {
+    const planets = planetaryDb && Array.isArray(planetaryDb.planets) ? planetaryDb.planets.slice().sort(function(a,b){ return Number(a.order||0)-Number(b.order||0); }) : [];
+    if (!planets.length) return '<div class="aymp-lagna-pending">Planetary Research Database is currently unavailable.</div>';
+    const focus = focusIds(rule);
+    const focusNames = focus.map(function(id){ const p=planetById(planetaryDb,id); return p ? p.name_en : id; }).join(', ');
+    const cards = planets.map(function(p){
+      const r = p.research || {};
+      const isFocus = focus.indexOf(p.id) >= 0;
+      const status = r.verification_status || 'pending';
+      return '<div class="aymp-planetary-link-card' + (isFocus ? ' focus' : '') + '">' +
+        '<strong>' + esc(p.name_en) + '</strong>' +
+        '<small>' + esc(p.name_ta || '') + '</small>' +
+        (isFocus ? '<span class="aymp-focus-badge">LAGNA FOCUS</span>' : '') +
+        '<span class="pstatus">Research: ' + esc(status) + '</span>' +
+        (r.affected_status ? '<small>Status: ' + esc(r.affected_status) + '</small>' : '') +
+        '</div>';
+    }).join('');
+    return '<div class="aymp-planetary-link-wrap"><h4 class="aymp-planetary-link-title">🌌 9 Planetary Research Connection</h4>' +
+      '<p class="aymp-planetary-link-sub">The calculated Lagna now connects automatically to the planetary research database.</p>' +
+      '<div class="aymp-planetary-link-grid">' + cards + '</div>' +
+      (focus.length ? '<div class="aymp-planetary-meta">Current Lagna research focus: ' + esc(focusNames) + '</div>' : '<div class="aymp-planetary-meta">No approved planetary focus mapping is recorded for this Lagna yet.</div>') +
+      '</div>';
+  }
+
+  function renderPendingBase(chart, concernText, planetaryDb, rule) {
+    return '<div class="aymp-lagna-result-grid">' +
+      '<div class="aymp-lagna-result-card"><b>Lagna</b><p>' + esc(chart.lagna) + ' — ' + esc(chart.ascendantText || '') + '</p></div>' +
+      '<div class="aymp-lagna-result-card"><b>Research Concern</b><p>' + esc(concernText) + '</p></div>' +
+      '</div>' +
+      planetaryConnectionHTML(planetaryDb, rule) +
+      '<div class="aymp-lagna-pending">Research rule pending for this Lagna / concern. No Yantra, herb or planetary mapping is being invented automatically.</div>' +
+      '<span class="aymp-lagna-status">Status: pending AYMP research verification</span>';
+  }
+
+  function mount(rules, planetaryDb) {
     if (mounted) return;
     const host = document.getElementById('aympPlanetaryResearchSection') || document.getElementById('guidanceForm');
     if (!host) return;
@@ -72,7 +141,7 @@
     section.className = 'aymp-lagna-result';
     section.innerHTML = `
       <h3>🧿 Personalized Lagna Research Result</h3>
-      <p class="sub">Lagna → research concern → planetary research rule → Yantra / Herb research pathway</p>
+      <p class="sub">Lagna → research concern → planetary research database → Yantra / Herb research pathway</p>
       <select id="aympResearchConcernSelect" aria-label="Research concern">
         <option value="business">Business / Economic Improvement</option>
         <option value="marriage">Marriage / Relationship Concerns</option>
@@ -90,14 +159,17 @@
       const id = lagnaId(chart);
       const lagna = id && rules.rules ? rules.rules[id] : null;
       const concern = concernKey(document.getElementById('aympResearchConcernSelect').value);
+      const concernText = document.getElementById('aympResearchConcernSelect').selectedOptions[0].textContent;
+      const planetaryRule = findPlanetaryLagnaRule(planetaryDb, chart.lagna);
       const rule = lagna && lagna.life_concern ? lagna : null;
 
       if (!chart.lagna) {
-        body.innerHTML = '<div class="aymp-lagna-pending">Awaiting the calculated Vedic Lagna. Submit valid birth details first.</div>';
+        body.innerHTML = '<div class="aymp-lagna-pending">Awaiting the calculated Vedic Lagna. Submit valid birth details first.</div>' + planetaryConnectionHTML(planetaryDb, null);
         return;
       }
-      if (!rule || !rule.life_concern || (concern !== 'business' && id !== 'rishabha')) {
-        body.innerHTML = '<div class="aymp-lagna-result-grid"><div class="aymp-lagna-result-card"><b>Lagna</b><p>' + esc(chart.lagna) + ' — ' + esc(chart.ascendantText || '') + '</p></div><div class="aymp-lagna-result-card"><b>Research Concern</b><p>' + esc(document.getElementById('aympResearchConcernSelect').selectedOptions[0].textContent) + '</p></div></div><div class="aymp-lagna-pending">Research rule pending for this Lagna / concern. No Yantra, herb or planetary mapping is being invented automatically.</div><span class="aymp-lagna-status">Status: pending AYMP research verification</span>';
+
+      if (!rule || (concern !== 'business' && id !== 'rishabha')) {
+        body.innerHTML = renderPendingBase(chart, concernText, planetaryDb, planetaryRule);
         return;
       }
 
@@ -105,7 +177,8 @@
         const planets = (rule.planet_group_names_en || rule.planet_group || []).join(', ');
         const herbs = (rule.herb_set || []).map(function (h) { return '<span>' + esc(h.name_en) + '</span>'; }).join('');
         const proc = rule.traditional_procedure && rule.traditional_procedure.sequence ? rule.traditional_procedure.sequence : [];
-        const procedure = proc.map(function (x, i) { return '<li>' + esc(x) + '</li>'; }).join('');
+        const procedure = proc.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('');
+        const linkedRule = planetaryRule || rule;
         body.innerHTML = '<div class="aymp-lagna-result-grid">' +
           '<div class="aymp-lagna-result-card"><b>Lagna</b><p>' + esc(chart.lagna) + ' — ' + esc(chart.ascendantText || '') + '</p></div>' +
           '<div class="aymp-lagna-result-card"><b>Life Concern</b><p>' + esc(rule.life_concern) + '</p></div>' +
@@ -113,7 +186,9 @@
           '<div class="aymp-lagna-result-card"><b>Yantra / Copper Record</b><p>Yantra selection: pending approved AYMP record.<br>6×6 copper plate • talisman research record</p></div>' +
           '<div class="aymp-lagna-result-card" style="grid-column:1/-1"><b>Research Herb Set</b><div class="aymp-lagna-herbs">' + herbs + '</div></div>' +
           '<div class="aymp-lagna-result-card" style="grid-column:1/-1"><b>Traditional Procedure Record</b><ol>' + procedure + '</ol></div>' +
-          '</div><span class="aymp-lagna-status">Status: user-provided research rule • verification pending • not a guaranteed outcome</span>';
+          '</div>' +
+          planetaryConnectionHTML(planetaryDb, linkedRule) +
+          '<span class="aymp-lagna-status">Status: user-provided research rule • verification pending • not a guaranteed outcome</span>';
       }
     }
 
@@ -124,8 +199,10 @@
 
   async function boot() {
     try {
-      const rules = await loadRules();
-      const tryMount = function () { mount(rules); };
+      const values = await Promise.all([loadRules(), loadPlanetaryDatabase()]);
+      const rules = values[0];
+      const planetaryDb = values[1];
+      const tryMount = function () { mount(rules, planetaryDb); };
       tryMount();
       const timer = setInterval(function () {
         if (window.AYMPBirthChart || document.getElementById('aympPlanetaryResearchSection')) {
