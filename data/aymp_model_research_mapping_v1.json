@@ -1,0 +1,51 @@
+{
+  "database_id": "aymp_model_research_mapping_v1",
+  "status": "AYMP_MODEL_RECOMMENDATION",
+  "version": "1.0.0",
+  "purpose": "A consistent research-selection model for the AYMP website. This is a spiritual/traditional research framework, not a scientific claim or guarantee of outcome.",
+  "display_policy": "Website may present these as AYMP Traditional Research Recommendations. It must not promise financial, relationship, medical, or life outcomes.",
+  "planet_profiles": {
+    "sun": {"focus": ["leadership","recognition","public_presence"],"herb_ids":["herb_029","herb_015","herb_033","herb_007"]},
+    "moon": {"focus": ["emotional_balance","family","public_connection"],"herb_ids":["herb_016","herb_021","herb_017","herb_034"]},
+    "mars": {"focus": ["action","courage","competition","initiative"],"herb_ids":["herb_023","herb_024","herb_012","herb_030"]},
+    "mercury": {"focus": ["communication","trade","learning","business_skill"],"herb_ids":["herb_004","herb_005","herb_019","herb_025"]},
+    "jupiter": {"focus": ["growth","wisdom","guidance","prosperity_research"],"herb_ids":["herb_001","herb_010","herb_016","herb_032"]},
+    "venus": {"focus": ["relationships","harmony","comfort","creative_success"],"herb_ids":["herb_006","herb_007","herb_017","herb_031"]},
+    "saturn": {"focus": ["discipline","delay","responsibility","long_term_effort"],"herb_ids":["herb_008","herb_014","herb_021","herb_035"]},
+    "rahu": {"focus": ["unusual_paths","visibility","ambition","disruption_research"],"herb_ids":["herb_002","herb_013","herb_018","herb_026"]},
+    "ketu": {"focus": ["detachment","introspection","spiritual_research","obstacle_review"],"herb_ids":["herb_003","herb_009","herb_027","herb_028"]}
+  },
+  "concern_yantra_policy": {
+    "business": {"primary_yantra_id":"yantra_006","secondary_yantra_id":"yantra_008","reason":"AYMP model associates the business pathway with growth/continuity and prosperity-oriented research."},
+    "marriage": {"primary_yantra_id":"yantra_008","secondary_yantra_id":"yantra_004","reason":"AYMP model uses relationship/harmony-oriented research records."},
+    "love_relationship": {"primary_yantra_id":"yantra_003","secondary_yantra_id":"yantra_004","reason":"AYMP model uses relationship/emotional-harmony research records."},
+    "public_success": {"primary_yantra_id":"yantra_001","secondary_yantra_id":"yantra_007","reason":"AYMP model uses public-presence and protective/strength research records."},
+    "promotion_visibility": {"primary_yantra_id":"yantra_001","secondary_yantra_id":"yantra_006","reason":"AYMP model uses visibility and growth-oriented research records."},
+    "other": {"primary_yantra_id":"yantra_005","secondary_yantra_id":"yantra_004","reason":"AYMP model routes general concerns to a broad research pathway before refinement."}
+  },
+  "selection_algorithm": {
+    "step_1":"Determine Lagna from the approved birth-chart calculation engine.",
+    "step_2":"Read the selected life concern.",
+    "step_3":"Read the candidate planet group for that Lagna and concern from aymp_proposed_research_mappings_v1.json.",
+    "step_4":"For each candidate planet, load the herb profile from this database.",
+    "step_5":"Rank herbs by the strongest research-relevant planet in the planetary analysis; show up to 4 primary herbs and up to 4 supporting herbs.",
+    "step_6":"Select the concern's primary Yantra and show the secondary Yantra as an alternative research record.",
+    "step_7":"Display mantra/talisman records only when matching records exist and are marked verified/approved.",
+    "step_8":"Show the final result as an AYMP Traditional Research Recommendation, not a guaranteed outcome."
+  },
+  "special_user_rule": {
+    "lagna":"rishabha",
+    "concern":"business",
+    "status":"USER_PROVIDED_RESEARCH_RULE",
+    "planet_group":["jupiter","venus","moon","mars"],
+    "herb_ids":["herb_001","herb_004","herb_012","herb_016","herb_023","herb_008","herb_011","herb_010","herb_005","herb_009"],
+    "note":"The user's previously supplied Taurus/business research set remains the authoritative custom record. Additional model-selected records must not overwrite it."
+  },
+  "safety_and_transparency": {
+    "herb_use":"Research/talisman records only; no ingestion or medical-treatment instructions.",
+    "outcome_language":"Use 'traditional research recommendation', 'spiritual practice', or 'research pathway'; do not use 'guaranteed result'.",
+    "kundrimani_note":"Pachai Kundrimani/Abrus precatorius must never be presented as an edible or self-administered substance.",
+    "financial_note":"For business/wealth concerns, do not claim guaranteed financial gain; present the result as spiritual/traditional guidance only.",
+    "relationship_note":"Do not claim guaranteed marriage, love, or reconciliation outcomes."
+  }
+}
