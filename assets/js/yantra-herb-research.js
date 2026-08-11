@@ -1,4 +1,5 @@
 // AYMP Yantra • Herb • Tantric Research module
+// Phase 1: 35 herbs + 8 Yantras + 9-planet research structure.
 // Standalone module: does not replace guidance.js or music logic.
 (function () {
   'use strict';
@@ -6,9 +7,29 @@
   const DB_URL = 'data/aymp_cosmic_yantra_herb_tantric_guidance_v2.json';
 
   function esc(value) {
-    return String(value ?? '').replace(/[&<>"']/g, c => ({
-      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
+    return String(value ?? '').replace(/[&<>\"']/g, c => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '\"': '&quot;', "'": '&#039;'
     }[c]));
+  }
+
+  function readBirthDetails() {
+    const form = document.getElementById('guidanceForm');
+    if (!form) return {};
+
+    const get = (...names) => {
+      for (const name of names) {
+        const el = form.querySelector(`[name="${name}"], #${name}`);
+        if (el && el.value) return el.value.trim();
+      }
+      return '';
+    };
+
+    return {
+      name: get('name', 'fullName', 'userName'),
+      dob: get('dob', 'dateOfBirth', 'birthDate'),
+      birth_time: get('birth_time', 'birthTime', 'timeOfBirth'),
+      birth_place: get('birth_place', 'birthPlace', 'placeOfBirth')
+    };
   }
 
   function createButton() {
@@ -23,6 +44,10 @@
 
     form.appendChild(button);
     button.addEventListener('click', openResearch);
+  }
+
+  function cardClassFor(value) {
+    return value ? 'research-card' : 'research-card research-pending';
   }
 
   async function openResearch() {
@@ -45,53 +70,96 @@
       document.body.appendChild(modal);
     }
 
+    const birth = readBirthDetails();
     const herbs = db.herbs || [];
     const yantras = db.yantras || [];
     const planets = (db.planetary_analysis && db.planetary_analysis.planets) || [];
     const concerns = (db.research_guidance && db.research_guidance.life_concerns) || [];
+    const flow = (db.guidance_flow && db.guidance_flow.steps) || [];
 
     modal.innerHTML = `
       <div class="aymp-research-panel">
         <button type="button" class="aymp-research-close" aria-label="Close">×</button>
         <h2>🔱 AYMP RESEARCH GUIDANCE</h2>
-        <p class="aymp-research-intro">Yantra • Herb • Tantric Research</p>
+        <p class="aymp-research-intro">Yantra • Herb • Tantric Research — Phase 1</p>
+
+        <div class="research-section research-birth-summary">
+          <h3>🪔 Birth Details Received</h3>
+          <div class="research-grid birth-grid">
+            <div class="research-card"><strong>Name</strong><span>${esc(birth.name || 'Not entered')}</span></div>
+            <div class="research-card"><strong>Date of Birth</strong><span>${esc(birth.dob || 'Not entered')}</span></div>
+            <div class="research-card"><strong>Birth Time</strong><span>${esc(birth.birth_time || 'Not entered')}</span></div>
+            <div class="research-card"><strong>Birth Place</strong><span>${esc(birth.birth_place || 'Not entered')}</span></div>
+          </div>
+          <p class="research-note">These details are the input for the research flow. Planetary positions and mappings are not invented here; they will be populated from the approved AYMP research framework.</p>
+        </div>
+
+        <div class="research-section">
+          <h3>🧭 Research Flow</h3>
+          <div class="research-flow">
+            ${flow.map((step, i) => `<div class="flow-step"><b>${i + 1}</b><span>${esc(String(step).replaceAll('_', ' '))}</span></div>`).join('')}
+          </div>
+        </div>
 
         <div class="research-section">
           <h3>🌌 9 Planetary Research</h3>
           <div class="research-grid">
-            ${planets.map(p => `<div class="research-card"><strong>${esc(p.name_ta)}</strong><span>${esc(p.name_en)}</span></div>`).join('')}
+            ${planets.map(p => `
+              <div class="${cardClassFor(p.research_interpretation)}">
+                <strong>${esc(p.name_ta)}</strong>
+                <span>${esc(p.name_en)}</span>
+                <small>${p.research_interpretation ? esc(p.research_interpretation) : 'Research mapping pending'}</small>
+              </div>`).join('')}
           </div>
         </div>
 
         <div class="research-section">
           <h3>🎯 Guidance Area</h3>
           <div class="research-grid">
-            ${concerns.map(c => `<div class="research-card"><strong>${esc(c.label_ta)}</strong></div>`).join('')}
+            ${concerns.map(c => `<div class="research-card concern-card"><strong>${esc(c.label_ta)}</strong><span>Research pathway</span></div>`).join('')}
+          </div>
+        </div>
+
+        <div class="research-section">
+          <h3>🔱 Yantra Research — 8 Phase 1 Records</h3>
+          <div class="research-grid yantra-image-grid">
+            ${yantras.map(y => `
+              <div class="research-card yantra-card">
+                <img src="images/${esc(y.image)}" alt="${esc(y.name_en)}" loading="lazy"
+                  onerror="this.style.display='none'; this.parentElement.classList.add('image-missing');">
+                <strong>${esc(y.name_en)}</strong>
+                <span>${esc(y.name_ta || 'Yantra Research Record')}</span>
+                <small>${esc(y.research_summary || 'Research details pending')}</small>
+              </div>`).join('')}
           </div>
         </div>
 
         <div class="research-section">
           <h3>🌿 35 Herbal Research Records</h3>
           <div class="research-list">
-            ${herbs.map(h => `<div class="research-row"><strong>${esc(h.name_ta)}</strong><span>${esc(h.name_en)}</span></div>`).join('')}
-          </div>
-        </div>
-
-        <div class="research-section">
-          <h3>🔱 Yantra Research</h3>
-          <div class="research-grid yantra-image-grid">
-            ${yantras.map(y => `
-              <div class="research-card yantra-card">
-                <img src="images/${esc(y.image)}" alt="${esc(y.name_en)}" loading="lazy"
-                  onerror="this.style.display='none'; this.nextElementSibling.classList.add('image-missing');">
-                <strong>${esc(y.name_en)}</strong>
-                <span class="yantra-image-status">Traditional Yantra Image</span>
+            ${herbs.map(h => `
+              <div class="research-row">
+                <strong>${esc(h.name_ta)}</strong>
+                <span>${esc(h.name_en)}</span>
               </div>`).join('')}
           </div>
         </div>
 
+        <div class="research-section research-next-step">
+          <h3>🧿 Research Mapping</h3>
+          <div class="research-mapping-box">
+            <div>Planetary finding →</div>
+            <div>Selected Yantra →</div>
+            <div>Selected Herb(s) →</div>
+            <div>Mantra reference →</div>
+            <div>Talisman research →</div>
+            <div>Traditional guidance →</div>
+          </div>
+          <p class="research-note">The mapping fields are intentionally left as research records until the corresponding AYMP-approved planet, Yantra, herb and mantra relationships are entered. This prevents the website from presenting unverified associations as established facts.</p>
+        </div>
+
         <div class="research-disclaimer">
-          Traditional/spiritual research information is presented for educational and research purposes. Individual research mappings should be verified before publication or use.
+          Traditional/spiritual research information is presented for educational and research purposes. Individual research mappings should be verified before publication or use. This module does not guarantee medical, financial, relationship, or life outcomes.
         </div>
       </div>`;
 
