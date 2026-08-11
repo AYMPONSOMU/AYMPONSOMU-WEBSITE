@@ -36,6 +36,8 @@ document.addEventListener('DOMContentLoaded', function () {
     try{
       if(!window.AYMPLagnaEngine||typeof window.AYMPLagnaEngine.calculateFromForm!=='function')throw Error('Global Lagna engine is not loaded.');
       const chart=await window.AYMPLagnaEngine.calculateFromForm();
+      window.AYMPBirthChart={...chart};
+      window.dispatchEvent(new CustomEvent('aymp:birth-chart-updated',{detail:chart}));
       let total=0;for(const c of name)total+=c.charCodeAt(0);for(const c of dob)if(!isNaN(parseInt(c)))total+=parseInt(c);for(const c of time)if(!isNaN(parseInt(c)))total+=parseInt(c);for(const c of place)total+=c.charCodeAt(0);
       showGuidance(total%patterns.length,name,dob,time,place,chart);
     }catch(err){console.error(err);alert('Lagna calculation could not be completed. Please check the birth date, exact birth time and birth place.\n\n'+err.message);return;}
