@@ -67,10 +67,10 @@ document.addEventListener('DOMContentLoaded', function () {
   if(closeBtn)closeBtn.onclick=function(){stopMusic();popup.style.display='none';};
   if(form)form.addEventListener('submit',function(e){e.preventDefault();const name=(document.getElementById('guidanceName')||{}).value?.trim()||'',dob=(document.getElementById('guidanceDob')||{}).value||'',time=(document.getElementById('guidanceTime')||{}).value||'',place=(document.getElementById('guidancePlace')||{}).value?.trim()||'';if(!name||!dob||!time||!place){alert('Please enter Name, Date of Birth, Birth Time and Place.');return;}let total=0;for(const c of name)total+=c.charCodeAt(0);for(const c of dob)if(!isNaN(parseInt(c)))total+=parseInt(c);for(const c of time)if(!isNaN(parseInt(c)))total+=parseInt(c);for(const c of place)total+=c.charCodeAt(0);showGuidance(total%patterns.length,name,dob,time,place);});
 
-  // Load the planetary database first, then the Yantra • Herb research module.
   (function loadAYMPResearchModules(){
     if(document.getElementById('aympPlanetaryResearchLoader')) return;
     const planetary=document.createElement('script');planetary.id='aympPlanetaryResearchLoader';planetary.src='assets/js/planetary-research-db.js';planetary.defer=true;document.body.appendChild(planetary);
+    const personal=document.createElement('script');personal.id='aympPersonalResearchEngineLoader';personal.src='assets/js/aymp-personal-research-engine.js';personal.defer=true;document.body.appendChild(personal);
     const css=document.createElement('link');css.rel='stylesheet';css.href='assets/css/yantra-herb-research.css';document.head.appendChild(css);
     const script=document.createElement('script');script.id='aympYantraHerbResearchLoader';script.src='assets/js/yantra-herb-research.js';script.defer=true;document.body.appendChild(script);
   })();
