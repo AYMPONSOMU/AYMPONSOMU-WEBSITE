@@ -7,6 +7,8 @@ on:
       - 'assets/js/guidance.js'
       - 'assets/js/planetary-research-db.js'
       - 'assets/js/aymp-lagna-research-result.js'
+      - 'assets/js/aymp-lagna-life-concern-mapping.js'
+      - 'data/aymp_lagna_life_concern_planet_mapping_v1.json'
       - '.github/workflows/enable-planetary-research-bridge.yml'
 
 permissions:
@@ -48,7 +50,6 @@ jobs:
 '''
               text += addition
 
-          # Load the Lagna-to-research result engine after the existing guidance modules.
           marker2 = 'AYMP_LAGNA_RESEARCH_RESULT_ENGINE_V1'
           if marker2 not in text:
               text += r'''
@@ -68,6 +69,25 @@ jobs:
 })();
 '''
 
+          marker3 = 'AYMP_LAGNA_LIFE_CONCERN_MAPPING_ENGINE_V1'
+          if marker3 not in text:
+              text += r'''
+
+// AYMP_LAGNA_LIFE_CONCERN_MAPPING_ENGINE_V1
+(function loadLagnaLifeConcernMappingEngine(){
+  function addMapping(){
+    if(document.getElementById('aympLagnaLifeConcernMappingLoader')) return;
+    const script=document.createElement('script');
+    script.id='aympLagnaLifeConcernMappingLoader';
+    script.src='assets/js/aymp-lagna-life-concern-mapping.js';
+    script.defer=true;
+    document.body.appendChild(script);
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',addMapping);
+  else addMapping();
+})();
+'''
+
           path.write_text(text, encoding='utf-8')
           PY
 
@@ -80,6 +100,6 @@ jobs:
           if git diff --cached --quiet; then
             echo 'Bridge already active.'
           else
-            git commit -m 'Connect Lagna research result engine to guidance flow'
+            git commit -m 'Load Lagna life concern mapping engine'
             git push
           fi
