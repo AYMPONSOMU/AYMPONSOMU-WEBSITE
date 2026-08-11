@@ -47,6 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const personal=document.createElement('script');personal.id='aympPersonalResearchEngineLoader';personal.src='assets/js/aymp-personal-research-engine.js';personal.defer=true;document.body.appendChild(personal);
     const css=document.createElement('link');css.rel='stylesheet';css.href='assets/css/yantra-herb-research.css';document.head.appendChild(css);
     const script=document.createElement('script');script.id='aympYantraHerbResearchLoader';script.src='assets/js/yantra-herb-research.js';script.defer=true;document.body.appendChild(script);
+    const lagnaResearch=document.createElement('script');lagnaResearch.id='aympLagnaResearchResultLoader';lagnaResearch.src='assets/js/aymp-lagna-research-result.js';lagnaResearch.defer=true;document.body.appendChild(lagnaResearch);
   })();
   console.log('AYMP Personal Guidance Engine Ready');
 });
