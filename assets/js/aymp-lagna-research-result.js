@@ -1,4 +1,4 @@
-// AYMP Lagna Research Result Engine v2
+// AYMP Lagna Research Result Engine v3
 // Connects calculated sidereal Lagna + life concern to the AYMP planetary research database.
 // Unverified mappings remain explicitly pending; this module does not invent Yantra/Herb assignments.
 (function () {
@@ -49,10 +49,18 @@
   function concernKey(value) {
     const v = String(value || '').toLowerCase();
     if (v === 'business' || v.indexOf('business') >= 0 || v.indexOf('economic') >= 0 || v.indexOf('finance') >= 0) return 'business';
+    if (v === 'enemy_opposition' || v.indexOf('enemy') >= 0 || v.indexOf('opposition') >= 0) return 'enemy_opposition';
+    if (v === 'janavashyam' || v.indexOf('janavash') >= 0 || v.indexOf('social influence') >= 0) return 'janavashyam';
+    if (v === 'child_parenthood' || v.indexOf('child') >= 0 || v.indexOf('parenthood') >= 0) return 'child_parenthood';
+    if (v === 'speech_vak_siddhi' || v.indexOf('speech') >= 0 || v.indexOf('vak') >= 0) return 'speech_vak_siddhi';
     if (v === 'marriage' || v.indexOf('marriage') >= 0) return 'marriage';
     if (v === 'love' || v.indexOf('love') >= 0) return 'love_relationship';
-    if (v === 'public' || v.indexOf('public') >= 0 || v.indexOf('visibility') >= 0 || v.indexOf('promotion') >= 0) return 'public_success';
-    return 'business';
+    if (v === 'career' || v.indexOf('career') >= 0 || v.indexOf('profession') >= 0) return 'career';
+    if (v === 'property_family' || v.indexOf('property') >= 0 || v.indexOf('family') >= 0) return 'property_family';
+    if (v === 'mental_peace' || v.indexOf('mental') >= 0 || v.indexOf('peace') >= 0) return 'mental_peace';
+    if (v === 'legal_conflict' || v.indexOf('legal') >= 0 || v.indexOf('conflict') >= 0) return 'legal_conflict';
+    if (v === 'health_wellbeing' || v.indexOf('health') >= 0 || v.indexOf('well-being') >= 0 || v.indexOf('wellbeing') >= 0) return 'health_wellbeing';
+    return 'other';
   }
 
   function findPlanetaryLagnaRule(db, lagna) {
@@ -92,6 +100,9 @@
       .aymp-planetary-link-card strong{display:block;font-size:.84rem}.aymp-planetary-link-card small{display:block;margin-top:3px;opacity:.6;font-size:.68rem}
       .aymp-planetary-link-card .pstatus{display:block;margin-top:7px;color:#ffd66a;font-size:.64rem}.aymp-planetary-meta{margin-top:8px;font-size:.65rem;opacity:.5}
       .aymp-focus-badge{display:inline-block;margin-top:5px;padding:3px 6px;border-radius:999px;background:#ffd66a;color:#171026;font-size:.58rem;font-weight:700}
+      .aymp-whatsapp-wrap{margin-top:14px;padding:14px;border-radius:14px;border:1px solid rgba(37,211,102,.28);background:rgba(37,211,102,.055)}
+      .aymp-whatsapp-btn{display:block;text-align:center;text-decoration:none;padding:13px 16px;border-radius:12px;background:#25d366;color:#071b0e;font-weight:800;font-size:.95rem;box-shadow:0 0 18px rgba(37,211,102,.18)}
+      .aymp-whatsapp-note{margin:7px 0 0;text-align:center;font-size:.68rem;opacity:.68;line-height:1.45}
       @media(max-width:600px){.aymp-lagna-result-grid{grid-template-columns:1fr}.aymp-planetary-link-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
     `;
     document.head.appendChild(style);
@@ -121,6 +132,32 @@
       '</div>';
   }
 
+  function whatsappBaseHref() {
+    const existing = document.querySelector('a.whatsapp[href]') || document.querySelector('a[href*="wa.me/"]');
+    return existing ? existing.getAttribute('href') : 'https://wa.me/';
+  }
+
+  function whatsappHTML(chart, concernText, planetaryRule) {
+    const focus = focusIds(planetaryRule);
+    const focusNames = focus.map(function(id){ const p = planetById(window.AYMPPlanetaryResearchDB || {}, id); return p ? p.name_en : id; }).join(', ');
+    const message = [
+      'AYMP Personalized Research Consultation',
+      'Lagna: ' + (chart.lagna || 'Pending'),
+      'Ascendant: ' + (chart.ascendantText || 'Pending'),
+      'Life Concern: ' + concernText,
+      focusNames ? 'Lagna Research Focus: ' + focusNames : 'Planetary Focus: Pending research verification',
+      '',
+      'I would like to discuss my personalized AYMP research guidance.'
+    ].join('\n');
+    const href = whatsappBaseHref();
+    const separator = href.indexOf('?') >= 0 ? '&' : '?';
+    const finalHref = href.replace(/[?&]text=[^&]*/i, '') + separator + 'text=' + encodeURIComponent(message);
+    return '<div class="aymp-whatsapp-wrap">' +
+      '<a class="aymp-whatsapp-btn" target="_blank" rel="noopener" href="' + esc(finalHref) + '">💬 Discuss This Concern on WhatsApp</a>' +
+      '<p class="aymp-whatsapp-note">Your selected Lagna, concern and current research focus will be included in the WhatsApp message.</p>' +
+      '</div>';
+  }
+
   function renderPendingBase(chart, concernText, planetaryDb, rule) {
     return '<div class="aymp-lagna-result-grid">' +
       '<div class="aymp-lagna-result-card"><b>Lagna</b><p>' + esc(chart.lagna) + ' — ' + esc(chart.ascendantText || '') + '</p></div>' +
@@ -128,6 +165,7 @@
       '</div>' +
       planetaryConnectionHTML(planetaryDb, rule) +
       '<div class="aymp-lagna-pending">Research rule pending for this Lagna / concern. No Yantra, herb or planetary mapping is being invented automatically.</div>' +
+      whatsappHTML(chart, concernText, rule) +
       '<span class="aymp-lagna-status">Status: pending AYMP research verification</span>';
   }
 
@@ -136,17 +174,27 @@
     const host = document.getElementById('aympPlanetaryResearchSection') || document.getElementById('guidanceForm');
     if (!host) return;
     addStyles();
+    window.AYMPPlanetaryResearchDB = planetaryDb;
     const section = document.createElement('section');
     section.id = 'aympLagnaResearchResult';
     section.className = 'aymp-lagna-result';
     section.innerHTML = `
       <h3>🧿 Personalized Lagna Research Result</h3>
-      <p class="sub">Lagna → research concern → planetary research database → Yantra / Herb research pathway</p>
+      <p class="sub">Lagna → life concern → planetary research database → Yantra / Herb research pathway</p>
       <select id="aympResearchConcernSelect" aria-label="Research concern">
         <option value="business">Business / Economic Improvement</option>
+        <option value="enemy_opposition">Enemy / Opposition Concerns</option>
+        <option value="janavashyam">Social Influence / Janavashyam Research</option>
+        <option value="child_parenthood">Children / Parenthood Concerns</option>
+        <option value="speech_vak_siddhi">Speech / Vāk Siddhi Research</option>
         <option value="marriage">Marriage / Relationship Concerns</option>
         <option value="love_relationship">Love / Relationship Concerns</option>
-        <option value="public_success">Public Life / Visibility Success</option>
+        <option value="career">Career / Profession</option>
+        <option value="property_family">Property / Family Concerns</option>
+        <option value="mental_peace">Mental Peace / Stress</option>
+        <option value="legal_conflict">Legal / Conflict Concerns</option>
+        <option value="health_wellbeing">Health / Well-being</option>
+        <option value="other">Other Personal Concern</option>
       </select>
       <div id="aympLagnaResearchResultBody"></div>
     `;
@@ -155,11 +203,12 @@
 
     function render() {
       const body = document.getElementById('aympLagnaResearchResultBody');
+      const select = document.getElementById('aympResearchConcernSelect');
       const chart = window.AYMPBirthChart || {};
       const id = lagnaId(chart);
       const lagna = id && rules.rules ? rules.rules[id] : null;
-      const concern = concernKey(document.getElementById('aympResearchConcernSelect').value);
-      const concernText = document.getElementById('aympResearchConcernSelect').selectedOptions[0].textContent;
+      const concern = concernKey(select.value);
+      const concernText = select.selectedOptions[0].textContent;
       const planetaryRule = findPlanetaryLagnaRule(planetaryDb, chart.lagna);
       const rule = lagna && lagna.life_concern ? lagna : null;
 
@@ -188,6 +237,7 @@
           '<div class="aymp-lagna-result-card" style="grid-column:1/-1"><b>Traditional Procedure Record</b><ol>' + procedure + '</ol></div>' +
           '</div>' +
           planetaryConnectionHTML(planetaryDb, linkedRule) +
+          whatsappHTML(chart, concernText, linkedRule) +
           '<span class="aymp-lagna-status">Status: user-provided research rule • verification pending • not a guaranteed outcome</span>';
       }
     }
