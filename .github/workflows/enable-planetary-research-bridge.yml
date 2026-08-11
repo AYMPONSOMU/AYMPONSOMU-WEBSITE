@@ -1,5 +1,6 @@
 name: Enable AYMP Planetary Research Bridge
 
+# Keeps the existing guidance engine connected to the dedicated planetary database.
 on:
   push:
     paths:
