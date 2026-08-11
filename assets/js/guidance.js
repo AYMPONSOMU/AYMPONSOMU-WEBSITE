@@ -48,94 +48,31 @@ document.addEventListener('DOMContentLoaded', function () {
   ];
 
   let audio = null;
-
   function esc(v){return String(v).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c];});}
-
-  function stopMusic(){
-    if(audio){audio.pause();audio.currentTime=0;audio=null;}
-  }
-
-  function playFile(file){
-    stopMusic();
-    audio=new Audio('assets/'+file);
-    audio.loop=true;
-    audio.volume=0.65;
-    const status=document.getElementById('musicStatus');
-    audio.play().then(function(){if(status)status.textContent='🎵 Sacred music playing...';}).catch(function(){if(status)status.textContent='Tap ▶ PLAY SACRED MUSIC to start.';});
-    audio.onerror=function(){if(status)status.textContent='⚠️ Music file could not be loaded: '+file;};
-  }
+  function stopMusic(){if(audio){audio.pause();audio.currentTime=0;audio=null;}}
+  function playFile(file){stopMusic();audio=new Audio('assets/'+file);audio.loop=true;audio.volume=0.65;const status=document.getElementById('musicStatus');audio.play().then(function(){if(status)status.textContent='🎵 Sacred music playing...';}).catch(function(){if(status)status.textContent='Tap ▶ PLAY SACRED MUSIC to start.';});audio.onerror=function(){if(status)status.textContent='⚠️ Music file could not be loaded: '+file;};}
 
   function showGuidance(index,name,dob,time,place){
-    const p=patterns[index];
-    const music=musicFiles[index%musicFiles.length];
-    const box=popup.querySelector('.guidance-content');
-    if(!box)return;
-    box.innerHTML=`
-      <div class="aymp-guidance-result">
-        <span class="close-popup" id="resultClose">×</span>
-        <div class="power-art-glow"><div class="energy-orbit"></div><div class="power-core">✦</div></div>
-        <h2>✨ AYMP PERSONAL GUIDANCE</h2>
-        <h3>Welcome, ${esc(name)}</h3>
-        <div class="birth-summary"><p>📅 <strong>Date:</strong> ${esc(dob)}</p><p>⏰ <strong>Time:</strong> ${esc(time)}</p><p>📍 <strong>Place:</strong> ${esc(place)}</p></div>
-        <div class="guidance-card"><h3>🌌 Your Cosmic Insight</h3><p>${esc(p[2])}</p></div>
-        <div class="sound-card">
-          <div class="sound-label">🔱 AYMP SACRED MANTRA</div>
-          <div id="changingSound" class="changing-sound sound-animate">${esc(p[1])}</div>
-          <div class="sound-title">${esc(p[0])}</div>
-          <div class="music-panel">
-            <div id="musicName">🎵 ${esc(music)}</div>
-            <button type="button" id="playMusicBtn">▶ PLAY SACRED MUSIC</button>
-            <button type="button" id="pauseMusicBtn">⏸ PAUSE</button>
-            <button type="button" id="stopMusicBtn">⏹ STOP</button>
-            <p id="musicStatus">🎵 Sacred music ready.</p>
-          </div>
-        </div>
-        <div class="guidance-card"><h3>🙏 Mantra Meaning</h3><p>${esc(p[2])}</p></div>
-        <div class="practice-card"><h3>🧘 Practice</h3><p>Repeat the mantra <strong>108 times</strong> if suitable for your personal practice.</p></div>
-        <button type="button" id="anotherGuidanceBtn">🔮 EXPERIENCE ANOTHER GUIDANCE</button>
-      </div>`;
-
+    const p=patterns[index],music=musicFiles[index%musicFiles.length],box=popup.querySelector('.guidance-content');if(!box)return;
+    box.innerHTML=`<div class="aymp-guidance-result"><span class="close-popup" id="resultClose">×</span><div class="power-art-glow"><div class="energy-orbit"></div><div class="power-core">✦</div></div><h2>✨ AYMP PERSONAL GUIDANCE</h2><h3>Welcome, ${esc(name)}</h3><div class="birth-summary"><p>📅 <strong>Date:</strong> ${esc(dob)}</p><p>⏰ <strong>Time:</strong> ${esc(time)}</p><p>📍 <strong>Place:</strong> ${esc(place)}</p></div><div class="guidance-card"><h3>🌌 Your Cosmic Insight</h3><p>${esc(p[2])}</p></div><div class="sound-card"><div class="sound-label">🔱 AYMP SACRED MANTRA</div><div id="changingSound" class="changing-sound sound-animate">${esc(p[1])}</div><div class="sound-title">${esc(p[0])}</div><div class="music-panel"><div id="musicName">🎵 ${esc(music)}</div><button type="button" id="playMusicBtn">▶ PLAY SACRED MUSIC</button><button type="button" id="pauseMusicBtn">⏸ PAUSE</button><button type="button" id="stopMusicBtn">⏹ STOP</button><p id="musicStatus">🎵 Sacred music ready.</p></div></div><div class="guidance-card"><h3>🙏 Mantra Meaning</h3><p>${esc(p[2])}</p></div><div class="practice-card"><h3>🧘 Practice</h3><p>Repeat the mantra <strong>108 times</strong> if suitable for your personal practice.</p></div><button type="button" id="anotherGuidanceBtn">🔮 EXPERIENCE ANOTHER GUIDANCE</button></div>`;
     document.getElementById('resultClose').onclick=function(){stopMusic();popup.style.display='none';};
     document.getElementById('playMusicBtn').onclick=function(){if(!audio)playFile(music);else audio.play().catch(function(){});};
     document.getElementById('pauseMusicBtn').onclick=function(){if(audio){audio.pause();document.getElementById('musicStatus').textContent='⏸ Sacred music paused.';}};
     document.getElementById('stopMusicBtn').onclick=function(){stopMusic();document.getElementById('musicStatus').textContent='⏹ Sacred music stopped.';};
-    document.getElementById('anotherGuidanceBtn').onclick=function(){
-      const n=Math.floor(Math.random()*patterns.length);showGuidance(n,name,dob,time,place);playFile(musicFiles[n%musicFiles.length]);
-    };
-
+    document.getElementById('anotherGuidanceBtn').onclick=function(){const n=Math.floor(Math.random()*patterns.length);showGuidance(n,name,dob,time,place);playFile(musicFiles[n%musicFiles.length]);};
     playFile(music);
   }
 
   if(openBtn)openBtn.onclick=function(){popup.style.display='block';};
   if(closeBtn)closeBtn.onclick=function(){stopMusic();popup.style.display='none';};
+  if(form)form.addEventListener('submit',function(e){e.preventDefault();const name=(document.getElementById('guidanceName')||{}).value?.trim()||'',dob=(document.getElementById('guidanceDob')||{}).value||'',time=(document.getElementById('guidanceTime')||{}).value||'',place=(document.getElementById('guidancePlace')||{}).value?.trim()||'';if(!name||!dob||!time||!place){alert('Please enter Name, Date of Birth, Birth Time and Place.');return;}let total=0;for(const c of name)total+=c.charCodeAt(0);for(const c of dob)if(!isNaN(parseInt(c)))total+=parseInt(c);for(const c of time)if(!isNaN(parseInt(c)))total+=parseInt(c);for(const c of place)total+=c.charCodeAt(0);showGuidance(total%patterns.length,name,dob,time,place);});
 
-  if(form)form.addEventListener('submit',function(e){
-    e.preventDefault();
-    const name=(document.getElementById('guidanceName')||{}).value?.trim()||'';
-    const dob=(document.getElementById('guidanceDob')||{}).value||'';
-    const time=(document.getElementById('guidanceTime')||{}).value||'';
-    const place=(document.getElementById('guidancePlace')||{}).value?.trim()||'';
-    if(!name||!dob||!time||!place){alert('Please enter Name, Date of Birth, Birth Time and Place.');return;}
-    let total=0;
-    for(const c of name)total+=c.charCodeAt(0);
-    for(const c of dob)if(!isNaN(parseInt(c)))total+=parseInt(c);
-    for(const c of time)if(!isNaN(parseInt(c)))total+=parseInt(c);
-    for(const c of place)total+=c.charCodeAt(0);
-    showGuidance(total%patterns.length,name,dob,time,place);
-  });
-
-  // Load the new research module separately so the existing guidance + music logic stays intact.
-  (function loadYantraHerbResearch(){
-    if(document.getElementById('aympYantraHerbResearchLoader')) return;
-    const css=document.createElement('link');
-    css.rel='stylesheet';
-    css.href='assets/css/yantra-herb-research.css';
-    document.head.appendChild(css);
-    const script=document.createElement('script');
-    script.id='aympYantraHerbResearchLoader';
-    script.src='assets/js/yantra-herb-research.js';
-    script.defer=true;
-    document.body.appendChild(script);
+  // Load the planetary database first, then the Yantra • Herb research module.
+  (function loadAYMPResearchModules(){
+    if(document.getElementById('aympPlanetaryResearchLoader')) return;
+    const planetary=document.createElement('script');planetary.id='aympPlanetaryResearchLoader';planetary.src='assets/js/planetary-research-db.js';planetary.defer=true;document.body.appendChild(planetary);
+    const css=document.createElement('link');css.rel='stylesheet';css.href='assets/css/yantra-herb-research.css';document.head.appendChild(css);
+    const script=document.createElement('script');script.id='aympYantraHerbResearchLoader';script.src='assets/js/yantra-herb-research.js';script.defer=true;document.body.appendChild(script);
   })();
 
   console.log('AYMP Personal Guidance Engine Ready');
