@@ -1,0 +1,61 @@
+name: Enable AYMP Planetary Research Bridge
+
+on:
+  push:
+    paths:
+      - 'assets/js/guidance.js'
+      - 'assets/js/planetary-research-db.js'
+      - '.github/workflows/enable-planetary-research-bridge.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  enable-bridge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Add planetary database bridge to guidance engine
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path('assets/js/guidance.js')
+          text = path.read_text(encoding='utf-8')
+          marker = 'AYMP_PLANETARY_RESEARCH_BRIDGE_V1'
+
+          if marker not in text:
+              addition = r'''
+
+// AYMP_PLANETARY_RESEARCH_BRIDGE_V1
+(function loadPlanetaryResearchBridge(){
+  function addBridge(){
+    if(document.getElementById('aympPlanetaryResearchDbLoader')) return;
+    const script=document.createElement('script');
+    script.id='aympPlanetaryResearchDbLoader';
+    script.src='assets/js/planetary-research-db.js';
+    script.defer=true;
+    document.body.appendChild(script);
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',addBridge);
+  else addBridge();
+})();
+'''
+              path.write_text(text + addition, encoding='utf-8')
+          PY
+
+      - name: Commit bridge activation
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/js/guidance.js
+          if git diff --cached --quiet; then
+            echo 'Bridge already active.'
+          else
+            git commit -m 'Connect planetary research database to guidance flow'
+            git push
+          fi
