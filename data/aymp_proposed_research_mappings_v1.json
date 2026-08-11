@@ -1,0 +1,169 @@
+{
+  "database_id": "aymp_proposed_research_mappings_v1",
+  "status": "PROPOSED_UNVERIFIED",
+  "purpose": "Candidate Yantra and herb mappings for the AYMP research engine. These are model-generated research candidates, not validated claims of efficacy.",
+  "important_note": "Do not present these mappings as guaranteed results. Promote them to APPROVED only after the AYMP research owner verifies them.",
+  "safety_note": "Herbs in this database are research/talisman records only. Do not infer ingestion or medical use. Abrus precatorius (kundrimani) is particularly hazardous if misused.",
+  "selection_method": "Use the user's Taurus-lagna example as the template, then create candidate records for the remaining lagnas by keeping the planetary research group and herb/Yantra choices explicitly marked as proposed.",
+  "lagnas": [
+    {
+      "id": "mesha",
+      "name_en": "Aries",
+      "name_ta": "மேஷம்",
+      "research_status": "PROPOSED_UNVERIFIED",
+      "life_concerns": {
+        "business": {"planet_group": ["mars","sun"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"},
+        "marriage": {"planet_group": ["venus","jupiter"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"},
+        "love_relationship": {"planet_group": ["venus","moon"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"},
+        "public_success": {"planet_group": ["sun","mars"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"}
+      }
+    },
+    {
+      "id": "rishabha",
+      "name_en": "Taurus",
+      "name_ta": "ரிஷபம்",
+      "research_status": "USER_PROVIDED_RULE",
+      "life_concerns": {
+        "business": {
+          "planet_group": ["jupiter","venus","moon","mars"],
+          "yantra_selection": "Select from the AYMP Phase-1 Yantra set after planetary research; exact choice remains pending.",
+          "herb_ids": ["thettangottai","saranai","peymiratti","ananthamoolam","nayuruvi","pachai_kundrimani","eralinjil","yanaivanangi","gopuranthangi","sarvelai","sirukanpeelai","nathaichoori","anjanam"],
+          "preparation_record": "6x6 copper plate research record; Yantra drawn and prepared as a talisman; herb set recorded; mantra/prayer and Bhagavathi prayer references recorded.",
+          "verification":"USER_PROVIDED_RESEARCH"
+        },
+        "marriage": {"planet_group": ["venus","jupiter"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"},
+        "love_relationship": {"planet_group": ["venus","moon"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"},
+        "public_success": {"planet_group": ["venus","sun"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"}
+      }
+    },
+    {
+      "id": "mithuna",
+      "name_en": "Gemini",
+      "name_ta": "மிதுனம்",
+      "research_status": "PROPOSED_UNVERIFIED",
+      "life_concerns": {
+        "business": {"planet_group": ["mercury","venus"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"},
+        "marriage": {"planet_group": ["jupiter","venus"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"},
+        "love_relationship": {"planet_group": ["venus","mercury"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"},
+        "public_success": {"planet_group": ["mercury","sun"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"}
+      }
+    },
+    {
+      "id": "kataka",
+      "name_en": "Cancer",
+      "name_ta": "கடகம்",
+      "research_status": "PROPOSED_UNVERIFIED",
+      "life_concerns": {
+        "business": {"planet_group": ["moon","mars"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"},
+        "marriage": {"planet_group": ["jupiter","venus"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"},
+        "love_relationship": {"planet_group": ["moon","venus"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"},
+        "public_success": {"planet_group": ["moon","sun"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"}
+      }
+    },
+    {
+      "id": "simha",
+      "name_en": "Leo",
+      "name_ta": "சிம்மம்",
+      "research_status": "PROPOSED_UNVERIFIED",
+      "life_concerns": {
+        "business": {"planet_group": ["sun","mars","jupiter"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"},
+        "marriage": {"planet_group": ["venus","jupiter"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"},
+        "love_relationship": {"planet_group": ["venus","moon"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"},
+        "public_success": {"planet_group": ["sun","jupiter"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"}
+      }
+    },
+    {
+      "id": "kanya",
+      "name_en": "Virgo",
+      "name_ta": "கன்னி",
+      "research_status": "PROPOSED_UNVERIFIED",
+      "life_concerns": {
+        "business": {"planet_group": ["mercury","venus"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"},
+        "marriage": {"planet_group": ["venus","jupiter"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"},
+        "love_relationship": {"planet_group": ["venus","mercury"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"},
+        "public_success": {"planet_group": ["mercury","sun"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"}
+      }
+    },
+    {
+      "id": "tula",
+      "name_en": "Libra",
+      "name_ta": "துலாம்",
+      "research_status": "PROPOSED_UNVERIFIED",
+      "life_concerns": {
+        "business": {"planet_group": ["venus","mercury","saturn"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"},
+        "marriage": {"planet_group": ["venus","saturn","jupiter"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"},
+        "love_relationship": {"planet_group": ["venus","moon"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"},
+        "public_success": {"planet_group": ["venus","sun"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"}
+      }
+    },
+    {
+      "id": "vrischika",
+      "name_en": "Scorpio",
+      "name_ta": "விருச்சிகம்",
+      "research_status": "PROPOSED_UNVERIFIED",
+      "life_concerns": {
+        "business": {"planet_group": ["mars","jupiter"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"},
+        "marriage": {"planet_group": ["venus","jupiter"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"},
+        "love_relationship": {"planet_group": ["mars","venus","moon"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"},
+        "public_success": {"planet_group": ["mars","sun"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"}
+      }
+    },
+    {
+      "id": "dhanus",
+      "name_en": "Sagittarius",
+      "name_ta": "தனுசு",
+      "research_status": "PROPOSED_UNVERIFIED",
+      "life_concerns": {
+        "business": {"planet_group": ["jupiter","sun"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"},
+        "marriage": {"planet_group": ["venus","jupiter"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"},
+        "love_relationship": {"planet_group": ["venus","moon"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"},
+        "public_success": {"planet_group": ["jupiter","sun"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"}
+      }
+    },
+    {
+      "id": "makara",
+      "name_en": "Capricorn",
+      "name_ta": "மகரம்",
+      "research_status": "PROPOSED_UNVERIFIED",
+      "life_concerns": {
+        "business": {"planet_group": ["saturn","mercury"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"},
+        "marriage": {"planet_group": ["venus","saturn"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"},
+        "love_relationship": {"planet_group": ["venus","moon"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"},
+        "public_success": {"planet_group": ["saturn","sun"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"}
+      }
+    },
+    {
+      "id": "kumbha",
+      "name_en": "Aquarius",
+      "name_ta": "கும்பம்",
+      "research_status": "PROPOSED_UNVERIFIED",
+      "life_concerns": {
+        "business": {"planet_group": ["saturn","mercury"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"},
+        "marriage": {"planet_group": ["venus","saturn"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"},
+        "love_relationship": {"planet_group": ["venus","moon"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"},
+        "public_success": {"planet_group": ["saturn","sun"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"}
+      }
+    },
+    {
+      "id": "meena",
+      "name_en": "Pisces",
+      "name_ta": "மீனம்",
+      "research_status": "PROPOSED_UNVERIFIED",
+      "life_concerns": {
+        "business": {"planet_group": ["jupiter","mercury"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"},
+        "marriage": {"planet_group": ["venus","jupiter"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"},
+        "love_relationship": {"planet_group": ["venus","moon"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"},
+        "public_success": {"planet_group": ["jupiter","sun"],"yantra_id":"proposed","herb_ids":[],"verification":"pending"}
+      }
+    }
+  ],
+  "yantra_selection_policy": {
+    "available_phase_1_records": 8,
+    "rule": "A Yantra must be selected only after the AYMP research owner defines or approves the exact planet-to-Yantra relationship. Until then, display the candidate state as proposed/pending.",
+    "current_default": "No automatic Yantra assignment"
+  },
+  "herb_selection_policy": {
+    "rule": "Herbs should be selected from the AYMP 35-herb research database only after the relevant research mapping is approved.",
+    "current_default": "No automatic herb assignment except the user-provided Taurus business rule"
+  }
+}
