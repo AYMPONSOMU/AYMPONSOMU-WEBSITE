@@ -1,0 +1,84 @@
+{
+  "database": {
+    "id": "aymp_lagna_research_rules_v1",
+    "name": "AYMP Lagna Research Rules",
+    "version": "1.0.0",
+    "default_language": "en",
+    "status": "research_framework",
+    "principle": "Only user-provided and subsequently verified AYMP research rules are used for automatic results. Unverified mappings remain pending."
+  },
+  "lagna_list": [
+    {"id":"mesha","name_en":"Aries","name_ta":"மேஷம்","status":"pending"},
+    {"id":"rishabha","name_en":"Taurus","name_ta":"ரிஷபம்","status":"configured"},
+    {"id":"mithuna","name_en":"Gemini","name_ta":"மிதுனம்","status":"pending"},
+    {"id":"kataka","name_en":"Cancer","name_ta":"கடகம்","status":"pending"},
+    {"id":"simha","name_en":"Leo","name_ta":"சிம்மம்","status":"pending"},
+    {"id":"kanya","name_en":"Virgo","name_ta":"கன்னி","status":"pending"},
+    {"id":"tula","name_en":"Libra","name_ta":"துலாம்","status":"pending"},
+    {"id":"vrischika","name_en":"Scorpio","name_ta":"விருச்சிகம்","status":"pending"},
+    {"id":"dhanus","name_en":"Sagittarius","name_ta":"தனுசு","status":"pending"},
+    {"id":"makara","name_en":"Capricorn","name_ta":"மகரம்","status":"pending"},
+    {"id":"kumbha","name_en":"Aquarius","name_ta":"கும்பம்","status":"pending"},
+    {"id":"meena","name_en":"Pisces","name_ta":"மீனம்","status":"pending"}
+  ],
+  "rules": {
+    "rishabha": {
+      "name_en": "Taurus Ascendant",
+      "source": "User-provided AYMP research rule",
+      "life_concern": "Economic / Financial Improvement",
+      "planet_group": ["jupiter","venus","moon","mars"],
+      "planet_group_names_en": ["Jupiter","Venus","Moon","Mars"],
+      "research_intention": "Research the specified four-planet group for the user's economic-improvement pathway.",
+      "yantra_selection": {
+        "method": "Select from the approved AYMP Yantra records according to the user's research determination.",
+        "status": "pending"
+      },
+      "copper_plate": {
+        "size": "6x6",
+        "material": "Copper",
+        "form": "Yantra drawn on copper plate and prepared as a talisman according to the user's traditional research procedure.",
+        "status": "research_record"
+      },
+      "herb_set": [
+        {"name_ta":"தேத்தாங்கொட்டை","name_en":"Thettangottai"},
+        {"name_ta":"சாரணை","name_en":"Saranai"},
+        {"name_ta":"பேய்மிரட்டி","name_en":"Peymiratti"},
+        {"name_ta":"அனந்தமூலம்","name_en":"Ananthamoolam"},
+        {"name_ta":"நாயுருவி","name_en":"Nayuruvi"},
+        {"name_ta":"பச்சை குன்றிமணி","name_en":"Pachai Kundrimani"},
+        {"name_ta":"ஏறழிஞ்சில்","name_en":"Eralinjinil"},
+        {"name_ta":"யாணைவணங்கி","name_en":"Yanaivanangi"},
+        {"name_ta":"கோபுரந்தாங்கி","name_en":"Gopuranthangi"},
+        {"name_ta":"சார்வேளை","name_en":"Sarvelai"},
+        {"name_ta":"சிறுகண்பீளை","name_en":"Sirukanpeelai"},
+        {"name_ta":"நத்தைசூரி","name_en":"Nathaichoori"},
+        {"name_ta":"அஞ்சனம்","name_en":"Anjanam"}
+      ],
+      "traditional_procedure": {
+        "sequence": [
+          "Research the specified four planets for the Taurus ascendant case.",
+          "Select an approved Yantra record according to the AYMP research rule.",
+          "Draw the selected Yantra on a 6x6 copper plate.",
+          "Prepare the copper plate in talisman form.",
+          "Place the specified research herb set according to the traditional research procedure.",
+          "Close the talisman and perform the user's specified mantra/prayer practice.",
+          "Apply turmeric and kumkum as part of the traditional ritual record.",
+          "Offer Bhagavathi prayer according to the user's stated tradition.",
+          "Provide the recommended prayer time as a guidance record."
+        ],
+        "status": "research_record"
+      },
+      "claimed_outcome": {
+        "text": "User states that this traditional method is intended to support economic improvement for the relevant research case.",
+        "presentation": "traditional_research_claim_not_guarantee"
+      },
+      "verification_status": "user_provided_pending_verification"
+    }
+  },
+  "result_template": {
+    "input": ["name","dob","birth_time","birth_place","lagna","life_concern"],
+    "analysis": ["planet_group","planetary_findings","research_rule_id","affected_status"],
+    "output": ["yantra","herb_set","traditional_procedure","mantra_reference","prayer_time","research_notes","verification_status"],
+    "unconfigured_lagna_behavior": "Show 'Research rule pending' and do not invent a result."
+  }
+}
