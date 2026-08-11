@@ -6,6 +6,7 @@ on:
     paths:
       - 'assets/js/guidance.js'
       - 'assets/js/planetary-research-db.js'
+      - 'assets/js/aymp-lagna-research-result.js'
       - '.github/workflows/enable-planetary-research-bridge.yml'
 
 permissions:
@@ -45,7 +46,29 @@ jobs:
   else addBridge();
 })();
 '''
-              path.write_text(text + addition, encoding='utf-8')
+              text += addition
+
+          # Load the Lagna-to-research result engine after the existing guidance modules.
+          marker2 = 'AYMP_LAGNA_RESEARCH_RESULT_ENGINE_V1'
+          if marker2 not in text:
+              text += r'''
+
+// AYMP_LAGNA_RESEARCH_RESULT_ENGINE_V1
+(function loadLagnaResearchResultEngine(){
+  function addEngine(){
+    if(document.getElementById('aympLagnaResearchResultLoader')) return;
+    const script=document.createElement('script');
+    script.id='aympLagnaResearchResultLoader';
+    script.src='assets/js/aymp-lagna-research-result.js';
+    script.defer=true;
+    document.body.appendChild(script);
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',addEngine);
+  else addEngine();
+})();
+'''
+
+          path.write_text(text, encoding='utf-8')
           PY
 
       - name: Commit bridge activation
@@ -57,6 +80,6 @@ jobs:
           if git diff --cached --quiet; then
             echo 'Bridge already active.'
           else
-            git commit -m 'Connect planetary research database to guidance flow'
+            git commit -m 'Connect Lagna research result engine to guidance flow'
             git push
           fi
