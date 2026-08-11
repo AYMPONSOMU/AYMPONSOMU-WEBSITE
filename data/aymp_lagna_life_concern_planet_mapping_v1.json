@@ -1,1 +1,27 @@
-PLACEHOLDER
+{
+  "database": {
+    "id": "aymp_lagna_life_concern_planet_mapping_v1",
+    "name": "AYMP 12 Lagna × Life Concern × 9 Planet Research Mapping",
+    "version": "1.0.0",
+    "purpose": "Central mapping layer between calculated Lagna, selected life concern and the nine-planet research database.",
+    "status_policy": "Every combination exists in the matrix. Planetary focus, Yantra, herb, mantra and talisman links are populated only from AYMP research records or approved sources; otherwise the result remains pending."
+  },
+  "lagnas": [
+    {"id":"mesha","name_en":"Aries","name_ta":"மேஷம்"},{"id":"rishabha","name_en":"Taurus","name_ta":"ரிஷபம்"},{"id":"mithuna","name_en":"Gemini","name_ta":"மிதுனம்"},{"id":"kataka","name_en":"Cancer","name_ta":"கடகம்"},{"id":"simha","name_en":"Leo","name_ta":"சிம்மம்"},{"id":"kanya","name_en":"Virgo","name_ta":"கன்னி"},{"id":"tula","name_en":"Libra","name_ta":"துலாம்"},{"id":"vrischika","name_en":"Scorpio","name_ta":"விருச்சிகம்"},{"id":"dhanus","name_en":"Sagittarius","name_ta":"தனுசு"},{"id":"makara","name_en":"Capricorn","name_ta":"மகரம்"},{"id":"kumbha","name_en":"Aquarius","name_ta":"கும்பம்"},{"id":"meena","name_en":"Pisces","name_ta":"மீனம்"}
+  ],
+  "life_concerns": [
+    {"id":"business","label_en":"Business Growth","label_ta":"வியாபார விருத்தி"},{"id":"economic_improvement","label_en":"Economic / Financial Improvement","label_ta":"பொருளாதார முன்னேற்றம்"},{"id":"marriage","label_en":"Marriage / Relationship Concerns","label_ta":"திருமண / உறவு பிரச்சினைகள்"},{"id":"love_relationship","label_en":"Love / Relationship Concerns","label_ta":"காதல் / உறவு பிரச்சினைகள்"},{"id":"public_success","label_en":"Public Life Success","label_ta":"பொதுவாழ்வில் வெற்றி"},{"id":"promotion_visibility","label_en":"Promotion / Visibility","label_ta":"விளம்பர / வெளிப்பாடு வெற்றி"},{"id":"enemy_opposition","label_en":"Enemy / Opposition Concerns","label_ta":"எதிரித் தொல்லை"},{"id":"social_influence","label_en":"Social Influence / Janavashyam Research","label_ta":"ஜனவஸ்யம் / சமூக செல்வாக்கு ஆய்வு"},{"id":"children_parenthood","label_en":"Children / Parenthood Concerns","label_ta":"குழந்தை / பெற்றோர் தொடர்பான பிரச்சினைகள்"},{"id":"speech_vak_siddhi","label_en":"Speech / Vāk Siddhi Research","label_ta":"வாக்குபலிதம் / பேச்சு தொடர்பான ஆய்வு"},{"id":"career_profession","label_en":"Career / Profession","label_ta":"தொழில் / வேலை"},{"id":"property_family","label_en":"Property / Family Concerns","label_ta":"சொத்து / குடும்பப் பிரச்சினைகள்"},{"id":"mental_peace","label_en":"Mental Peace / Stress","label_ta":"மன அமைதி / மன அழுத்தம்"},{"id":"legal_conflict","label_en":"Legal / Conflict Concerns","label_ta":"சட்ட / மோதல் பிரச்சினைகள்"},{"id":"health_wellbeing","label_en":"Health / Well-being","label_ta":"உடல்நலம் / நல்வாழ்வு"},{"id":"other","label_en":"Other Personal Guidance","label_ta":"மற்ற தனிப்பட்ட வழிகாட்டுதல்"}
+  ],
+  "planet_ids": ["sun","moon","mars","mercury","jupiter","venus","saturn","rahu","ketu"],
+  "matrix": {
+    "coverage": "12_lagnas × 16_life_concerns = 192 mapping combinations",
+    "default": {"planetary_focus":[],"matched_planet_rule_ids":[],"approved_herb_ids":[],"approved_yantra_ids":[],"mantra_ids":[],"talisman_ids":[],"status":"research_mapping_pending","verification_status":"pending","notes":"No planetary or traditional remedy mapping is inferred automatically."},
+    "overrides": [
+      {"lagna_id":"rishabha","life_concern_id":"business","planetary_focus":["jupiter","venus","moon","mars"],"matched_planet_rule_ids":["rishabha_lagna_economic_change_v1"],"status":"mapped_user_research_rule","verification_status":"pending","source":"User-provided AYMP traditional research rule"},
+      {"lagna_id":"rishabha","life_concern_id":"economic_improvement","planetary_focus":["jupiter","venus","moon","mars"],"matched_planet_rule_ids":["rishabha_lagna_economic_change_v1"],"status":"mapped_user_research_rule","verification_status":"pending","source":"User-provided AYMP traditional research rule"}
+    ]
+  },
+  "engine_contract": {"input":["lagna_id","life_concern_id","planetary_positions"],"steps":["Validate exact Lagna and life concern IDs.","Resolve the matrix override; otherwise use the pending default record.","Join planetary_focus IDs to data/planetary_research_database_v1.json.","Use only approved herb, Yantra, mantra and talisman IDs from research records.","Return pending status when no verified mapping exists.","Offer WhatsApp consultation for direct personal discussion without guaranteeing outcomes."],"output":["selected_lagna","selected_life_concern","planetary_focus","planetary_records","approved_herb_ids","approved_yantra_ids","mantra_ids","talisman_ids","verification_status"]},
+  "safety_and_research_policy": {"traditional_guidance":"Present AYMP spiritual/traditional research as research or guidance, not as guaranteed medical, fertility, financial or legal outcomes.","children_parenthood":"Do not diagnose infertility or promise conception; route medical concerns to qualified healthcare professionals.","health_wellbeing":"Do not replace medical diagnosis or treatment.","legal_conflict":"Do not replace qualified legal advice.","financial":"Do not guarantee financial gain or investment returns."},
+  "integration": {"lagna_engine":"assets/js/aymp-vedic-lagna-engine.js","personal_result_engine":"assets/js/aymp-lagna-research-result.js","planetary_database":"data/planetary_research_database_v1.json","guidance_entry":"GET MY PERSONAL GUIDANCE","research_button":"Yantra • Herb • Tantric Research"}
+}
