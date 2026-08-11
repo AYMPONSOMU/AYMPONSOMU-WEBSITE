@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "purpose": "AYMP personalized research consultation cycle records",
+  "cycle_duration_days": 90,
+  "rules": {
+    "one_active_cycle_per_person": true,
+    "new_cycle_after_review": true,
+    "do_not_auto_repeat_previous_method": true,
+    "status_values": ["active", "review_due", "completed", "superseded"],
+    "outcome_language": "traditional_spiritual_research_guidance_only"
+  },
+  "record_template": {
+    "research_id": "AYMP-YYYYMMDD-XXXX",
+    "person_id": "local-private-id",
+    "created_at": "",
+    "birth": {
+      "date": "",
+      "time": "",
+      "place": "",
+      "timezone": "",
+      "latitude": null,
+      "longitude": null,
+      "lagna": "",
+      "ascendant_degree": null
+    },
+    "concern": {
+      "key": "",
+      "label": ""
+    },
+    "planetary_focus": [],
+    "yantra_research_id": "",
+    "herb_research_ids": [],
+    "mantra_research_id": "",
+    "guidance_schedule": [],
+    "cycle": {
+      "number": 1,
+      "start_date": "",
+      "review_date": "",
+      "duration_days": 90,
+      "status": "active"
+    },
+    "review": {
+      "previous_cycle_id": null,
+      "current_concern": "",
+      "notes": "",
+      "next_research_direction": ""
+    }
+  },
+  "records": []
+}
