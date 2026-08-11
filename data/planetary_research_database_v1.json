@@ -1,0 +1,266 @@
+{
+  "database": {
+    "id": "aymp_planetary_research_v1",
+    "name": "AYMP Planetary Research Database",
+    "version": "1.0.0",
+    "phase": "Research Structure",
+    "language_default": "en",
+    "purpose": "Structured research records for the nine planetary entities used by the AYMP Personal Guidance research flow.",
+    "status_policy": "Research relationships remain pending until they are entered and approved within the AYMP research framework."
+  },
+  "planets": [
+    {
+      "id": "sun",
+      "name_en": "Sun",
+      "name_ta": "சூரியன்",
+      "order": 1,
+      "research": {
+        "position": "",
+        "house": "",
+        "sign": "",
+        "strength": "",
+        "challenge": "",
+        "research_interpretation": "",
+        "affected_status": "pending",
+        "source_references": [],
+        "verification_status": "pending"
+      },
+      "approved_links": {
+        "herb_ids": [],
+        "yantra_ids": [],
+        "mantra_ids": [],
+        "talisman_ids": []
+      }
+    },
+    {
+      "id": "moon",
+      "name_en": "Moon",
+      "name_ta": "சந்திரன்",
+      "order": 2,
+      "research": {
+        "position": "",
+        "house": "",
+        "sign": "",
+        "strength": "",
+        "challenge": "",
+        "research_interpretation": "",
+        "affected_status": "pending",
+        "source_references": [],
+        "verification_status": "pending"
+      },
+      "approved_links": {
+        "herb_ids": [],
+        "yantra_ids": [],
+        "mantra_ids": [],
+        "talisman_ids": []
+      }
+    },
+    {
+      "id": "mars",
+      "name_en": "Mars",
+      "name_ta": "செவ்வாய்",
+      "order": 3,
+      "research": {
+        "position": "",
+        "house": "",
+        "sign": "",
+        "strength": "",
+        "challenge": "",
+        "research_interpretation": "",
+        "affected_status": "pending",
+        "source_references": [],
+        "verification_status": "pending"
+      },
+      "approved_links": {
+        "herb_ids": [],
+        "yantra_ids": [],
+        "mantra_ids": [],
+        "talisman_ids": []
+      }
+    },
+    {
+      "id": "mercury",
+      "name_en": "Mercury",
+      "name_ta": "புதன்",
+      "order": 4,
+      "research": {
+        "position": "",
+        "house": "",
+        "sign": "",
+        "strength": "",
+        "challenge": "",
+        "research_interpretation": "",
+        "affected_status": "pending",
+        "source_references": [],
+        "verification_status": "pending"
+      },
+      "approved_links": {
+        "herb_ids": [],
+        "yantra_ids": [],
+        "mantra_ids": [],
+        "talisman_ids": []
+      }
+    },
+    {
+      "id": "jupiter",
+      "name_en": "Jupiter",
+      "name_ta": "குரு",
+      "order": 5,
+      "research": {
+        "position": "",
+        "house": "",
+        "sign": "",
+        "strength": "",
+        "challenge": "",
+        "research_interpretation": "",
+        "affected_status": "pending",
+        "source_references": [],
+        "verification_status": "pending"
+      },
+      "approved_links": {
+        "herb_ids": [],
+        "yantra_ids": [],
+        "mantra_ids": [],
+        "talisman_ids": []
+      }
+    },
+    {
+      "id": "venus",
+      "name_en": "Venus",
+      "name_ta": "சுக்கிரன்",
+      "order": 6,
+      "research": {
+        "position": "",
+        "house": "",
+        "sign": "",
+        "strength": "",
+        "challenge": "",
+        "research_interpretation": "",
+        "affected_status": "pending",
+        "source_references": [],
+        "verification_status": "pending"
+      },
+      "approved_links": {
+        "herb_ids": [],
+        "yantra_ids": [],
+        "mantra_ids": [],
+        "talisman_ids": []
+      }
+    },
+    {
+      "id": "saturn",
+      "name_en": "Saturn",
+      "name_ta": "சனி",
+      "order": 7,
+      "research": {
+        "position": "",
+        "house": "",
+        "sign": "",
+        "strength": "",
+        "challenge": "",
+        "research_interpretation": "",
+        "affected_status": "pending",
+        "source_references": [],
+        "verification_status": "pending"
+      },
+      "approved_links": {
+        "herb_ids": [],
+        "yantra_ids": [],
+        "mantra_ids": [],
+        "talisman_ids": []
+      }
+    },
+    {
+      "id": "rahu",
+      "name_en": "Rahu",
+      "name_ta": "ராகு",
+      "order": 8,
+      "research": {
+        "position": "",
+        "house": "",
+        "sign": "",
+        "strength": "",
+        "challenge": "",
+        "research_interpretation": "",
+        "affected_status": "pending",
+        "source_references": [],
+        "verification_status": "pending"
+      },
+      "approved_links": {
+        "herb_ids": [],
+        "yantra_ids": [],
+        "mantra_ids": [],
+        "talisman_ids": []
+      }
+    },
+    {
+      "id": "ketu",
+      "name_en": "Ketu",
+      "name_ta": "கேது",
+      "order": 9,
+      "research": {
+        "position": "",
+        "house": "",
+        "sign": "",
+        "strength": "",
+        "challenge": "",
+        "research_interpretation": "",
+        "affected_status": "pending",
+        "source_references": [],
+        "verification_status": "pending"
+      },
+      "approved_links": {
+        "herb_ids": [],
+        "yantra_ids": [],
+        "mantra_ids": [],
+        "talisman_ids": []
+      }
+    }
+  ],
+  "analysis_schema": {
+    "birth_input": ["name", "dob", "birth_time", "birth_place"],
+    "planetary_fields": [
+      "planet_id",
+      "position",
+      "house",
+      "sign",
+      "strength",
+      "challenge",
+      "research_interpretation",
+      "affected_status",
+      "source_references",
+      "verification_status"
+    ],
+    "research_result": {
+      "affected_planets": [],
+      "selected_life_concern": "",
+      "approved_herb_ids": [],
+      "approved_yantra_ids": [],
+      "mantra_ids": [],
+      "talisman_ids": [],
+      "traditional_guidance_reference": "",
+      "verification_status": "pending"
+    }
+  },
+  "life_concerns": [
+    {"id": "business", "label_en": "Business Growth", "label_ta": "வியாபார விருத்தி"},
+    {"id": "marriage", "label_en": "Marriage-Related Concerns", "label_ta": "திருமணத் தொடர்பான பிரச்சினைகள்"},
+    {"id": "love_relationship", "label_en": "Love / Relationship Concerns", "label_ta": "காதல் / உறவு பிரச்சினைகள்"},
+    {"id": "public_success", "label_en": "Public Life Success", "label_ta": "பொதுவாழ்வில் வெற்றி"},
+    {"id": "promotion_visibility", "label_en": "Promotion / Visibility", "label_ta": "விளம்பர / visibility வெற்றி"},
+    {"id": "other", "label_en": "Other Personal Guidance", "label_ta": "மற்ற தனிப்பட்ட வழிகாட்டுதல்"}
+  ],
+  "mapping_rules": {
+    "planet_to_herb": "pending_until_approved",
+    "planet_to_yantra": "pending_until_approved",
+    "planet_to_mantra": "pending_until_approved",
+    "planet_to_talisman": "pending_until_approved",
+    "principle": "Do not automatically present an unverified traditional association as an established fact."
+  },
+  "integration": {
+    "existing_database": "data/aymp_cosmic_yantra_herb_tantric_guidance_v2.json",
+    "guidance_entry": "GET MY PERSONAL GUIDANCE",
+    "research_button": "Yantra • Herb • Tantric Research",
+    "next_engine": "birth_details -> planetary_analysis -> selected_life_concern -> approved_research_mapping -> personal_guidance"
+  }
+}
