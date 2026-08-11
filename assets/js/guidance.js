@@ -124,5 +124,19 @@ document.addEventListener('DOMContentLoaded', function () {
     showGuidance(total%patterns.length,name,dob,time,place);
   });
 
+  // Load the new research module separately so the existing guidance + music logic stays intact.
+  (function loadYantraHerbResearch(){
+    if(document.getElementById('aympYantraHerbResearchLoader')) return;
+    const css=document.createElement('link');
+    css.rel='stylesheet';
+    css.href='assets/css/yantra-herb-research.css';
+    document.head.appendChild(css);
+    const script=document.createElement('script');
+    script.id='aympYantraHerbResearchLoader';
+    script.src='assets/js/yantra-herb-research.js';
+    script.defer=true;
+    document.body.appendChild(script);
+  })();
+
   console.log('AYMP Personal Guidance Engine Ready');
 });
