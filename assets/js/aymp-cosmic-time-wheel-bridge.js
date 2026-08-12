@@ -31,17 +31,19 @@
   function restoreMantraBox(){
     const result=document.querySelector('.aymp-guidance-result');
     if(!result || result.querySelector('.aymp-mantra-glow-box')) return;
-    const candidates=Array.from(result.children || []);
-    const target=candidates.find(function(el){
+    const all=Array.from(result.querySelectorAll('*'));
+    let match=all.find(function(el){
       const text=(el.textContent||'').toLowerCase();
       return text.includes('aymp sacred mantra') || text.includes('mantra meaning');
     });
-    if(!target) return;
+    if(!match) return;
+    while(match.parentElement && match.parentElement!==result) match=match.parentElement;
+    if(match===result || !match.parentNode) return;
     addMantraStyles();
     const box=document.createElement('div');
     box.className='aymp-mantra-glow-box';
-    target.parentNode.insertBefore(box,target);
-    box.appendChild(target);
+    match.parentNode.insertBefore(box,match);
+    box.appendChild(match);
   }
 
   function mountButton(){
