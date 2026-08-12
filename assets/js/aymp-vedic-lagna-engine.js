@@ -1,5 +1,6 @@
 /* AYMP Vedic Lagna Engine v3
  * Global birth-place/timezone resolution + Swiss Ephemeris + Lahiri sidereal zodiac.
+ * IMPORTANT: calculation engine must not inject result/research cards into the birth-details form.
  */
 (function(){
 'use strict';
@@ -57,44 +58,23 @@ async function calculate(dateValue,timeValue,place){
  const swe=new SwissEphemeris();
  await swe.init();
  const jd=swe.dateToJulianDay(utc);
- /* Houses are returned as ecliptic longitudes. We calculate the tropical ASC and
-    convert it to Lahiri sidereal longitude explicitly, which avoids relying on
-    an implicit global sidereal setting. */
  const houseSystem=Math.abs(loc.lat)>66?(HouseSystem.WholeSign??HouseSystem.Equal):HouseSystem.Placidus;
  const houses=swe.calculateHouses(jd,loc.lat,loc.lon,houseSystem);
  if(!houses||typeof houses.ascendant!=='number')throw Error('Ascendant calculation failed.');
  const tropicalAsc=norm(houses.ascendant);
- let ayan;
- if(SiderealMode&&SiderealMode.Lahiri!==undefined&&typeof swe.setSiderealMode==='function'){
-   swe.setSiderealMode(SiderealMode.Lahiri);
- }
- ayan=Number(swe.getAyanamsa(jd));
+ if(SiderealMode&&SiderealMode.Lahiri!==undefined&&typeof swe.setSiderealMode==='function')swe.setSiderealMode(SiderealMode.Lahiri);
+ const ayan=Number(swe.getAyanamsa(jd));
  const siderealAsc=norm(tropicalAsc-ayan);
  const result={lagna:signName(siderealAsc),ascendantDegrees:siderealAsc,ascendantText:degText(siderealAsc),tropicalAscendantDegrees:tropicalAsc,ayanamsa:ayan,latitude:loc.lat,longitude:loc.lon,placeResolved:loc.display,timezone:zone,birthUTC:utc.toISOString(),zodiac:'Sidereal',ayanamsaName:'Lahiri',houseSystem:houseSystem===HouseSystem.Placidus?'Placidus':(houseSystem===HouseSystem.WholeSign?'Whole Sign':'Equal'),julianDay:jd};
  swe.close();
  return result;
 }
-function val(sel){for(const s of sel){const e=document.querySelector(s);if(e&&e.value)return e.value.trim();}return '';}
-function ensureUI(){
- const form=document.getElementById('guidanceForm');if(!form||document.getElementById('aympLagnaResult'))return;
- const box=document.createElement('div');box.id='aympLagnaResult';box.className='research-section';
- box.innerHTML='<h4>🌌 Vedic Birth Calculation</h4><div class="research-grid"><div class="research-card"><b>Lagna</b><span id="aympLagnaValue">Pending</span></div><div class="research-card"><b>Ascendant</b><span id="aympAscValue">Pending</span></div><div class="research-card"><b>Birth Time Zone</b><span id="aympTzValue">Pending</span></div></div><p id="aympLagnaStatus" class="research-save-status"></p>';
- const btn=document.getElementById('aympPersonalResearchButton');if(btn)btn.parentNode.insertBefore(box,btn);else form.appendChild(box);
-}
 async function calculateFromForm(){
+ const val=function(selectors){for(const s of selectors){const e=document.querySelector(s);if(e&&e.value)return e.value.trim();}return '';};
  const date=val(['#guidanceDob','[name="dob"]','input[type="date"]']);
  const time=val(['#guidanceTime','[name="birth_time"]','[name="birthTime"]','input[type="time"]']);
  const place=val(['#guidancePlace','[name="birth_place"]','[name="birthPlace"]','[name="place"]']);
- ensureUI();
- const status=document.getElementById('aympLagnaStatus');if(status)status.textContent='Resolving birthplace timezone and calculating Lahiri sidereal Lagna…';
- const r=await calculate(date,time,place);
- document.getElementById('aympLagnaValue').textContent=r.lagna;
- document.getElementById('aympAscValue').textContent=r.ascendantText;
- document.getElementById('aympTzValue').textContent=r.timezone;
- if(status)status.textContent='✓ Global timezone + Lahiri sidereal calculation • '+r.placeResolved;
- window.AYMPBirthChart={...r};
- return r;
+ return calculate(date,time,place);
 }
 window.AYMPLagnaEngine={calculate,calculateFromForm};
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ensureUI);else ensureUI();
 })();
