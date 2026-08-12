@@ -7,19 +7,26 @@
 const SWISS='https://cdn.jsdelivr.net/npm/@swisseph/browser@1.3.1/+esm';
 const GEOCODER='https://nominatim.openstreetmap.org/search';
 const TZ_API='https://timeapi.io/api/timezone/coordinate';
+const REQUEST_TIMEOUT=12000;
 let swissPromise=null;
-async function loadSwiss(){if(!swissPromise)swissPromise=import(SWISS);return swissPromise;}
+function withTimeout(promise,label){
+ return Promise.race([promise,new Promise(function(_,reject){setTimeout(function(){reject(Error(label+' timed out. Please try again.'));},REQUEST_TIMEOUT);})]);
+}
+async function loadSwiss(){
+ if(!swissPromise) swissPromise=withTimeout(import(SWISS),'Swiss Ephemeris loading');
+ return swissPromise;
+}
 async function geocode(place){
- const r=await fetch(GEOCODER+'?format=jsonv2&addressdetails=1&limit=1&q='+encodeURIComponent(place),{headers:{Accept:'application/json'}});
+ const r=await withTimeout(fetch(GEOCODER+'?format=jsonv2&addressdetails=1&limit=1&q='+encodeURIComponent(place),{headers:{Accept:'application/json'}}),'Birth place lookup');
  if(!r.ok)throw Error('Birth place lookup failed.');
- const a=await r.json();
+ const a=await withTimeout(r.json(),'Birth place response');
  if(!a.length)throw Error('Birth place not found. Please enter city, region and country.');
  return {lat:Number(a[0].lat),lon:Number(a[0].lon),display:a[0].display_name||place};
 }
 async function timezone(lat,lon){
- const r=await fetch(TZ_API+'?latitude='+encodeURIComponent(lat)+'&longitude='+encodeURIComponent(lon),{headers:{Accept:'application/json'}});
+ const r=await withTimeout(fetch(TZ_API+'?latitude='+encodeURIComponent(lat)+'&longitude='+encodeURIComponent(lon),{headers:{Accept:'application/json'}}),'Birth-place timezone lookup');
  if(!r.ok)throw Error('Birth-place timezone lookup failed.');
- const x=await r.json();
+ const x=await withTimeout(r.json(),'Birth-place timezone response');
  const z=x.timeZone||x.timezone||x.ianaTimeZone||x.id;
  if(!z||!String(z).includes('/'))throw Error('A valid IANA timezone could not be resolved for this birth place.');
  return z;
@@ -56,18 +63,18 @@ async function calculate(dateValue,timeValue,place){
  const SiderealMode=mod.SiderealMode||mod.default?.SiderealMode;
  if(!SwissEphemeris||!HouseSystem)throw Error('Swiss Ephemeris browser module could not be initialized.');
  const swe=new SwissEphemeris();
- await swe.init();
- const jd=swe.dateToJulianDay(utc);
- const houseSystem=Math.abs(loc.lat)>66?(HouseSystem.WholeSign??HouseSystem.Equal):HouseSystem.Placidus;
- const houses=swe.calculateHouses(jd,loc.lat,loc.lon,houseSystem);
- if(!houses||typeof houses.ascendant!=='number')throw Error('Ascendant calculation failed.');
- const tropicalAsc=norm(houses.ascendant);
- if(SiderealMode&&SiderealMode.Lahiri!==undefined&&typeof swe.setSiderealMode==='function')swe.setSiderealMode(SiderealMode.Lahiri);
- const ayan=Number(swe.getAyanamsa(jd));
- const siderealAsc=norm(tropicalAsc-ayan);
- const result={lagna:signName(siderealAsc),ascendantDegrees:siderealAsc,ascendantText:degText(siderealAsc),tropicalAscendantDegrees:tropicalAsc,ayanamsa:ayan,latitude:loc.lat,longitude:loc.lon,placeResolved:loc.display,timezone:zone,birthUTC:utc.toISOString(),zodiac:'Sidereal',ayanamsaName:'Lahiri',houseSystem:houseSystem===HouseSystem.Placidus?'Placidus':(houseSystem===HouseSystem.WholeSign?'Whole Sign':'Equal'),julianDay:jd};
- swe.close();
- return result;
+ try{
+  await withTimeout(swe.init(),'Swiss Ephemeris initialization');
+  const jd=swe.dateToJulianDay(utc);
+  const houseSystem=Math.abs(loc.lat)>66?(HouseSystem.WholeSign??HouseSystem.Equal):HouseSystem.Placidus;
+  const houses=swe.calculateHouses(jd,loc.lat,loc.lon,houseSystem);
+  if(!houses||typeof houses.ascendant!=='number')throw Error('Ascendant calculation failed.');
+  const tropicalAsc=norm(houses.ascendant);
+  if(SiderealMode&&SiderealMode.Lahiri!==undefined&&typeof swe.setSiderealMode==='function')swe.setSiderealMode(SiderealMode.Lahiri);
+  const ayan=Number(swe.getAyanamsa(jd));
+  const siderealAsc=norm(tropicalAsc-ayan);
+  return {lagna:signName(siderealAsc),ascendantDegrees:siderealAsc,ascendantText:degText(siderealAsc),tropicalAscendantDegrees:tropicalAsc,ayanamsa:ayan,latitude:loc.lat,longitude:loc.lon,placeResolved:loc.display,timezone:zone,birthUTC:utc.toISOString(),zodiac:'Sidereal',ayanamsaName:'Lahiri',houseSystem:houseSystem===HouseSystem.Placidus?'Placidus':(houseSystem===HouseSystem.WholeSign?'Whole Sign':'Equal'),julianDay:jd};
+ } finally { try{swe.close();}catch(_){} }
 }
 async function calculateFromForm(){
  const val=function(selectors){for(const s of selectors){const e=document.querySelector(s);if(e&&e.value)return e.value.trim();}return '';};
