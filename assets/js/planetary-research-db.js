@@ -1,5 +1,5 @@
 // AYMP Planetary Research Database bridge + 9-planet cards
-// IMPORTANT: do not inject the planetary section into the empty birth-details form.
+// IMPORTANT: planetary research must appear only inside the completed Personal Guidance result.
 (function () {
   'use strict';
 
@@ -84,30 +84,27 @@
   }
 
   async function mountCards() {
-    if (mounted) return;
-
+    if (mounted) return true;
     const chart = window.AYMPBirthChart || {};
-    if (!chart.lagna) return;
-
-    const form = document.getElementById('guidanceForm');
-    if (!form) return;
+    const resultHost = document.getElementById('aympLagnaResearchResult');
+    // Never touch the birth-details form. Wait for the completed result host.
+    if (!chart.lagna || !resultHost) return false;
 
     addStyles();
-
-    // Create the host immediately after a valid chart exists so the Lagna result
-    // engine always has a stable target, regardless of async database timing.
+    window.AYMPPlanetaryResearchDB = null;
     let section = document.getElementById('aympPlanetaryResearchSection');
     if (!section) {
       section = document.createElement('section');
       section.id = 'aympPlanetaryResearchSection';
       section.className = 'aymp-planetary-section';
       section.innerHTML = '<h3>🌌 9 Planetary Research</h3><p class="aymp-planetary-subtitle">Loading planetary research…</p>';
-      form.appendChild(section);
+      resultHost.appendChild(section);
     }
     mounted = true;
 
     try {
       const db = await loadPlanetaryDatabase();
+      window.AYMPPlanetaryResearchDB = db;
       section.innerHTML = '<h3>🌌 9 Planetary Research</h3><p class="aymp-planetary-subtitle">Select a planet to view its current AYMP research record.</p><div class="aymp-planet-grid">' + (db.planets || []).map(function (p) {
         return '<button type="button" class="aymp-planet-card" data-planet="' + esc(p.id) + '"><span class="aymp-planet-order">' + esc(p.order) + '</span><strong>' + esc(p.name_en) + '</strong><small>' + esc(p.name_ta) + '</small><span class="aymp-planet-status">' + esc((p.research || {}).verification_status || 'pending') + '</span></button>';
       }).join('') + '</div>';
@@ -132,19 +129,21 @@
       console.error('AYMP Planetary Research:', error);
       section.innerHTML = '<h3>🌌 9 Planetary Research</h3><p class="aymp-planetary-subtitle">Planetary research is temporarily unavailable. Your birth result is not affected.</p>';
     }
+    return true;
   }
 
-  window.AYMPPlanetaryResearch = { databaseUrl: PLANETARY_DB_URL, version: '1.2.0', load: loadPlanetaryDatabase };
+  window.AYMPPlanetaryResearch = { databaseUrl: PLANETARY_DB_URL, version: '1.3.0', load: loadPlanetaryDatabase };
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function () {
-      if (window.AYMPBirthChart && window.AYMPBirthChart.lagna) mountCards();
-    });
-  } else if (window.AYMPBirthChart && window.AYMPBirthChart.lagna) {
-    mountCards();
+  function startWatcher() {
+    let attempts = 0;
+    const timer = setInterval(function () {
+      attempts++;
+      mountCards().then(function (done) {
+        if (done || attempts >= 60) clearInterval(timer);
+      }).catch(function (error) { console.error('AYMP Planetary Research mount:', error); });
+    }, 500);
   }
 
-  window.addEventListener('aymp:birth-chart-updated', function (event) {
-    if (event && event.detail && event.detail.lagna) mountCards();
-  });
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', startWatcher); else startWatcher();
+  window.addEventListener('aymp:birth-chart-updated', startWatcher);
 })();
