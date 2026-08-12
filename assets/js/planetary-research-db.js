@@ -1,4 +1,5 @@
 // AYMP Planetary Research Database bridge + 9-planet cards
+// IMPORTANT: do not inject the planetary section into the empty birth-details form.
 (function () {
   'use strict';
 
@@ -6,6 +7,7 @@
   const GUIDANCE_DB_URL = 'data/aymp_cosmic_yantra_herb_tantric_guidance_v2.json';
   const originalFetch = window.fetch.bind(window);
   let planetaryPromise = null;
+  let mounted = false;
 
   function loadPlanetaryDatabase() {
     if (!planetaryPromise) {
@@ -82,11 +84,20 @@
   }
 
   async function mountCards() {
-    addStyles();
+    if (mounted) return;
+
+    // Wait until valid birth data has produced a Lagna.
+    const chart = window.AYMPBirthChart || {};
+    if (!chart.lagna) return;
+
     const form = document.getElementById('guidanceForm');
-    if (!form || document.getElementById('aympPlanetaryResearchSection')) return;
+    if (!form) return;
+
+    addStyles();
     try {
       const db = await loadPlanetaryDatabase();
+      if (mounted || document.getElementById('aympPlanetaryResearchSection')) return;
+
       const section = document.createElement('section');
       section.id = 'aympPlanetaryResearchSection';
       section.className = 'aymp-planetary-section';
@@ -94,6 +105,7 @@
         return '<button type="button" class="aymp-planet-card" data-planet="' + esc(p.id) + '"><span class="aymp-planet-order">' + esc(p.order) + '</span><strong>' + esc(p.name_en) + '</strong><small>' + esc(p.name_ta) + '</small><span class="aymp-planet-status">' + esc((p.research || {}).verification_status || 'pending') + '</span></button>';
       }).join('') + '</div>';
       form.appendChild(section);
+      mounted = true;
 
       section.querySelectorAll('.aymp-planet-card').forEach(function (btn) {
         btn.addEventListener('click', function () {
@@ -112,6 +124,20 @@
     } catch (error) { console.error('AYMP Planetary Research:', error); }
   }
 
-  window.AYMPPlanetaryResearch = { databaseUrl: PLANETARY_DB_URL, version: '1.0.0', load: loadPlanetaryDatabase };
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mountCards); else mountCards();
+  window.AYMPPlanetaryResearch = { databaseUrl: PLANETARY_DB_URL, version: '1.1.0', load: loadPlanetaryDatabase };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.AYMPBirthChart && window.AYMPBirthChart.lagna) mountCards();
+    });
+  } else if (window.AYMPBirthChart && window.AYMPBirthChart.lagna) {
+    mountCards();
+  }
+
+  // Mount only after a successful birth-chart calculation.
+  window.addEventListener('aymp:birth-chart-updated', function (event) {
+    if (event && event.detail && event.detail.lagna) {
+      mountCards();
+    }
+  });
 })();
