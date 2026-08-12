@@ -1,174 +1,38 @@
 /* =======================================
    AYMP Personal Guidance Popup
 ======================================= */
+.guidance-popup{display:none;position:fixed;z-index:9999;left:0;top:0;width:100%;height:100%;overflow:auto;background:rgba(0,0,0,.85);}
+.guidance-content{background:#111827;color:#fff;margin:3vh auto;padding:25px;width:90%;max-width:520px;min-height:0;max-height:94vh;overflow-y:auto;overflow-x:hidden;border-radius:15px;border:2px solid #FFD700;box-shadow:0 0 30px rgba(255,215,0,.5);}
+.guidance-content h2{text-align:center;color:#FFD700;margin-bottom:20px;}
+.guidance-content input,.guidance-content select,.guidance-content textarea{width:100%;padding:12px;margin:10px 0;border-radius:8px;border:1px solid #555;background:#1f2937;color:#fff;font-size:16px;box-sizing:border-box;}
+.guidance-content button{width:100%;padding:14px;background:#FFD700;color:#000;border:none;border-radius:8px;font-size:18px;font-weight:bold;cursor:pointer;margin-top:15px;}
+.guidance-content button:hover{background:#ffcc00;}
+.close-popup{float:right;font-size:30px;color:#fff;cursor:pointer;}
+.close-popup:hover{color:#FFD700;}
 
-.guidance-popup {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background: rgba(0,0,0,0.85);
-}
+/* IMPORTANT: the birth-details page must show ALL fields/buttons. */
+#guidanceForm{display:block;overflow:visible;height:auto;max-height:none;}
+#guidanceForm input,#guidanceForm select,#guidanceForm button{display:block;visibility:visible;}
 
-.guidance-content {
-    background: #111827;
-    color: #ffffff;
-    margin: 5% auto;
-    padding: 25px;
-    width: 90%;
-    max-width: 520px;
-    max-height: 90vh;
-    overflow: hidden;
-    border-radius: 15px;
-    border: 2px solid #FFD700;
-    box-shadow: 0 0 30px rgba(255,215,0,.5);
-}
+/* Result/research stage can scroll independently after calculation. */
+.guidance-content:has(.aymp-guidance-result){overflow-y:auto;max-height:94vh;}
+.aymp-guidance-result{text-align:center;position:relative;overflow:visible;}
+.aymp-research-result,#aympLagnaResearchResult,#aympPersonalResearchCycle{margin-top:16px;}
 
-.guidance-content h2{
-    text-align:center;
-    color:#FFD700;
-    margin-bottom:20px;
-}
+/* POWER ART GLOW */
+.power-art-glow{position:relative;width:170px;height:170px;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;}
+.power-core{width:75px;height:75px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:45px;color:#FFD700;background:radial-gradient(circle,rgba(255,255,255,.9),rgba(255,215,0,.35),rgba(0,0,0,0));box-shadow:0 0 15px #FFD700,0 0 35px rgba(255,215,0,.8),0 0 70px rgba(255,180,0,.5);animation:powerPulse 2.5s infinite ease-in-out;}
+.energy-orbit{position:absolute;width:145px;height:145px;border-radius:50%;border:2px solid rgba(255,215,0,.65);box-shadow:0 0 20px rgba(255,215,0,.45);animation:orbitRotate 6s linear infinite;}
+.energy-orbit::before{content:"";position:absolute;top:18px;left:18px;width:105px;height:105px;border-radius:50%;border:1px solid rgba(120,200,255,.7);animation:orbitReverse 4s linear infinite;}
+@keyframes powerPulse{0%{transform:scale(.9);box-shadow:0 0 15px #FFD700,0 0 30px rgba(255,215,0,.5)}50%{transform:scale(1.12);box-shadow:0 0 25px #FFD700,0 0 60px rgba(255,215,0,.9),0 0 90px rgba(80,160,255,.5)}100%{transform:scale(.9);box-shadow:0 0 15px #FFD700,0 0 30px rgba(255,215,0,.5)}}
+@keyframes orbitRotate{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@keyframes orbitReverse{from{transform:rotate(360deg)}to{transform:rotate(0)}}
 
-.guidance-content input,
-.guidance-content select,
-.guidance-content textarea{
-    width:100%;
-    padding:12px;
-    margin:10px 0;
-    border-radius:8px;
-    border:1px solid #555;
-    background:#1f2937;
-    color:#fff;
-    font-size:16px;
-    box-sizing:border-box;
-}
-
-.guidance-content button{
-    width:100%;
-    padding:14px;
-    background:#FFD700;
-    color:#000;
-    border:none;
-    border-radius:8px;
-    font-size:18px;
-    font-weight:bold;
-    cursor:pointer;
-    margin-top:15px;
-}
-
-.guidance-content button:hover{
-    background:#ffcc00;
-}
-
-.close-popup{
-    float:right;
-    font-size:30px;
-    color:#ffffff;
-    cursor:pointer;
-}
-
-.close-popup:hover{
-    color:#FFD700;
-}
-
-/* Birth-details stage: no research content and no internal scroll. */
-#guidanceForm {
-    overflow: visible;
-}
-
-/* Result/research stage may scroll independently after calculation. */
-.guidance-content:has(.aymp-guidance-result) {
-    overflow-y: auto;
-    max-height: 90vh;
-}
-
-/* ======================================
-   AYMP COSMIC GUIDANCE EXPERIENCE
-   ====================================== */
-
-.aymp-guidance-result {
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-}
-
-/* Keep result/research sections visually separated from birth input. */
-.aymp-research-result,
-#aympLagnaResearchResult,
-#aympPersonalResearchCycle {
-    margin-top: 16px;
-}
-
-/* ======================================
-   POWER ART GLOW
-   ====================================== */
-
-.power-art-glow {
-    position: relative;
-    width: 170px;
-    height: 170px;
-    margin: 0 auto 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.power-core {
-    width: 75px;
-    height: 75px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 45px;
-    color: #FFD700;
-    background: radial-gradient(circle, rgba(255,255,255,0.9), rgba(255,215,0,0.35), rgba(0,0,0,0));
-    box-shadow: 0 0 15px #FFD700, 0 0 35px rgba(255,215,0,0.8), 0 0 70px rgba(255,180,0,0.5);
-    animation: powerPulse 2.5s infinite ease-in-out;
-}
-
-.energy-orbit {
-    position: absolute;
-    width: 145px;
-    height: 145px;
-    border-radius: 50%;
-    border: 2px solid rgba(255,215,0,0.65);
-    box-shadow: 0 0 20px rgba(255,215,0,0.45);
-    animation: orbitRotate 6s linear infinite;
-}
-
-.energy-orbit::before {
-    content: "";
-    position: absolute;
-    top: 18px;
-    left: 18px;
-    width: 105px;
-    height: 105px;
-    border-radius: 50%;
-    border: 1px solid rgba(120,200,255,0.7);
-    animation: orbitReverse 4s linear infinite;
-}
-
-@keyframes powerPulse {
-    0% { transform: scale(0.9); box-shadow: 0 0 15px #FFD700, 0 0 30px rgba(255,215,0,0.5); }
-    50% { transform: scale(1.12); box-shadow: 0 0 25px #FFD700, 0 0 60px rgba(255,215,0,0.9), 0 0 90px rgba(80,160,255,0.5); }
-    100% { transform: scale(0.9); box-shadow: 0 0 15px #FFD700, 0 0 30px rgba(255,215,0,0.5); }
-}
-
-@keyframes orbitRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-@keyframes orbitReverse { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
-
-/* Mobile: birth form remains compact; only the calculated result can scroll. */
-@media (max-width: 600px) {
-    .guidance-content {
-        width: 94%;
-        margin: 3% auto;
-        padding: 18px;
-        max-height: 94vh;
-    }
+/* Mobile: never clip the first birth-details page. */
+@media(max-width:600px){
+ .guidance-content{width:94%;margin:2vh auto;padding:18px;max-height:96vh;overflow-y:auto;}
+ #guidanceForm{max-height:none;overflow:visible;}
+ .guidance-content h2{font-size:21px;margin-bottom:14px;}
+ .guidance-content input,.guidance-content select,.guidance-content textarea{font-size:15px;padding:11px;margin:7px 0;}
+ .guidance-content button{font-size:16px;padding:13px;margin-top:10px;}
 }
