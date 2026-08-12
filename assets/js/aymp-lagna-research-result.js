@@ -1,6 +1,6 @@
 // AYMP Lagna Research Result Engine v3
 // Connects calculated sidereal Lagna + life concern to the AYMP planetary research database.
-// Unverified mappings remain explicitly pending; this module does not invent Yantra/Herb assignments.
+// IMPORTANT: this module must NOT inject research content into the birth-details form before valid birth data is submitted.
 (function () {
   'use strict';
 
@@ -171,8 +171,14 @@
 
   function mount(rules, planetaryDb) {
     if (mounted) return;
-    const host = document.getElementById('aympPlanetaryResearchSection') || document.getElementById('guidanceForm');
+    const chart = window.AYMPBirthChart || {};
+    // Do not create the research section until the birth chart has actually been calculated.
+    if (!chart.lagna) return;
+
+    // The dedicated result host is required. Never fall back to the birth-details form.
+    const host = document.getElementById('aympPlanetaryResearchSection');
     if (!host) return;
+
     addStyles();
     window.AYMPPlanetaryResearchDB = planetaryDb;
     const section = document.createElement('section');
@@ -204,21 +210,18 @@
     function render() {
       const body = document.getElementById('aympLagnaResearchResultBody');
       const select = document.getElementById('aympResearchConcernSelect');
-      const chart = window.AYMPBirthChart || {};
-      const id = lagnaId(chart);
+      const currentChart = window.AYMPBirthChart || {};
+      if (!body || !select || !currentChart.lagna) return;
+
+      const id = lagnaId(currentChart);
       const lagna = id && rules.rules ? rules.rules[id] : null;
       const concern = concernKey(select.value);
       const concernText = select.selectedOptions[0].textContent;
-      const planetaryRule = findPlanetaryLagnaRule(planetaryDb, chart.lagna);
+      const planetaryRule = findPlanetaryLagnaRule(planetaryDb, currentChart.lagna);
       const rule = lagna && lagna.life_concern ? lagna : null;
 
-      if (!chart.lagna) {
-        body.innerHTML = '<div class="aymp-lagna-pending">Awaiting the calculated Vedic Lagna. Submit valid birth details first.</div>' + planetaryConnectionHTML(planetaryDb, null);
-        return;
-      }
-
       if (!rule || (concern !== 'business' && id !== 'rishabha')) {
-        body.innerHTML = renderPendingBase(chart, concernText, planetaryDb, planetaryRule);
+        body.innerHTML = renderPendingBase(currentChart, concernText, planetaryDb, planetaryRule);
         return;
       }
 
@@ -229,7 +232,7 @@
         const procedure = proc.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('');
         const linkedRule = planetaryRule || rule;
         body.innerHTML = '<div class="aymp-lagna-result-grid">' +
-          '<div class="aymp-lagna-result-card"><b>Lagna</b><p>' + esc(chart.lagna) + ' — ' + esc(chart.ascendantText || '') + '</p></div>' +
+          '<div class="aymp-lagna-result-card"><b>Lagna</b><p>' + esc(currentChart.lagna) + ' — ' + esc(currentChart.ascendantText || '') + '</p></div>' +
           '<div class="aymp-lagna-result-card"><b>Life Concern</b><p>' + esc(rule.life_concern) + '</p></div>' +
           '<div class="aymp-lagna-result-card"><b>Planet Group</b><p>' + esc(planets) + '</p></div>' +
           '<div class="aymp-lagna-result-card"><b>Yantra / Copper Record</b><p>Yantra selection: pending approved AYMP record.<br>6×6 copper plate • talisman research record</p></div>' +
@@ -237,7 +240,7 @@
           '<div class="aymp-lagna-result-card" style="grid-column:1/-1"><b>Traditional Procedure Record</b><ol>' + procedure + '</ol></div>' +
           '</div>' +
           planetaryConnectionHTML(planetaryDb, linkedRule) +
-          whatsappHTML(chart, concernText, linkedRule) +
+          whatsappHTML(currentChart, concernText, linkedRule) +
           '<span class="aymp-lagna-status">Status: user-provided research rule • verification pending • not a guaranteed outcome</span>';
       }
     }
@@ -252,25 +255,34 @@
       const values = await Promise.all([loadRules(), loadPlanetaryDatabase()]);
       const rules = values[0];
       const planetaryDb = values[1];
-      const tryMount = function () { mount(rules, planetaryDb); };
-      tryMount();
-      const timer = setInterval(function () {
-        if (window.AYMPBirthChart || document.getElementById('aympPlanetaryResearchSection')) {
-          tryMount();
-          if (mounted) clearInterval(timer);
+
+      // No research UI is mounted while the guidance form is empty.
+      const tryMount = function () {
+        if (window.AYMPBirthChart && window.AYMPBirthChart.lagna) {
+          mount(rules, planetaryDb);
         }
+      };
+      tryMount();
+
+      const timer = setInterval(function () {
+        tryMount();
+        if (mounted) clearInterval(timer);
       }, 500);
       setTimeout(function () { clearInterval(timer); }, 20000);
-      const original = window.AYMPLagnaEngine && window.AYMPLagnaEngine.calculateFromForm;
+
+      const engine = window.AYMPLagnaEngine;
+      const original = engine && engine.calculateFromForm;
       if (original && !original.__aympWrapped) {
         const wrapped = async function () {
           const result = await original.apply(this, arguments);
-          window.AYMPBirthChart = result;
-          window.dispatchEvent(new CustomEvent('aymp:birth-chart-updated', { detail: result }));
+          if (result && result.lagna) {
+            window.AYMPBirthChart = result;
+            window.dispatchEvent(new CustomEvent('aymp:birth-chart-updated', { detail: result }));
+          }
           return result;
         };
         wrapped.__aympWrapped = true;
-        window.AYMPLagnaEngine.calculateFromForm = wrapped;
+        engine.calculateFromForm = wrapped;
       }
     } catch (e) {
       console.error('AYMP Lagna Research Result:', e);
