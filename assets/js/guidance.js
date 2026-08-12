@@ -32,7 +32,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function showGuidance(index,name,dob,time,place,chart){
     const p=patterns[index],music=musicFiles[index%musicFiles.length],box=popup.querySelector('.guidance-content');if(!box)return;
-    // Preserve the research engine node before replacing the normal result HTML.
     const researchSection=getResearchSection(box);
     box.innerHTML=`<div class="aymp-guidance-result"><span class="close-popup" id="resultClose">×</span><div class="power-art-glow"><div class="energy-orbit"></div><div class="power-core">✦</div></div><h2>✨ AYMP PERSONAL GUIDANCE</h2><h3>Welcome, ${esc(name)}</h3><div class="birth-summary"><p>📅 <strong>Date:</strong> ${esc(dob)}</p><p>⏰ <strong>Time:</strong> ${esc(time)}</p><p>📍 <strong>Place:</strong> ${esc(place)}</p>${chart?`<p>🌌 <strong>Lagna:</strong> ${esc(chart.lagna)} (${esc(chart.ascendantText)})</p><p>🕰️ <strong>Time Zone:</strong> ${esc(chart.timezone)}</p>`:''}</div><div class="guidance-card"><h3>🌌 Your Cosmic Insight</h3><p>${esc(p[2])}</p></div><div class="sound-card"><div class="sound-label">🔱 AYMP SACRED MANTRA</div><div id="changingSound" class="changing-sound sound-animate">${esc(p[1])}</div><div class="sound-title">${esc(p[0])}</div><div class="music-panel"><div id="musicName">🎵 ${esc(music)}</div><button type="button" id="playMusicBtn">▶ PLAY SACRED MUSIC</button><button type="button" id="pauseMusicBtn">⏸ PAUSE</button><button type="button" id="stopMusicBtn">⏹ STOP</button><p id="musicStatus">🎵 Sacred music ready.</p></div></div><div class="guidance-card"><h3>🙏 Mantra Meaning</h3><p>${esc(p[2])}</p></div><div class="practice-card"><h3>🧘 Practice</h3><p>Repeat the mantra <strong>108 times</strong> if suitable for your personal practice.</p></div></div>`;
     if(researchSection){box.appendChild(researchSection);researchSection.style.display='none';}
@@ -67,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const script=document.createElement('script');script.id='aympYantraHerbResearchLoader';script.src='assets/js/yantra-herb-research.js';script.defer=true;document.body.appendChild(script);
     const lagnaResearch=document.createElement('script');lagnaResearch.id='aympLagnaResearchResultLoader';lagnaResearch.src='assets/js/aymp-lagna-research-result.js';lagnaResearch.defer=true;document.body.appendChild(lagnaResearch);
     const cycle=document.createElement('script');cycle.id='aympPersonalResearchCycleLoader';cycle.src='assets/js/aymp-personal-research-cycle.js';cycle.defer=true;document.body.appendChild(cycle);
-    const presentation=document.createElement('script');presentation.id='aympResultPresentationLoader';presentation.src='assets/js/aymp-result-presentation.js';presentation.defer=true;document.body.appendChild(presentation);
+    const presentation=document.createElement('script');presentation.id='aympResultPresentationLoader';presentation.src='assets/js/aymp-result-presentation.js?v=6';presentation.defer=true;document.body.appendChild(presentation);
   })();
   console.log('AYMP Personal Guidance Engine Ready');
 });
