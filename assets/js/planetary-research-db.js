@@ -86,7 +86,6 @@
   async function mountCards() {
     if (mounted) return;
 
-    // Wait until valid birth data has produced a Lagna.
     const chart = window.AYMPBirthChart || {};
     if (!chart.lagna) return;
 
@@ -94,18 +93,24 @@
     if (!form) return;
 
     addStyles();
-    try {
-      const db = await loadPlanetaryDatabase();
-      if (mounted || document.getElementById('aympPlanetaryResearchSection')) return;
 
-      const section = document.createElement('section');
+    // Create the host immediately after a valid chart exists so the Lagna result
+    // engine always has a stable target, regardless of async database timing.
+    let section = document.getElementById('aympPlanetaryResearchSection');
+    if (!section) {
+      section = document.createElement('section');
       section.id = 'aympPlanetaryResearchSection';
       section.className = 'aymp-planetary-section';
+      section.innerHTML = '<h3>🌌 9 Planetary Research</h3><p class="aymp-planetary-subtitle">Loading planetary research…</p>';
+      form.appendChild(section);
+    }
+    mounted = true;
+
+    try {
+      const db = await loadPlanetaryDatabase();
       section.innerHTML = '<h3>🌌 9 Planetary Research</h3><p class="aymp-planetary-subtitle">Select a planet to view its current AYMP research record.</p><div class="aymp-planet-grid">' + (db.planets || []).map(function (p) {
         return '<button type="button" class="aymp-planet-card" data-planet="' + esc(p.id) + '"><span class="aymp-planet-order">' + esc(p.order) + '</span><strong>' + esc(p.name_en) + '</strong><small>' + esc(p.name_ta) + '</small><span class="aymp-planet-status">' + esc((p.research || {}).verification_status || 'pending') + '</span></button>';
       }).join('') + '</div>';
-      form.appendChild(section);
-      mounted = true;
 
       section.querySelectorAll('.aymp-planet-card').forEach(function (btn) {
         btn.addEventListener('click', function () {
@@ -118,13 +123,18 @@
             '<div class="aymp-planet-note"><b>Research Interpretation</b><p>' + esc(r.research_interpretation || 'Pending approved AYMP research entry.') + '</p></div>' +
             '<div class="aymp-planet-links"><div><b>Approved Herbs</b><span>' + esc((l.herb_ids || []).join(', ') || 'Pending') + '</span></div><div><b>Approved Yantras</b><span>' + esc((l.yantra_ids || []).join(', ') || 'Pending') + '</span></div><div><b>Mantra Records</b><span>' + esc((l.mantra_ids || []).join(', ') || 'Pending') + '</span></div><div><b>Talisman Records</b><span>' + esc((l.talisman_ids || []).join(', ') || 'Pending') + '</span></div></div>' +
             '<p class="aymp-planet-verification">Verification: ' + esc(r.verification_status || 'pending') + '</p></div>';
-          document.body.appendChild(overlay); overlay.querySelector('#aympPlanetClose').onclick = function () { overlay.remove(); }; overlay.addEventListener('click', function (e) { if (e.target === overlay) overlay.remove(); });
+          document.body.appendChild(overlay);
+          overlay.querySelector('#aympPlanetClose').onclick = function () { overlay.remove(); };
+          overlay.addEventListener('click', function (e) { if (e.target === overlay) overlay.remove(); });
         });
       });
-    } catch (error) { console.error('AYMP Planetary Research:', error); }
+    } catch (error) {
+      console.error('AYMP Planetary Research:', error);
+      section.innerHTML = '<h3>🌌 9 Planetary Research</h3><p class="aymp-planetary-subtitle">Planetary research is temporarily unavailable. Your birth result is not affected.</p>';
+    }
   }
 
-  window.AYMPPlanetaryResearch = { databaseUrl: PLANETARY_DB_URL, version: '1.1.0', load: loadPlanetaryDatabase };
+  window.AYMPPlanetaryResearch = { databaseUrl: PLANETARY_DB_URL, version: '1.2.0', load: loadPlanetaryDatabase };
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () {
@@ -134,10 +144,7 @@
     mountCards();
   }
 
-  // Mount only after a successful birth-chart calculation.
   window.addEventListener('aymp:birth-chart-updated', function (event) {
-    if (event && event.detail && event.detail.lagna) {
-      mountCards();
-    }
+    if (event && event.detail && event.detail.lagna) mountCards();
   });
 })();
