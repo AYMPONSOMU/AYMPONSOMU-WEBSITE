@@ -1,0 +1,1 @@
+The birth-details form intentionally uses GET MY GUIDANCE as the single primary calculation action. The legacy duplicate Generate AYMP Personal Research Guidance button must not be mounted into the form. The normal result must show the Sacred Mantra, Meaning, Practice, audio controls, then the Yantra/Herb/Thanthreeg and Cosmic Time Wheel actions.
