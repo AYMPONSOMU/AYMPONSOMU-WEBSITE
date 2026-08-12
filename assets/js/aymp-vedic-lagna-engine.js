@@ -1,6 +1,7 @@
-/* AYMP Vedic Lagna Engine v3
+/* AYMP Vedic Lagna Engine v4
  * Global birth-place/timezone resolution + Swiss Ephemeris + Lahiri sidereal zodiac.
  * IMPORTANT: calculation engine must not inject result/research cards into the birth-details form.
+ * Research actions remain visible during calculation; they are temporarily disabled instead of hidden.
  */
 (function(){
 'use strict';
@@ -28,8 +29,8 @@ function gateResearchControls(calculating){
   const text=String(el.textContent||'').trim().toLowerCase();
   if(text.indexOf(duplicate)>=0){el.style.display='none';return;}
   if(gated.some(function(t){return text.indexOf(t)>=0;})){
-   if(calculating){el.dataset.aympResearchHidden='1';el.style.display='none';}
-   else if(el.dataset.aympResearchHidden==='1'){el.style.display='';delete el.dataset.aympResearchHidden;}
+   if(calculating){el.disabled=true;el.setAttribute('aria-disabled','true');el.dataset.aympResearchDisabled='1';el.style.opacity='.55';el.style.pointerEvents='none';}
+   else if(el.dataset.aympResearchDisabled==='1'){el.disabled=false;el.removeAttribute('aria-disabled');delete el.dataset.aympResearchDisabled;el.style.opacity='';el.style.pointerEvents='';}
   }
  });
 }
