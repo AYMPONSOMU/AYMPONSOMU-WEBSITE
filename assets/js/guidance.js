@@ -1,5 +1,5 @@
 // AYMP Personal Guidance + Sacred Music
-// Fixed flow: Birth Details -> Normal Personal Guidance Result -> Yantra/Herb/Thanthreeg Research button -> Research screen.
+// Fixed flow: Birth Details -> Normal Personal Guidance Result -> Yantra/Herb/Thanthreeg Research button -> Cosmic Time Wheel -> Research screen.
 document.addEventListener('DOMContentLoaded', function () {
   const popup=document.getElementById('guidancePopup');
   const openBtn=document.getElementById('openGuidanceBtn');
@@ -29,6 +29,26 @@ document.addEventListener('DOMContentLoaded', function () {
       else alert('Yantra Research is still loading. Please try again in a moment.');
     };
   }
+  function addCosmicWheelButton(box){
+    const root=box.querySelector('.aymp-guidance-result');
+    if(!root || document.getElementById('aympGuidanceCosmicWheelButton'))return;
+    const wrap=document.createElement('div');
+    wrap.id='aympGuidanceCosmicWheelButtonWrap';
+    wrap.style.cssText='margin-top:12px;padding:0 15px 18px;';
+    const b=document.createElement('button');
+    b.type='button';
+    b.id='aympGuidanceCosmicWheelButton';
+    b.textContent='🎡 AYMP COSMIC TIME WHEEL • Rare Research Gifts';
+    b.style.cssText='width:100%;padding:16px;border:1px solid rgba(255,215,120,.55);border-radius:12px;background:linear-gradient(135deg,#241142,#70439a);color:#ffe39a;font-size:16px;font-weight:900;cursor:pointer;box-shadow:0 0 24px rgba(190,120,255,.16);';
+    b.onclick=function(){
+      const overlay=document.getElementById('aympCosmicWheelOverlay');
+      const original=document.getElementById('aympCosmicWheelButton');
+      if(overlay){overlay.classList.add('open');if(original&&typeof original.onclick==='function')original.onclick();}
+      else if(original){original.click();}
+      else {alert('Cosmic Time Wheel is still loading. Please try again in a moment.');}
+    };
+    wrap.appendChild(b);root.appendChild(wrap);
+  }
 
   function showGuidance(index,name,dob,time,place,chart){
     const p=patterns[index],music=musicFiles[index%musicFiles.length],box=popup.querySelector('.guidance-content');if(!box)return;
@@ -36,6 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
     box.innerHTML=`<div class="aymp-guidance-result"><span class="close-popup" id="resultClose">×</span><div class="power-art-glow"><div class="energy-orbit"></div><div class="power-core">✦</div></div><h2>✨ AYMP PERSONAL GUIDANCE</h2><h3>Welcome, ${esc(name)}</h3><div class="birth-summary"><p>📅 <strong>Date:</strong> ${esc(dob)}</p><p>⏰ <strong>Time:</strong> ${esc(time)}</p><p>📍 <strong>Place:</strong> ${esc(place)}</p>${chart?`<p>🌌 <strong>Lagna:</strong> ${esc(chart.lagna)} (${esc(chart.ascendantText)})</p><p>🕰️ <strong>Time Zone:</strong> ${esc(chart.timezone)}</p>`:''}</div><div class="guidance-card"><h3>🌌 Your Cosmic Insight</h3><p>${esc(p[2])}</p></div><div class="sound-card"><div class="sound-label">🔱 AYMP SACRED MANTRA</div><div id="changingSound" class="changing-sound sound-animate">${esc(p[1])}</div><div class="sound-title">${esc(p[0])}</div><div class="music-panel"><div id="musicName">🎵 ${esc(music)}</div><button type="button" id="playMusicBtn">▶ PLAY SACRED MUSIC</button><button type="button" id="pauseMusicBtn">⏸ PAUSE</button><button type="button" id="stopMusicBtn">⏹ STOP</button><p id="musicStatus">🎵 Sacred music ready.</p></div></div><div class="guidance-card"><h3>🙏 Mantra Meaning</h3><p>${esc(p[2])}</p></div><div class="practice-card"><h3>🧘 Practice</h3><p>Repeat the mantra <strong>108 times</strong> if suitable for your personal practice.</p></div></div>`;
     if(researchSection){box.appendChild(researchSection);researchSection.style.display='none';}
     addResearchButton(box);
+    addCosmicWheelButton(box);
     document.getElementById('resultClose').onclick=function(){stopMusic();popup.style.display='none';};
     document.getElementById('playMusicBtn').onclick=function(){if(!audio)playFile(music);else audio.play().catch(function(){});};
     document.getElementById('pauseMusicBtn').onclick=function(){if(audio){audio.pause();document.getElementById('musicStatus').textContent='⏸ Sacred music paused.';}};
