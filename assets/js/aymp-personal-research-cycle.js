@@ -164,6 +164,15 @@
     document.head.appendChild(s);
   }
 
+  function loadCosmicWheel() {
+    if (document.getElementById('aympCosmicTimeWheelLoader')) return;
+    const s = document.createElement('script');
+    s.id = 'aympCosmicTimeWheelLoader';
+    s.src = 'assets/js/aymp-cosmic-time-wheel.js?v=1';
+    s.defer = true;
+    document.body.appendChild(s);
+  }
+
   function mount() {
     if (document.getElementById('aympPersonalResearchCycle')) return;
     const anchor = document.getElementById('aympLagnaResearchResult');
@@ -184,6 +193,7 @@
       const record = buildCycle();
       if (record) renderCycle(record);
     }
+    loadCosmicWheel();
   }
 
   function boot() {
