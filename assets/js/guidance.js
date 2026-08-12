@@ -67,6 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const lagnaResearch=document.createElement('script');lagnaResearch.id='aympLagnaResearchResultLoader';lagnaResearch.src='assets/js/aymp-lagna-research-result.js';lagnaResearch.defer=true;document.body.appendChild(lagnaResearch);
     const cycle=document.createElement('script');cycle.id='aympPersonalResearchCycleLoader';cycle.src='assets/js/aymp-personal-research-cycle.js';cycle.defer=true;document.body.appendChild(cycle);
     const presentation=document.createElement('script');presentation.id='aympResultPresentationLoader';presentation.src='assets/js/aymp-result-presentation.js?v=6';presentation.defer=true;document.body.appendChild(presentation);
+    const cosmic=document.createElement('script');cosmic.id='aympCosmicTimeWheelBridgeLoader';cosmic.src='assets/js/aymp-cosmic-time-wheel-bridge.js?v=1';cosmic.defer=true;document.body.appendChild(cosmic);
   })();
   console.log('AYMP Personal Guidance Engine Ready');
 });
