@@ -1,30 +1,7 @@
 {
-  "version": "1.0.0",
-  "name": "AYMP Cosmic Time Wheel",
-  "rashis": [
-    {"id":"mesha","en":"Aries","ta":"மேஷம்"},{"id":"rishabha","en":"Taurus","ta":"ரிஷபம்"},{"id":"mithuna","en":"Gemini","ta":"மிதுனம்"},{"id":"karka","en":"Cancer","ta":"கடகம்"},{"id":"simha","en":"Leo","ta":"சிம்மம்"},{"id":"kanya","en":"Virgo","ta":"கன்னி"},{"id":"tula","en":"Libra","ta":"துலாம்"},{"id":"vrishchika","en":"Scorpio","ta":"விருச்சிகம்"},{"id":"dhanu","en":"Sagittarius","ta":"தனுசு"},{"id":"makara","en":"Capricorn","ta":"மகரம்"},{"id":"kumbha","en":"Aquarius","ta":"கும்பம்"},{"id":"meena","en":"Pisces","ta":"மீனம்"}
-  ],
-  "planets": [
-    {"id":"sun","en":"Sun","ta":"சூரியன்"},{"id":"moon","en":"Moon","ta":"சந்திரன்"},{"id":"mars","en":"Mars","ta":"செவ்வாய்"},{"id":"mercury","en":"Mercury","ta":"புதன்"},{"id":"jupiter","en":"Jupiter","ta":"குரு"},{"id":"venus","en":"Venus","ta":"சுக்கிரன்"},{"id":"saturn","en":"Saturn","ta":"சனி"},{"id":"rahu","en":"Rahu","ta":"ராகு"},{"id":"ketu","en":"Ketu","ta":"கேது"}
-  ],
-  "nakshatras": [
-    "Ashwini","Bharani","Krittika","Rohini","Mrigashira","Ardra","Punarvasu","Pushya","Ashlesha","Magha","Purva Phalguni","Uttara Phalguni","Hasta","Chitra","Swati","Vishakha","Anuradha","Jyeshtha","Mula","Purva Ashadha","Uttara Ashadha","Shravana","Dhanishta","Shatabhisha","Purva Bhadrapada","Uttara Bhadrapada","Revati"
-  ],
-  "tithis": [
-    "Shukla Pratipada","Shukla Dwitiya","Shukla Tritiya","Shukla Chaturthi","Shukla Panchami","Shukla Shashthi","Shukla Saptami","Shukla Ashtami","Shukla Navami","Shukla Dashami","Shukla Ekadashi","Shukla Dwadashi","Shukla Trayodashi","Shukla Chaturdashi","Purnima","Krishna Pratipada","Krishna Dwitiya","Krishna Tritiya","Krishna Chaturthi","Krishna Panchami","Krishna Shashthi","Krishna Saptami","Krishna Ashtami","Krishna Navami","Krishna Dashami","Krishna Ekadashi","Krishna Dwadashi","Krishna Trayodashi","Krishna Chaturdashi","Amavasya"
-  ],
-  "karanas": ["Bava","Balava","Kaulava","Taitila","Gara","Vanija","Vishti","Shakuni","Chatushpada","Naga","Kimstughna"],
-  "yogas": [
-    "Vishkambha","Priti","Ayushman","Saubhagya","Shobhana","Atiganda","Sukarma","Dhriti","Shula","Ganda","Vriddhi","Dhruva","Vyaghata","Harshana","Vajra","Siddhi","Vyatipata","Variyana","Parigha","Shiva","Siddha","Sadhya","Shubha","Shukla","Brahma","Indra","Vaidhriti"
-  ],
-  "rewards": [
-    {"id":"cosmic-blessing","title":"Cosmic Blessing","ta":"கோஸ்மிக் ஆசீர்வாதம்","description":"A special daily traditional research message."},
-    {"id":"nakshatra-insight","title":"Nakshatra Insight","ta":"நட்சத்திர ஆய்வு குறிப்பு","description":"Unlock a special Nakshatra research card."},
-    {"id":"planet-secret","title":"Planetary Secret","ta":"கிரஹ ரகசிய ஆய்வு","description":"Unlock a rare planetary research note."},
-    {"id":"yantra-research","title":"Yantra Research Unlock","ta":"யந்த்ர ஆய்வு திறப்பு","description":"Unlock an additional traditional Yantra research record."},
-    {"id":"herb-research","title":"Herb Research Unlock","ta":"மூலிகை ஆய்வு திறப்பு","description":"Unlock an additional traditional herb research record."},
-    {"id":"rare-research","title":"Rare Research","ta":"அபூர்வ ஆய்வு பரிசு","description":"A rare AYMP research card is revealed."},
-    {"id":"cosmic-badge","title":"Cosmic Research Badge","ta":"கோஸ்மிக் ஆய்வு பதக்கம்","description":"Receive a special digital research badge."},
-    {"id":"daily-guidance","title":"Daily Guidance","ta":"தினசரி வழிகாட்டுதல்","description":"Receive a personalized traditional research message."}
-  ]
+  "version":"1.1.0",
+  "name":"AYMP Cosmic Time Wheel",
+  "token_economy":{"status":"future-ready","enabled":false,"tokens":[{"id":"AYMP","name":"AYMP","role":"future premium utility token","enabled":false},{"id":"999xyz999","name":"999xyz999","role":"future in-game utility/reward token","enabled":false}],"rules":{"monetary_wager":false,"paid_spin":false,"random_token_payout_enabled":false,"future_activation_requires_explicit_config":true,"token_contract_addresses":"not configured","chain":"not configured"}},
+  "reward_token_hooks":{"AYMP":{"reward_type":"future_token_reward","enabled":false,"amount":null},"999xyz999":{"reward_type":"future_token_reward","enabled":false,"amount":null}},
+  "future_integration":{"reward_types":["research_unlock","digital_badge","AYMP_token_reward","999xyz999_token_reward"],"wallet_connect":"future","onchain_transfer":"future","token_contracts":"to be configured later"}
 }
