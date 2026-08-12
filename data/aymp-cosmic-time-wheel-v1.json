@@ -1,7 +1,7 @@
 {
-  "version":"1.1.0",
+  "version":"1.2.0",
   "name":"AYMP Cosmic Time Wheel",
-  "token_economy":{"status":"future-ready","enabled":false,"tokens":[{"id":"AYMP","name":"AYMP","role":"future premium utility token","enabled":false},{"id":"999xyz999","name":"999xyz999","role":"future in-game utility/reward token","enabled":false}],"rules":{"monetary_wager":false,"paid_spin":false,"random_token_payout_enabled":false,"future_activation_requires_explicit_config":true,"token_contract_addresses":"not configured","chain":"not configured"}},
+  "token_economy":{"status":"configured-for-future-use","enabled":false,"network":{"name":"BNB Smart Chain","chain_id":56,"symbol":"BNB","token_standard":"BEP-20"},"tokens":[{"id":"AYMP","name":"AYMP","role":"future premium utility token","contract_address":"0x6D85F3435EA87459AFC269E215Fa262AbD6C4EA1","enabled":false},{"id":"999xyz999","name":"999xyz999","role":"future in-game utility/reward token","contract_address":"0xDF09Ebe8FC19C7345918f921c9C3dEda545c4AA7","enabled":false}],"rules":{"paid_spin":false,"random_token_payout_enabled":false,"wallet_connect_enabled":false,"onchain_transfer_enabled":false,"activation_requires_contract_verification":true,"activation_requires_final_reward_policy":true}},
   "reward_token_hooks":{"AYMP":{"reward_type":"future_token_reward","enabled":false,"amount":null},"999xyz999":{"reward_type":"future_token_reward","enabled":false,"amount":null}},
-  "future_integration":{"reward_types":["research_unlock","digital_badge","AYMP_token_reward","999xyz999_token_reward"],"wallet_connect":"future","onchain_transfer":"future","token_contracts":"to be configured later"}
+  "future_integration":{"reward_types":["research_unlock","digital_badge","AYMP_token_reward","999xyz999_token_reward"],"wallet_connect":"future","onchain_transfer":"future","contract_verification":"required-before-activation"}
 }
