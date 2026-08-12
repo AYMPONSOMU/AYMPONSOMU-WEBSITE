@@ -9,6 +9,7 @@ const GEOCODER='https://nominatim.openstreetmap.org/search';
 const TZ_API='https://timeapi.io/api/timezone/coordinate';
 const REQUEST_TIMEOUT=12000;
 let swissPromise=null;
+let activeCalculation=null;
 function withTimeout(promise,label){
  return Promise.race([promise,new Promise(function(_,reject){setTimeout(function(){reject(Error(label+' timed out. Please try again.'));},REQUEST_TIMEOUT);})]);
 }
@@ -52,6 +53,21 @@ const names=['Aries','Taurus','Gemini','Cancer','Leo','Virgo','Libra','Scorpio',
 const norm=d=>((Number(d)%360)+360)%360;
 function signName(d){return names[Math.floor(norm(d)/30)];}
 function degText(d){const x=norm(d),s=Math.floor(x/30),within=x-s*30,g=Math.floor(within),m=Math.round((within-g)*60);return names[s]+' '+(m===60?g+1:g)+'° '+(m===60?0:m)+'′';}
+function gateResearchControls(calculating){
+ const terms=['generate aymp personal research guidance','yantra • herb • tantric research','yantra · herb · tantric research','yantra herb tantric research'];
+ document.querySelectorAll('button, a').forEach(function(el){
+  const text=String(el.textContent||'').trim().toLowerCase();
+  if(terms.some(function(t){return text.indexOf(t)>=0;})){
+   if(calculating){
+    el.dataset.aympResearchHidden='1';
+    el.style.display='none';
+   }else if(el.dataset.aympResearchHidden==='1'){
+    el.style.display='';
+    delete el.dataset.aympResearchHidden;
+   }
+  }
+ });
+}
 async function calculate(dateValue,timeValue,place){
  if(!dateValue||!timeValue||!place)throw Error('Date, exact birth time and birth place are required.');
  const loc=await geocode(place);
@@ -77,11 +93,21 @@ async function calculate(dateValue,timeValue,place){
  } finally { try{swe.close();}catch(_){} }
 }
 async function calculateFromForm(){
+ if(activeCalculation) return activeCalculation;
  const val=function(selectors){for(const s of selectors){const e=document.querySelector(s);if(e&&e.value)return e.value.trim();}return '';};
  const date=val(['#guidanceDob','[name="dob"]','input[type="date"]']);
  const time=val(['#guidanceTime','[name="birth_time"]','[name="birthTime"]','input[type="time"]']);
  const place=val(['#guidancePlace','[name="birth_place"]','[name="birthPlace"]','[name="place"]']);
- return calculate(date,time,place);
+ gateResearchControls(true);
+ activeCalculation=calculate(date,time,place).then(function(result){
+  gateResearchControls(false);
+  return result;
+ }).catch(function(error){
+  gateResearchControls(false);
+  throw error;
+ }).finally(function(){activeCalculation=null;});
+ return activeCalculation;
 }
 window.AYMPLagnaEngine={calculate,calculateFromForm};
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){gateResearchControls(false);});else gateResearchControls(false);
 })();
