@@ -10,26 +10,17 @@ document.addEventListener('DOMContentLoaded', function () {
     ['Peace','OM • SHREEM • AIM • HREEM • YAV • VAV • OM','Peace, calmness and inner clarity.'],['Clarity','AIM • HREEM • KLEEM • YAV • SANG • MANG • AIM','Clear thinking and thoughtful decisions.'],['Confidence','SHREEM • KLEEM • HREEM • SHAV • VAV • YAV • SHREEM','Courage and self-confidence.'],['Positive Beginning','OM • AIM • SHREEM • YAV • VASI • HREEM • OM','A positive and peaceful beginning.'],['Focus','AIM • YAV • YAV • SANG • MANG • NANG • AIM','Concentration and disciplined attention.'],['Emotional Balance','HREEM • VAV • YAV • MANG • NANG • YASI • HREEM','Emotional balance and calm reflection.'],['Patience','OM • VAV • MANG • NANG • YAV • SANG • OM','Patience during difficult situations.'],['Inner Strength','HREEM • SHAV • VAV • MANG • YAV • KLEEM • HREEM','Inner strength and resilience.'],['Hope','SHREEM • YAV • AIM • VASI • YASI • OM • SHREEM','Hope and positive expectation.'],['Protection','OM • HREEM • SHAV • VAV • MANG • NANG • OM','A sense of safety, courage and protection.'],['Wisdom','AIM • SANG • MANG • YAV • VANG • HREEM • AIM','Wisdom before action.'],['Communication','YAV • VAV • AIM • YASI • VASI • MANG • YAV','Clear and respectful communication.'],['Harmony','KLEEM • SHREEM • YAV • VASI • YASI • HREEM • KLEEM','Harmony in relationships.'],['Forgiveness','OM • MANG • NANG • YASI • VASI • YAV • OM','Letting go of anger and moving toward forgiveness.'],['Renewal','SHREEM • HREEM • YAV • AIM • VAV • YASI • SHREEM','A fresh beginning.'],['Motivation','KLEEM • AIM • MANG • YAV • VANG • HREEM • KLEEM','Motivation to take constructive action.'],['Stability','VANG • MANG • NANG • YAV • VAV • SHREEM • VANG','Stability and grounded thinking.'],['Creativity','AIM • YASI • VASI • MANG • SANG • YAV • AIM','Creativity and new ideas.'],['Positive Relationships','KLEEM • VASI • YASI • MASI • YAV • SHREEM • KLEEM','Kindness, understanding and healthy relationships.'],['Letting Go','OM • NASI • YASI • VAV • NANG • HREEM • OM','Release unnecessary worry and mental tension.'],['Gratitude','SHREEM • AIM • OM • YAV • VASI • HREEM • SHREEM','Gratitude for the good things in life.'],['Inner Silence','OM • HREEM • OM • YAV • NANG • OM • HREEM','Quiet reflection and mindfulness.'],['Determination','KLEEM • MANG • YAV • VANG • SANG • HREEM • KLEEM','Determination to complete meaningful goals.'],['Understanding','AIM • SANG • VANG • YASI • VASI • YAV • AIM','Understanding before judgment.'],['Balance','SHREEM • HREEM • VAV • YAV • MANG • AIM • SHREEM','Balance between thought, emotion and action.'],['Transformation','OM • KLEEM • HREEM • MANG • YAV • VASI • OM','Positive personal transformation.'],['Compassion','YASI • VASI • NASI • YAV • MANG • SHREEM • YASI','Compassion toward yourself and others.'],['Gratitude & Hope','SHREEM • OM • YAV • AIM • HREEM • VASI • SHREEM','Gratitude today and hope for tomorrow.'],['Personal Intention','AIM • HREEM • KLEEM • YAV • VAV • SHREEM • OM','Hold one clear personal intention.'],['Universal Peace','OM • SHREEM • AIM • HREEM • KLEEM • YAV • SHREEM • OM','Peace, understanding and goodwill for all.']
   ];
   let audio=null;
-  function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c];});}
+  function esc(v){return String(v==null?'':v).replace(/[&<>\"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#039;'}[c];});}
   function stopMusic(){if(audio){audio.pause();audio.currentTime=0;audio=null;}}
   function playFile(file){stopMusic();audio=new Audio('assets/'+file);audio.loop=true;audio.volume=.65;const s=document.getElementById('musicStatus');audio.play().then(function(){if(s)s.textContent='🎵 Sacred music playing...';}).catch(function(){if(s)s.textContent='Tap ▶ PLAY SACRED MUSIC to start.';});audio.onerror=function(){if(s)s.textContent='⚠️ Music file could not be loaded: '+file;};}
-
-  function getResearchSection(box){
-    const section=box.querySelector('#aympLagnaResearchResult');
-    if(section){section.style.display='none';return section;}
-    return null;
-  }
+  function getResearchSection(box){const section=box.querySelector('#aympLagnaResearchResult');if(section){section.style.display='none';return section;}return null;}
   function addResearchButton(box){
     const old=document.getElementById('aympGuidanceResearchButtonWrap');if(old)old.remove();
     const wrap=document.createElement('div');wrap.id='aympGuidanceResearchButtonWrap';wrap.style.cssText='margin-top:18px;padding:15px;border:1px solid rgba(255,215,120,.28);border-radius:16px;background:linear-gradient(135deg,rgba(100,55,150,.18),rgba(255,215,120,.05));';
     wrap.innerHTML='<button type="button" id="aympGuidanceResearchButton" style="width:100%;padding:15px;border:1px solid rgba(255,215,120,.5);border-radius:12px;background:linear-gradient(135deg,#2d1648,#5d3a78);color:#ffe39a;font-size:16px;font-weight:800;cursor:pointer;">🔱 YANTRA • HERB • THANTHREEG RESEARCH<span style="display:block;margin-top:5px;color:#fff;opacity:.68;font-size:11px;font-weight:500;">View your personalized traditional research recommendation</span></button>';
     const root=box.querySelector('.aymp-guidance-result');if(root)root.appendChild(wrap);else box.appendChild(wrap);
-    document.getElementById('aympGuidanceResearchButton').onclick=function(){
-      if(window.AYMPResultPresentation&&typeof window.AYMPResultPresentation.open==='function')window.AYMPResultPresentation.open();
-      else alert('Yantra Research is still loading. Please try again in a moment.');
-    };
+    document.getElementById('aympGuidanceResearchButton').onclick=function(){if(window.AYMPResultPresentation&&typeof window.AYMPResultPresentation.open==='function')window.AYMPResultPresentation.open();else alert('Yantra Research is still loading. Please try again in a moment.');};
   }
-
   function showGuidance(index,name,dob,time,place,chart){
     const p=patterns[index],music=musicFiles[index%musicFiles.length],box=popup.querySelector('.guidance-content');if(!box)return;
     const researchSection=getResearchSection(box);
@@ -67,6 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const lagnaResearch=document.createElement('script');lagnaResearch.id='aympLagnaResearchResultLoader';lagnaResearch.src='assets/js/aymp-lagna-research-result.js';lagnaResearch.defer=true;document.body.appendChild(lagnaResearch);
     const cycle=document.createElement('script');cycle.id='aympPersonalResearchCycleLoader';cycle.src='assets/js/aymp-personal-research-cycle.js';cycle.defer=true;document.body.appendChild(cycle);
     const presentation=document.createElement('script');presentation.id='aympResultPresentationLoader';presentation.src='assets/js/aymp-result-presentation.js?v=6';presentation.defer=true;document.body.appendChild(presentation);
+    const cosmicSolution=document.createElement('script');cosmicSolution.id='aympCosmicSolutionResultLoader';cosmicSolution.src='assets/js/aymp-cosmic-solution-result.js?v=1';cosmicSolution.defer=true;document.body.appendChild(cosmicSolution);
   })();
   console.log('AYMP Personal Guidance Engine Ready');
 });
