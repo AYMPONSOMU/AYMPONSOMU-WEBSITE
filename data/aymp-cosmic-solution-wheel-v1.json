@@ -1,0 +1,21 @@
+{
+  "version": "1.0.0",
+  "name": "AYMP Cosmic Solution Wheel",
+  "purpose": "Interactive solution discovery layer built separately from the existing Cosmic Time Wheel.",
+  "disclaimer": "Traditional spiritual/astrology guidance only. No guaranteed outcome, financial return, or medical claim.",
+  "whatsapp": "918903924996",
+  "solutions": [
+    {"id":"pariharam","title":"Special Pariharam","ta":"விஷேஷ பரிஹார வழி","description":"A low-cost traditional guidance option selected for further discussion with AYMP.","cta":"Ask for Pariharam","channel":"whatsapp"},
+    {"id":"yantra","title":"Yantra Solution","ta":"யந்த்ர வழி","description":"Explore an AYMP Yantra option relevant to the selected guidance category.","cta":"Explore Yantra","channel":"whatsapp"},
+    {"id":"power-arts","title":"Power Arts","ta":"Power Arts வழி","description":"Discover a suitable Power Arts research/guidance option from the AYMP ecosystem.","cta":"Explore Power Arts","channel":"whatsapp"},
+    {"id":"aymp-utility","title":"AYMP Utility","ta":"AYMP பயன்பாடு","description":"Discover an AYMP ecosystem utility or access option. Token utility is not a promise of profit or price appreciation.","cta":"Ask about AYMP Utility","channel":"whatsapp"},
+    {"id":"xyz-utility","title":"999xyz999 Utility","ta":"999xyz999 பயன்பாடு","description":"Discover a 999xyz999 ecosystem utility/access option. No guaranteed monetary return is represented.","cta":"Ask about 999xyz999 Utility","channel":"whatsapp"},
+    {"id":"premium-guidance","title":"Personal Astrology Guidance","ta":"தனிப்பட்ட ஜோதிட வழிகாட்டுதல்","description":"Continue with a personal consultation for a deeper discussion. The existing AYMP Basic consultation is ₹499.","cta":"Book ₹499 Consultation","channel":"whatsapp","price":"₹499"},
+    {"id":"planetary-research","title":"Planetary Guidance","ta":"கிரக வழிகாட்டுதல்","description":"Explore a traditional planetary research/guidance path connected to the AYMP system.","cta":"Ask for Planetary Guidance","channel":"whatsapp"},
+    {"id":"herbal-guidance","title":"Herbal Spiritual Guidance","ta":"மூலிகை ஆன்மிக வழிகாட்டுதல்","description":"Explore the existing AYMP herbal/spiritual guidance category. This is not medical advice.","cta":"Ask for Guidance","channel":"whatsapp"},
+    {"id":"sacred-product","title":"Sacred Product","ta":"புனிதப் பொருள்","description":"Ask about currently available AYMP sacred products and ordering through WhatsApp.","cta":"View Sacred Products","channel":"whatsapp"},
+    {"id":"special-offer","title":"Cosmic Special Offer","ta":"கோஸ்மிக் சிறப்பு சலுகை","description":"Receive a current AYMP offer or low-cost entry option, subject to availability.","cta":"Ask for Current Offer","channel":"whatsapp"},
+    {"id":"research-unlock","title":"Cosmic Research Unlock","ta":"கோஸ்மிக் ஆய்வு திறப்பு","description":"Unlock an additional traditional research card or guidance discussion.","cta":"Unlock Research","channel":"whatsapp"},
+    {"id":"daily-guidance","title":"Daily Cosmic Guidance","ta":"தினசரி கோஸ்மிக் வழிகாட்டுதல்","description":"Receive a concise interactive guidance message and discover the next AYMP solution path.","cta":"Get Daily Guidance","channel":"whatsapp"}
+  ]
+}
