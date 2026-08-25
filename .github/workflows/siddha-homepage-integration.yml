@@ -2,9 +2,8 @@ name: AYMP Siddha Wellness Homepage Integration
 
 on:
   push:
-    paths:
-      - 'siddha-wellness.html'
-      - '.github/workflows/siddha-homepage-integration.yml'
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
