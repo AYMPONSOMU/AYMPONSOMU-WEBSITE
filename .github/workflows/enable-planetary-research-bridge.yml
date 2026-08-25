@@ -1,105 +1,71 @@
-name: Enable AYMP Planetary Research Bridge
+name: AYMP Siddha Wellness Homepage Integration
 
-# Keeps the existing guidance engine connected to the dedicated planetary database.
 on:
   push:
     paths:
-      - 'assets/js/guidance.js'
-      - 'assets/js/planetary-research-db.js'
-      - 'assets/js/aymp-lagna-research-result.js'
-      - 'assets/js/aymp-lagna-life-concern-mapping.js'
-      - 'data/aymp_lagna_life_concern_planet_mapping_v1.json'
+      - 'siddha-wellness.html'
       - '.github/workflows/enable-planetary-research-bridge.yml'
+  workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  enable-bridge:
+  integrate-siddha-section:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Add planetary database bridge to guidance engine
+      - name: Add Siddha Wellness section to homepage
         shell: bash
         run: |
           python3 - <<'PY'
           from pathlib import Path
 
-          path = Path('assets/js/guidance.js')
+          path = Path('index.html')
           text = path.read_text(encoding='utf-8')
-          marker = 'AYMP_PLANETARY_RESEARCH_BRIDGE_V1'
+          marker = '<!-- AYMP_SIDDHA_WELLNESS_SECTION_V1 -->'
 
           if marker not in text:
-              addition = r'''
+              section = r'''
 
-// AYMP_PLANETARY_RESEARCH_BRIDGE_V1
-(function loadPlanetaryResearchBridge(){
-  function addBridge(){
-    if(document.getElementById('aympPlanetaryResearchDbLoader')) return;
-    const script=document.createElement('script');
-    script.id='aympPlanetaryResearchDbLoader';
-    script.src='assets/js/planetary-research-db.js';
-    script.defer=true;
-    document.body.appendChild(script);
-  }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',addBridge);
-  else addBridge();
-})();
+<!-- AYMP_SIDDHA_WELLNESS_SECTION_V1 -->
+<section id="siddha-wellness" style="padding:90px 20px;">
+  <div class="container">
+    <div class="free-box" style="text-align:center;">
+      <div style="color:#ffdf6b;letter-spacing:2px;text-transform:uppercase;font-size:13px;font-weight:600;margin-bottom:12px;">AYMPONSOMU • Traditional Siddha Wellness & Research</div>
+      <h2 style="color:#ffd700;font-family:'Cinzel',serif;font-size:clamp(30px,5vw,44px);margin-bottom:20px;">Siddha Wellness Solutions for Men & Women</h2>
+      <p style="max-width:850px;margin:0 auto 28px;color:#ddd;font-size:17px;">Traditional Siddha wisdom, herbal knowledge and holistic wellness guidance for vitality, strength and reproductive wellness.</p>
+      <div class="cards" style="text-align:left;margin-top:30px;">
+        <div class="card"><h3>Men's Wellness</h3><p>Traditional wellness approaches for male vitality, physical strength, reproductive wellness and Kayakalpa-inspired well-being.</p></div>
+        <div class="card"><h3>Women's Wellness</h3><p>Traditional wellness approaches for women's vitality, strength, reproductive and menstrual well-being and Kayakalpa-inspired wellness.</p></div>
+        <div class="card"><h3>General Siddha Wellness</h3><p>Structured traditional herbal wellness information, formulation records and Siddha research documentation for responsible learning and consultation.</p></div>
+      </div>
+      <a class="btn" href="siddha-wellness.html" style="display:inline-block;margin-top:32px;">Explore Siddha Wellness</a>
+    </div>
+  </div>
+</section>
 '''
-              text += addition
-
-          marker2 = 'AYMP_LAGNA_RESEARCH_RESULT_ENGINE_V1'
-          if marker2 not in text:
-              text += r'''
-
-// AYMP_LAGNA_RESEARCH_RESULT_ENGINE_V1
-(function loadLagnaResearchResultEngine(){
-  function addEngine(){
-    if(document.getElementById('aympLagnaResearchResultLoader')) return;
-    const script=document.createElement('script');
-    script.id='aympLagnaResearchResultLoader';
-    script.src='assets/js/aymp-lagna-research-result.js';
-    script.defer=true;
-    document.body.appendChild(script);
-  }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',addEngine);
-  else addEngine();
-})();
-'''
-
-          marker3 = 'AYMP_LAGNA_LIFE_CONCERN_MAPPING_ENGINE_V1'
-          if marker3 not in text:
-              text += r'''
-
-// AYMP_LAGNA_LIFE_CONCERN_MAPPING_ENGINE_V1
-(function loadLagnaLifeConcernMappingEngine(){
-  function addMapping(){
-    if(document.getElementById('aympLagnaLifeConcernMappingLoader')) return;
-    const script=document.createElement('script');
-    script.id='aympLagnaLifeConcernMappingLoader';
-    script.src='assets/js/aymp-lagna-life-concern-mapping.js';
-    script.defer=true;
-    document.body.appendChild(script);
-  }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',addMapping);
-  else addMapping();
-})();
-'''
-
-          path.write_text(text, encoding='utf-8')
+              closing = '</body>'
+              if closing not in text:
+                  raise SystemExit('index.html does not contain closing body tag')
+              text = text.replace(closing, section + '\n' + closing, 1)
+              path.write_text(text, encoding='utf-8')
+              print('Siddha Wellness section added to index.html')
+          else:
+              print('Siddha Wellness section already present')
           PY
 
-      - name: Commit bridge activation
+      - name: Commit homepage integration
         shell: bash
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add assets/js/guidance.js
+          git add index.html
           if git diff --cached --quiet; then
-            echo 'Bridge already active.'
+            echo 'No homepage changes needed.'
           else
-            git commit -m 'Load Lagna life concern mapping engine'
+            git commit -m 'Add Siddha Wellness section to homepage'
             git push
           fi
