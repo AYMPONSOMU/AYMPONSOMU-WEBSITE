@@ -733,5 +733,53 @@ function googleTranslateElementInit() {
 </script>
   <script src="assets/js/guidance.js"></script>
   <audio id="guidanceMusic" preload="auto"></audio>
-  \n<!-- AYMP-SIDDHA-WELLNESS-SECTION -->\n<section id="siddha-wellness" style="padding:80px 20px;">\n  <div class="container">\n    <h2 class="section-title">🌿 Siddha Wellness Solutions</h2>\n    <p style="text-align:center;font-size:20px;"><strong>Traditional Siddha Wisdom for Men &amp; Women</strong></p>\n    <p style="text-align:center;max-width:850px;margin:15px auto 35px;color:#d6d6d6;">\n      Explore AYMP's traditional Siddha-inspired wellness approach for vitality, reproductive wellness, physical strength and holistic well-being.\n    </p>\n    <div class="cards">\n      <div class="card">\n        <h3>👨 Men's Wellness</h3>\n        <p>Traditional approaches for male vitality, energy, reproductive wellness, strength and Kayakalpa-inspired wellness.</p>\n      </div>\n      <div class="card">\n        <h3>👩 Women's Wellness</h3>\n        <p>Traditional approaches supporting women's vitality, strength, reproductive and menstrual wellness.</p>\n      </div>\n      <div class="card">\n        <h3>🌱 General Siddha Wellness</h3>\n        <p>Traditional herbal wellness, vitality and Kayakalpa-inspired guidance for overall well-being.</p>\n      </div>\n    </div>\n    <div style="text-align:center;margin-top:30px;">\n      <a class="btn" href="siddha-wellness.html">Explore Siddha Wellness</a>\n    </div>\n  </div>\n</section>\n</body>
+  \n<!-- AYMP-SIDDHA-WELLNESS-SECTION -->
+<section id="siddha-wellness" style="padding:80px 20px;">
+  <div class="container">
+    <h2 class="section-title">🌿 Siddha Wellness Solutions</h2>
+    <p style="text-align:center;font-size:20px;"><strong>Traditional Siddha Wisdom for Men &amp; Women</strong></p>
+
+    <div id="siddha-wellness-details" style="display:none;margin-top:30px;">
+      <p style="text-align:center;max-width:850px;margin:0 auto 35px;color:#d6d6d6;">
+        Discover a holistic approach to wellness inspired by the traditional Siddha tradition. AYMP brings together traditional herbal knowledge, vitality practices and Kayakalpa-inspired wellness guidance for men and women.
+      </p>
+      <div class="cards">
+        <div class="card">
+          <h3>👨 Men's Wellness</h3>
+          <p>Traditional herbal wellness approaches supporting male vitality, physical energy, stamina and reproductive wellness.</p>
+        </div>
+        <div class="card">
+          <h3>👩 Women's Wellness</h3>
+          <p>Traditional wellness approaches supporting women's vitality, strength and reproductive and menstrual wellness.</p>
+        </div>
+        <div class="card">
+          <h3>🌱 General Siddha Wellness</h3>
+          <p>Traditional herbal wellness and Kayakalpa-inspired practices supporting overall vitality, physical strength and holistic well-being.</p>
+        </div>
+      </div>
+      <div style="margin:30px auto 0;max-width:850px;text-align:center;color:#d6d6d6;">
+        <p><strong>🔬 AYMP Siddha Research</strong></p>
+        <p style="margin-top:10px;">Our Siddha formulations and traditional wellness practices can be documented through a structured research framework covering traditional use, ingredients, preparation methods, safety information, references and verification status.</p>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:30px;">
+      <button type="button" class="btn" id="siddha-wellness-toggle" aria-expanded="false" aria-controls="siddha-wellness-details">Explore Siddha Wellness</button>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+  var button=document.getElementById('siddha-wellness-toggle');
+  var details=document.getElementById('siddha-wellness-details');
+  if(!button||!details)return;
+  button.addEventListener('click',function(){
+    var open=details.style.display!=='none';
+    details.style.display=open?'none':'block';
+    button.setAttribute('aria-expanded',String(!open));
+    button.textContent=open?'Explore Siddha Wellness':'Hide Siddha Wellness';
+  });
+})();
+</script>
+\n</body>
 </html>
