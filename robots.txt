@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /.github/
+Disallow: /data/
+
+Sitemap: https://aymp999.github.io/.in/sitemap.xml
