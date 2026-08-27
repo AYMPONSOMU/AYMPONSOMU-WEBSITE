@@ -62,3 +62,21 @@ document.addEventListener('DOMContentLoaded', function () {
   })();
   console.log('AYMP Personal Guidance Engine Ready');
 });
+
+/* AYMP Siddha Wellness homepage integration — additive only. */
+document.addEventListener('DOMContentLoaded', function () {
+  if (document.getElementById('aymp-siddha-homepage-card')) return;
+  var section = document.createElement('section');
+  section.id = 'aymp-siddha-homepage-card';
+  section.style.cssText = 'padding:70px 20px;';
+  section.innerHTML = '<div class="container" style="max-width:1200px;margin:auto;text-align:center;">' +
+    '<div style="background:linear-gradient(135deg,rgba(21,35,53,.96),rgba(61,35,82,.96));border:2px solid rgba(255,215,0,.45);border-radius:30px;padding:42px 25px;box-shadow:0 0 35px rgba(255,215,0,.16);">' +
+    '<div style="font-size:46px;margin-bottom:12px;">🌿</div>' +
+    '<h2 style="font-family:Cinzel,serif;color:#ffd700;font-size:38px;margin-bottom:12px;">Siddha Wellness Solutions</h2>' +
+    '<p style="color:#eee;font-size:18px;max-width:800px;margin:0 auto 25px;">Traditional Siddha wellness guidance for Men, Women &amp; Family Well-Being</p>' +
+    '<a href="siddha-wellness.html" class="btn" style="display:inline-block;padding:16px 32px;border-radius:40px;background:linear-gradient(45deg,#c9a227,#ffdf6b);color:#111;font-weight:700;text-decoration:none;box-shadow:0 0 20px rgba(255,215,0,.35);">🌿 EXPLORE SIDDHA WELLNESS</a>' +
+    '</div></div>';
+  var footer = document.querySelector('footer');
+  if (footer && footer.parentNode) footer.parentNode.insertBefore(section, footer);
+  else document.body.appendChild(section);
+});
