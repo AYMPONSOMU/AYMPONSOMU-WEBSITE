@@ -2,6 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://aymp999.github.io/.in/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
   <url><loc>https://aymp999.github.io/.in/global-trending.html</loc><changefreq>daily</changefreq><priority>0.95</priority></url>
+  <url><loc>https://aymp999.github.io/.in/learning-hub.html</loc><changefreq>daily</changefreq><priority>0.95</priority></url>
+  <url><loc>https://aymp999.github.io/.in/game-zone.html</loc><changefreq>daily</changefreq><priority>0.95</priority></url>
   <url><loc>https://aymp999.github.io/.in/guides.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://aymp999.github.io/.in/daily-horoscope.html</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
   <url><loc>https://aymp999.github.io/.in/weekly-horoscope.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
