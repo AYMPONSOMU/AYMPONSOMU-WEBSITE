@@ -62,7 +62,6 @@ fetch("data/all_zodiac_v1.json")
 
         html += `
             <div class="card">
-        ">
             <h2 style="color:gold;">${sign}</h2>
 
             <p><b>Day :</b> ${dayKey}</p>
