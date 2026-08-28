@@ -36,8 +36,8 @@ document.addEventListener('DOMContentLoaded', function () {
       if (insertAt >= 0) {
         var firstEnd = existing.indexOf('</div>', insertAt) + 6;
         wow.innerHTML = existing.slice(0, insertAt) + imageHtml + existing.slice(firstEnd);
-      } else if (!wow.querySelector('img[data-aymp-wow-image]')) {
-        wow.insertAdjacentHTML('afterbegin', imageHtml.replace('<img ','<img data-aymp-wow-image="1" '));
+      } else if (!wow.querySelector('img')) {
+        wow.insertAdjacentHTML('afterbegin', imageHtml);
       }
       var visuals = document.createElement('div');
       visuals.id = 'aymp-daily-visuals';
