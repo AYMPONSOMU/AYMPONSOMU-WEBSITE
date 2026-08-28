@@ -41,6 +41,17 @@
   var css=document.createElement('style');
   css.textContent='.aymp-social-bar{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:18px auto 4px;padding:10px}.aymp-social-bar button{cursor:pointer;border:1px solid rgba(255,215,0,.55);border-radius:20px;padding:8px 12px;background:rgba(10,25,55,.92);color:#fff;font-weight:600;font-family:inherit}.aymp-social-bar button:hover{transform:translateY(-1px);box-shadow:0 0 10px rgba(255,215,0,.35)}@media(max-width:600px){.aymp-social-bar{gap:5px}.aymp-social-bar button{font-size:12px;padding:8px 9px}}';
   document.head.appendChild(css);
-  function start(){init();var observer=new MutationObserver(function(){init()});observer.observe(document.body,{childList:true,subtree:true});}
+  function start(){
+    init();
+    var observer=new MutationObserver(function(){init()});
+    observer.observe(document.body,{childList:true,subtree:true});
+    if(!document.querySelector('script[data-aymp-global-daily-content]')){
+      var daily=document.createElement('script');
+      daily.src='assets/js/aymp-global-daily-content.js?v=1';
+      daily.async=true;
+      daily.setAttribute('data-aymp-global-daily-content','1');
+      document.body.appendChild(daily);
+    }
+  }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start();
 })();
