@@ -74,4 +74,13 @@ document.addEventListener('DOMContentLoaded', function () {
   document.querySelectorAll('[data-aymp-track]').forEach(function(a){a.addEventListener('click',function(){if(typeof gtag==='function')gtag('event','page_discovery_click',{event_category:'growth',event_label:a.getAttribute('data-aymp-track')});});});
   document.querySelectorAll('a[href*="wa.me"]').forEach(function(a){a.addEventListener('click',function(){if(typeof gtag==='function')gtag('event','whatsapp_click',{event_category:'conversion',event_label:location.pathname});});});
   if(typeof gtag==='function')gtag('event','page_growth_layer_loaded',{page_path:location.pathname});
+
+  /* Load social interaction layer without altering existing page sections. */
+  if (!document.querySelector('script[data-aymp-social-layer]')) {
+    var social=document.createElement('script');
+    social.src='js/aymp-social.js?v=1';
+    social.async=true;
+    social.setAttribute('data-aymp-social-layer','1');
+    document.body.appendChild(social);
+  }
 });
