@@ -49,24 +49,22 @@ document.addEventListener('DOMContentLoaded', function () {
     section.innerHTML='<div style="max-width:1200px;margin:auto"><div style="text-align:center"><div style="font-size:14px;letter-spacing:3px;color:#cfc6a0">AYMP DAILY WONDER</div><h2 style="font-family:Georgia,serif;font-size:42px;color:#ffd700;margin:8px 0">✨ TODAY\'S WOW ✨</h2><p id="aymp-wow-date" style="color:#ddd;margin:0 0 25px"></p></div><div id="aymp-wow-card" style="max-width:850px;margin:auto;padding:28px;border-radius:24px;background:rgba(255,255,255,.06);border:1px solid rgba(255,215,0,.28);box-shadow:0 0 30px rgba(255,215,0,.12)"></div><div style="margin-top:38px"><h3 style="text-align:center;color:#ffd700;font-size:27px">🔥 GLOBAL TRENDING NOW</h3><p style="text-align:center;color:#bbb;font-size:14px">Fresh topics from global news coverage. Headlines may change throughout the day.</p><div id="aymp-trends" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px"></div></div></div>';
     var footer=document.querySelector('footer'); if(footer&&footer.parentNode) footer.parentNode.insertBefore(section,footer); else document.body.appendChild(section);
 
-    var wonders=[
-      ['🌌','The Universe Is Still Full of Mysteries','From distant galaxies to strange cosmic objects, modern astronomy continues to reveal how much we have yet to discover.'],
-      ['🌊','Our Planet Is Full of Hidden Worlds','Deep oceans, extreme landscapes and microscopic ecosystems show how much life exists beyond what we see every day.'],
-      ['🧠','The Human Brain Can Keep Surprising Science','Memory, perception and learning remain active areas of research, reminding us that the mind is one of nature’s great puzzles.'],
-      ['🦋','Nature Has Extraordinary Survival Strategies','Across the world, plants and animals have evolved remarkable ways to adapt to heat, cold, darkness, drought and changing habitats.'],
-      ['🏺','Ancient Knowledge Still Inspires Modern Questions','Archaeology continues to uncover evidence that can change how we understand earlier civilizations and their technologies.'],
-      ['🤖','Technology Is Changing How We Create','Artificial intelligence, robotics and new computing tools are rapidly changing creative and scientific workflows.'],
-      ['🌿','Traditional Plant Knowledge Is Still Being Studied','Researchers continue to investigate plants and traditional uses, while modern safety and evidence remain important when considering health applications.']
-    ];
+    var wonders=[['🌌','The Universe Is Still Full of Mysteries','From distant galaxies to strange cosmic objects, modern astronomy continues to reveal how much we have yet to discover.'],['🌊','Our Planet Is Full of Hidden Worlds','Deep oceans, extreme landscapes and microscopic ecosystems show how much life exists beyond what we see every day.'],['🧠','The Human Brain Can Keep Surprising Science','Memory, perception and learning remain active areas of research, reminding us that the mind is one of nature’s great puzzles.'],['🦋','Nature Has Extraordinary Survival Strategies','Across the world, plants and animals have evolved remarkable ways to adapt to heat, cold, darkness, drought and changing habitats.'],['🏺','Ancient Knowledge Still Inspires Modern Questions','Archaeology continues to uncover evidence that can change how we understand earlier civilizations and their technologies.'],['🤖','Technology Is Changing How We Create','Artificial intelligence, robotics and new computing tools are rapidly changing creative and scientific workflows.'],['🌿','Traditional Plant Knowledge Is Still Being Studied','Researchers continue to investigate plants and traditional uses, while modern safety and evidence remain important when considering health applications.']];
     var day=Math.floor(Date.now()/86400000); var wonder=wonders[((day%wonders.length)+wonders.length)%wonders.length];
     document.getElementById('aymp-wow-date').textContent=new Date().toLocaleDateString(undefined,{weekday:'long',year:'numeric',month:'long',day:'numeric'});
     document.getElementById('aymp-wow-card').innerHTML='<div style="font-size:46px;text-align:center">'+wonder[0]+'</div><h3 style="color:#fff;text-align:center;font-size:27px;margin:10px 0">'+wonder[1]+'</h3><p style="color:#ddd;text-align:center;max-width:700px;margin:auto">'+wonder[2]+'</p><div style="text-align:center;margin-top:20px"><a href="guides.html" style="display:inline-block;padding:12px 22px;border-radius:25px;background:#c9a227;color:#111;text-decoration:none;font-weight:700">Discover More at AYMP →</a></div>';
 
     var trends=document.getElementById('aymp-trends');
-    fetch('https://api.gdeltproject.org/api/v2/doc/doc?query=global&mode=artlist&format=json&maxrecords=8&sort=datedesc',{cache:'no-store'})
-      .then(function(r){if(!r.ok)throw new Error('trend fetch failed');return r.json();})
-      .then(function(data){var arts=(data.articles||[]).filter(function(a){return a.title&&a.url;}).slice(0,6); if(!arts.length)throw new Error('no trends'); arts.forEach(function(a,i){var c=document.createElement('a');c.href=a.url;c.target='_blank';c.rel='noopener noreferrer';c.style.cssText='display:block;padding:18px;border-radius:18px;background:rgba(255,255,255,.055);border:1px solid rgba(255,215,0,.16);color:#fff;text-decoration:none';c.innerHTML='<div style="color:#ffd700;font-weight:700;margin-bottom:7px">#'+(i+1)+' · TRENDING</div><div style="font-weight:600;line-height:1.45">'+a.title.replace(/[<>]/g,'')+'</div><div style="margin-top:8px;color:#aaa;font-size:12px">Global news • '+(a.domain||'source')+'</div>';trends.appendChild(c);});})
-      .catch(function(){trends.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:20px;color:#bbb">Global trends are updating. Please refresh later for the latest topics.</div>';});
+    var queries=['world OR global','science OR technology','space OR astronomy','education OR learning','games OR gaming','health OR wellness'];
+    var idx=Math.floor(Date.now()/86400000)%queries.length;
+    function showArticles(arts){
+      trends.innerHTML=''; arts.slice(0,6).forEach(function(a,i){var c=document.createElement('a');c.href=a.url;c.target='_blank';c.rel='noopener noreferrer';c.style.cssText='display:block;padding:18px;border-radius:18px;background:rgba(255,255,255,.055);border:1px solid rgba(255,215,0,.16);color:#fff;text-decoration:none';c.innerHTML='<div style="color:#ffd700;font-weight:700;margin-bottom:7px">#'+(i+1)+' · TRENDING</div><div style="font-weight:600;line-height:1.45">'+String(a.title||'').replace(/[<>]/g,'')+'</div><div style="margin-top:8px;color:#aaa;font-size:12px">Global news • '+String(a.domain||'source').replace(/[<>]/g,'')+'</div>';trends.appendChild(c);});
+    }
+    function fallback(){
+      var backup=[['🌍','Global Discoveries','Explore fascinating developments, discoveries and stories from around the world.'],['🚀','Space & Science','New discoveries in space, astronomy, science and technology continue every day.'],['📚','Learning Trends','Interesting educational ideas, knowledge and learning resources from around the world.'],['🎮','Gaming World','Discover new games, gaming ideas and interactive experiences from around the world.'],['🌿','Wellness & Nature','Explore nature, plants and traditional wellness knowledge with a focus on responsible information.'],['🤯','Amazing World','Surprising facts and remarkable stories that make you want to discover more.']];
+      trends.innerHTML=''; backup.forEach(function(a,i){var c=document.createElement('div');c.style.cssText='display:block;padding:18px;border-radius:18px;background:rgba(255,255,255,.055);border:1px solid rgba(255,215,0,.16);color:#fff';c.innerHTML='<div style="font-size:30px">'+a[0]+'</div><div style="color:#ffd700;font-weight:700;margin:7px 0">#'+(i+1)+' · AYMP TRENDING</div><div style="font-weight:600;line-height:1.45">'+a[1]+'</div><div style="margin-top:8px;color:#aaa;font-size:13px">'+a[2]+'</div>';trends.appendChild(c);});
+    }
+    fetch('https://api.gdeltproject.org/api/v2/doc/doc?query='+encodeURIComponent(queries[idx])+'&mode=artlist&format=json&maxrecords=10&sort=datedesc',{cache:'no-store'}).then(function(r){if(!r.ok)throw new Error('trend fetch failed');return r.json();}).then(function(data){var arts=(data.articles||[]).filter(function(a){return a.title&&a.url;});if(arts.length)showArticles(arts);else fallback();}).catch(function(){fallback();});
   }
 
   addDiscoveryBar();
@@ -74,13 +72,5 @@ document.addEventListener('DOMContentLoaded', function () {
   document.querySelectorAll('[data-aymp-track]').forEach(function(a){a.addEventListener('click',function(){if(typeof gtag==='function')gtag('event','page_discovery_click',{event_category:'growth',event_label:a.getAttribute('data-aymp-track')});});});
   document.querySelectorAll('a[href*="wa.me"]').forEach(function(a){a.addEventListener('click',function(){if(typeof gtag==='function')gtag('event','whatsapp_click',{event_category:'conversion',event_label:location.pathname});});});
   if(typeof gtag==='function')gtag('event','page_growth_layer_loaded',{page_path:location.pathname});
-
-  /* Load social interaction layer without altering existing page sections. */
-  if (!document.querySelector('script[data-aymp-social-layer]')) {
-    var social=document.createElement('script');
-    social.src='js/aymp-social.js?v=1';
-    social.async=true;
-    social.setAttribute('data-aymp-social-layer','1');
-    document.body.appendChild(social);
-  }
+  if (!document.querySelector('script[data-aymp-social-layer]')) { var social=document.createElement('script'); social.src='js/aymp-social.js?v=2'; social.async=true; social.setAttribute('data-aymp-social-layer','1'); document.body.appendChild(social); }
 });
