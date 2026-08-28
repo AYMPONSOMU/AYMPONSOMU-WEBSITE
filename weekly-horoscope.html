@@ -1,22 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Weekly Horoscope</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Weekly Horoscope | AYMPONSOMU</title>
+<meta name="description" content="Explore AYMPONSOMU free weekly horoscope guidance for all 12 zodiac signs with a fresh weekly theme and practical reflection points.">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#09142a;color:white;font-family:Arial,sans-serif;line-height:1.7}main{max-width:1180px;margin:auto;padding:24px 18px 70px}.hero{text-align:center;padding:42px 20px;border:1px solid rgba(255,215,0,.25);border-radius:28px;background:linear-gradient(135deg,#111d43,#24133b);box-shadow:0 0 35px rgba(255,215,0,.12)}h1{color:gold;margin:0 0 10px;font-size:42px}h2{color:#ffd86a}.date{text-align:center;color:#d8d8d8;margin:22px 0}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:16px}.card{padding:22px;border-radius:20px;background:rgba(255,255,255,.055);border:1px solid rgba(255,215,0,.18)}.card h3{color:#ffd700;margin:0 0 8px;font-size:21px}.tag{display:inline-block;color:#111;background:#ffd700;border-radius:18px;padding:4px 10px;font-size:12px;font-weight:bold;margin-bottom:10px}.btn{display:inline-block;margin-top:12px;padding:10px 16px;background:#c9a227;color:#111;text-decoration:none;border-radius:22px;font-weight:bold}.note{margin-top:28px;padding:20px;border-left:3px solid #ffd700;background:rgba(255,255,255,.04);color:#d9d9d9}.back{text-align:center;margin-top:35px}.back a{color:#ffd700}
+</style>
 </head>
-
-<body style="background:#09142a;color:white;font-family:Arial;padding:20px;">
-
-<h1 style="color:gold;text-align:center;">
-FREE WEEKLY HOROSCOPE
-</h1>
-
+<body>
+<main>
+<section class="hero">
+<h1>FREE WEEKLY HOROSCOPE</h1>
 <h2>This Week's Cosmic Guidance</h2>
-
-<p>
-Here you can publish the weekly predictions for all 12 zodiac signs.
-Update every Monday.
-</p>
-
+<p>Here you can publish the weekly predictions for all 12 zodiac signs.<br>Update every Monday.</p>
+</section>
+<div class="date" id="weekDate"></div>
+<section><h2 style="text-align:center">🌟 12 Zodiac Weekly Guidance</h2><div class="cards" id="zodiacCards"></div></section>
+<div class="note"><strong>AYMP Weekly Reflection:</strong> Use this weekly guidance as a traditional astrology reflection tool. Personal decisions about health, finance, relationships or other important matters should be made with appropriate professional advice.</div>
+<div class="back"><a href="index.html">← Return to AYMP Home</a> &nbsp; | &nbsp; <a href="daily-horoscope.html">Open Daily Horoscope →</a></div>
+</main>
+<script>
+(function(){var signs=[['♈','Aries','Initiative','Use the week to organise priorities, act with confidence and avoid unnecessary haste.'],['♉','Taurus','Stability','Focus on steady progress, practical planning and protecting time for what matters most.'],['♊','Gemini','Communication','A useful week for learning, conversations and turning scattered ideas into a clear plan.'],['♋','Cancer','Home & Balance','Give attention to family, rest and emotional balance while keeping your personal goals moving.'],['♌','Leo','Expression','Let creativity lead, but combine confidence with thoughtful listening in important conversations.'],['♍','Virgo','Organisation','Small improvements can create momentum. Review routines, schedules and unfinished tasks.'],['♎','Libra','Harmony','Seek balance in relationships and decisions. Clear communication can prevent avoidable misunderstandings.'],['♏','Scorpio','Focus','Choose one important objective and work deeply on it instead of spreading energy too widely.'],['♐','Sagittarius','Exploration','Stay curious and open to new ideas while checking practical details before making major commitments.'],['♑','Capricorn','Discipline','Consistent effort is more valuable than quick results. Build a realistic plan and follow it step by step.'],['♒','Aquarius','Innovation','Experiment with a fresh approach to an old problem and share useful ideas with others.'],['♓','Pisces','Reflection','Make space for creativity, rest and reflection. Keep boundaries clear when supporting other people.']];var d=new Date();document.getElementById('weekDate').textContent='Week of '+d.toLocaleDateString(undefined,{year:'numeric',month:'long',day:'numeric'});var box=document.getElementById('zodiacCards');signs.forEach(function(s){var c=document.createElement('article');c.className='card';c.innerHTML='<span class="tag">WEEKLY THEME</span><h3>'+s[0]+' '+s[1]+'</h3><strong>'+s[2]+'</strong><p>'+s[3]+'</p><a class="btn" href="daily-horoscope.html">Daily guidance →</a>';box.appendChild(c);});})();
+</script>
 </body>
 </html>
