@@ -17,17 +17,19 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Ensure growth script is loaded
+      - name: Ensure growth and discovery image scripts are loaded
         shell: bash
         run: |
           python3 - <<'PY'
           from pathlib import Path
+          import re
           p = Path('index.html')
           text = p.read_text(encoding='utf-8')
-          marker = '<!-- AYMP-GROWTH-LAYER -->'
-          import re
+          growth = '<!-- AYMP-GROWTH-LAYER -->'
+          images = '<!-- AYMP-DAILY-DISCOVERY-IMAGES -->'
           text = re.sub(r'\s*<!-- AYMP-GROWTH-LAYER -->\s*<script src="assets/js/aymp-growth.js\?v=[^"]+"></script>', '', text)
-          tag = '\n  ' + marker + '\n  <script src="assets/js/aymp-growth.js?v=2"></script>\n'
+          text = re.sub(r'\s*<!-- AYMP-DAILY-DISCOVERY-IMAGES -->\s*<script src="assets/js/aymp-daily-discovery-images.js\?v=[^"]+"></script>', '', text)
+          tag = '\n  ' + growth + '\n  <script src="assets/js/aymp-growth.js?v=3"></script>\n  ' + images + '\n  <script src="assets/js/aymp-daily-discovery-images.js?v=1"></script>\n'
           text = text.replace('</body>', tag + '</body>', 1)
           p.write_text(text, encoding='utf-8')
           PY
@@ -36,13 +38,13 @@ jobs:
         shell: bash
         run: |
           if git diff --quiet -- index.html; then
-            echo "Growth layer already installed."
+            echo "Discovery layers already installed."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add index.html
-          git commit -m "Fix AYMP Daily Wonder homepage integration"
+          git commit -m "Add rotating AYMP Daily Discovery images"
           git fetch origin main
           git rebase origin/main
           git push origin HEAD:main
