@@ -1,4 +1,4 @@
-/* AYMP Game Zone Entry — additive only. Existing homepage sections remain untouched. */
+/* AYMP Game Zone Entry — additive only. Existing homepage sections remain untouched. v2 */
 document.addEventListener('DOMContentLoaded', function () {
   if (document.getElementById('aymp-game-zone-entry')) return;
   var section = document.createElement('section');
