@@ -17,7 +17,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Ensure growth, discovery images, daily content and live global scripts are loaded
+      - name: Ensure growth, discovery images, daily content, live global scripts and Game Zone are loaded
         shell: bash
         run: |
           python3 - <<'PY'
@@ -29,11 +29,13 @@ jobs:
           images = '<!-- AYMP-DAILY-DISCOVERY-IMAGES -->'
           daily = '<!-- AYMP-GLOBAL-DAILY-CONTENT -->'
           live = '<!-- AYMP-LIVE-GLOBAL-UPGRADE -->'
+          game = '<!-- AYMP-GAME-ZONE-ENTRY -->'
           text = re.sub(r'\s*<!-- AYMP-GROWTH-LAYER -->\s*<script src="assets/js/aymp-growth.js\?v=[^"]+"></script>', '', text)
           text = re.sub(r'\s*<!-- AYMP-DAILY-DISCOVERY-IMAGES -->\s*<script src="assets/js/aymp-daily-discovery-images.js\?v=[^"]+"></script>', '', text)
           text = re.sub(r'\s*<!-- AYMP-GLOBAL-DAILY-CONTENT -->\s*<script src="assets/js/aymp-global-daily-content.js\?v=[^"]+"></script>', '', text)
           text = re.sub(r'\s*<!-- AYMP-LIVE-GLOBAL-UPGRADE -->\s*<script src="assets/js/aymp-live-global-upgrade.js\?v=[^"]+"></script>', '', text)
-          tag = '\n  ' + growth + '\n  <script src="assets/js/aymp-growth.js?v=6"></script>\n  ' + images + '\n  <script src="assets/js/aymp-daily-discovery-images.js?v=2"></script>\n  ' + daily + '\n  <script src="assets/js/aymp-global-daily-content.js?v=1"></script>\n  ' + live + '\n  <script src="assets/js/aymp-live-global-upgrade.js?v=2"></script>\n'
+          text = re.sub(r'\s*<!-- AYMP-GAME-ZONE-ENTRY -->\s*<script src="assets/js/aymp-game-entry.js\?v=[^"]+"></script>', '', text)
+          tag = '\n  ' + growth + '\n  <script src="assets/js/aymp-growth.js?v=6"></script>\n  ' + images + '\n  <script src="assets/js/aymp-daily-discovery-images.js?v=2"></script>\n  ' + daily + '\n  <script src="assets/js/aymp-global-daily-content.js?v=1"></script>\n  ' + live + '\n  <script src="assets/js/aymp-live-global-upgrade.js?v=2"></script>\n  ' + game + '\n  <script src="assets/js/aymp-game-entry.js?v=1"></script>\n'
           text = text.replace('</body>', tag + '</body>', 1)
           p.write_text(text, encoding='utf-8')
           PY
@@ -48,7 +50,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@github.com"
           git add index.html
-          git commit -m "Improve live global trending content"
+          git commit -m "Add visible AYMP Game Zone entry"
           git fetch origin main
           git rebase origin/main
           git push origin HEAD:main
