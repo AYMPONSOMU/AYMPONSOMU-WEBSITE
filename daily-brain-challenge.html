@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AYMP Daily Brain Challenge</title>
+<meta name="description" content="Play the AYMP Daily Brain Challenge with five quick questions and test your knowledge.">
+<link rel="canonical" href="https://aymp999.github.io/.in/daily-brain-challenge.html">
+<style>
+body{margin:0;background:#050816;color:#fff;font-family:system-ui,-apple-system,Segoe UI,sans-serif}.wrap{max-width:760px;margin:auto;padding:28px 18px 70px}.hero{text-align:center;padding:20px 0}.eyebrow{color:#d8c98b;letter-spacing:3px;font-weight:800}.hero h1{color:#ffd700;font-family:Georgia,serif;font-size:clamp(34px,8vw,52px);margin:10px 0}.hero p{color:#ccc;line-height:1.6}.quiz{display:grid;gap:16px}.q{padding:20px;border-radius:20px;background:rgba(255,255,255,.055);border:1px solid rgba(255,215,0,.2)}.q h2{font-size:19px;margin:0 0 14px}.option{display:block;width:100%;box-sizing:border-box;text-align:left;margin:8px 0;padding:12px 14px;border-radius:14px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:#fff;cursor:pointer}.option.selected{border-color:#ffd700;background:rgba(255,215,0,.12)}button#submit{width:100%;padding:15px;border:0;border-radius:28px;background:#d4af37;color:#111;font-weight:900;font-size:17px;cursor:pointer}.result{display:none;margin-top:20px;padding:22px;border-radius:20px;text-align:center;background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.25)}.back{display:inline-block;margin-top:15px;color:#ffd700;text-decoration:none;font-weight:800}
+</style>
+</head>
+<body><main class="wrap">
+<header class="hero"><div class="eyebrow">🧠 AYMP LEARNING GAME</div><h1>Daily Brain Challenge</h1><p>Five quick questions. One daily challenge. Test your knowledge and try again tomorrow.</p></header>
+<section class="quiz" id="quiz"></section>
+<button id="submit">CHECK MY SCORE</button>
+<section class="result" id="result"></section>
+<div style="text-align:center"><a class="back" href="game-zone.html">← Back to AYMP Game Zone</a></div>
+</main>
+<script>
+const questions=[
+ {q:'Which planet is known as the Red Planet?',a:['Earth','Mars','Venus','Jupiter'],c:1},
+ {q:'Which ocean is the largest on Earth?',a:['Atlantic Ocean','Indian Ocean','Pacific Ocean','Arctic Ocean'],c:2},
+ {q:'What does AI commonly stand for?',a:['Advanced Internet','Artificial Intelligence','Automated Information','Applied Innovation'],c:1},
+ {q:'How many continents are commonly taught in the seven-continent model?',a:['5','6','7','8'],c:2},
+ {q:'Which gas do plants mainly absorb from the air for photosynthesis?',a:['Oxygen','Nitrogen','Carbon dioxide','Hydrogen'],c:2}
+];
+const quiz=document.getElementById('quiz');
+questions.forEach((x,i)=>{const box=document.createElement('article');box.className='q';box.innerHTML='<h2>'+(i+1)+'. '+x.q+'</h2>'+x.a.map((v,j)=>'<button class="option" data-q="'+i+'" data-a="'+j+'">'+v+'</button>').join('');quiz.appendChild(box)});
+document.querySelectorAll('.option').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-q="'+b.dataset.q+'"]').forEach(x=>x.classList.remove('selected'));b.classList.add('selected')});
+document.getElementById('submit').onclick=()=>{let score=0,answered=0;questions.forEach((x,i)=>{const s=document.querySelector('.option.selected[data-q="'+i+'"]');if(s){answered++;if(Number(s.dataset.a)===x.c)score++}});const r=document.getElementById('result');r.style.display='block';r.innerHTML='<h2>🌟 Your Score: '+score+'/5</h2><p>You answered '+answered+' of 5 questions. Come back tomorrow for a new challenge.</p>'};
+</script>
+<script src="assets/js/aymp-growth.js?v=6" defer></script>
+<script src="js/aymp-social.js?v=1" defer></script>
+</body></html>
