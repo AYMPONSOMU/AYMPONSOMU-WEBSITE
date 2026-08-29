@@ -3,29 +3,32 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="AYMP Global Trending: daily world, science, space, education, gaming and wellness discoveries with amazing stories and images.">
-  <meta name="robots" content="index,follow">
+  <meta name="description" content="AYMP Global Discovery: today's amazing world stories, daily games, education, AI, space, science, nature, history, sports, entertainment and fascinating discoveries.">
+  <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="https://aymp999.github.io/.in/global-trending.html">
-  <title>Global Trending & Daily Wonder | AYMP</title>
+  <title>🌍 AYMP Global Discovery | Today's Amazing World + Games</title>
   <link rel="stylesheet" href="assets/css/style.css">
   <style>
     body{margin:0;background:#050816;color:#fff;font-family:system-ui,-apple-system,Segoe UI,sans-serif}
-    .aymp-trending-page{max-width:1100px;margin:auto;padding:48px 20px 80px}
-    .aymp-trending-page h1{font-family:Georgia,serif;color:#ffd700;font-size:clamp(34px,6vw,58px);text-align:center;margin:20px 0 12px}
-    .aymp-trending-page .intro{text-align:center;color:#d8d8d8;max-width:820px;margin:0 auto 35px;line-height:1.7}
-    .aymp-trending-page .topics{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:40px}
-    .aymp-trending-page .topics span{padding:9px 14px;border:1px solid rgba(255,215,0,.25);border-radius:22px;background:rgba(255,255,255,.05)}
-    .aymp-trending-page .note{padding:18px;border-radius:18px;background:rgba(255,215,0,.06);border:1px solid rgba(255,215,0,.18);color:#ccc;line-height:1.6}
+    .hub{max-width:1180px;margin:auto;padding:26px 16px 70px}.hero{text-align:center;padding:28px 8px 18px}.eyebrow{color:#cfc6a0;letter-spacing:3px;font-size:12px;font-weight:800}h1{font-family:Georgia,serif;color:#ffd700;font-size:clamp(34px,7vw,62px);margin:10px 0}.hero p{max-width:820px;margin:auto;color:#d8d8d8;line-height:1.7}
+    .hub-buttons{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:11px;margin:25px auto 35px;max-width:1050px}.hub-btn{border:1px solid rgba(255,215,0,.3);border-radius:18px;padding:15px 10px;background:linear-gradient(135deg,rgba(255,215,0,.12),rgba(255,255,255,.045));color:#fff;font-weight:800;cursor:pointer;text-align:center;min-height:55px}.hub-btn:hover{transform:translateY(-2px);border-color:#ffd700}.hub-btn.active{background:#c9a227;color:#111;border-color:#ffd700}
+    .feature{padding:22px;border-radius:24px;background:linear-gradient(135deg,rgba(255,215,0,.09),rgba(30,20,65,.7));border:1px solid rgba(255,215,0,.25);margin-bottom:25px}.feature h2{color:#ffd700;text-align:center;margin:4px 0 8px;font-size:28px}.feature p{text-align:center;color:#ccc;line-height:1.6;margin:0}.note{margin-top:30px;padding:15px;border-radius:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);color:#aaa;text-align:center;font-size:12px;line-height:1.6}.hidden-card{display:none!important}
   </style>
 </head>
 <body>
-  <main class="aymp-trending-page">
-    <div style="text-align:center;color:#cfc6a0;letter-spacing:3px">AYMP GLOBAL DISCOVERY</div>
-    <h1>🌍 Global Trending & Daily Wonder</h1>
-    <p class="intro">Discover changing stories, fascinating facts and remarkable topics from around the world. Explore science, space, education, gaming, nature and wellness through an easy-to-read daily discovery experience.</p>
-    <div class="topics"><span>🌍 World</span><span>🔬 Science & Technology</span><span>🌌 Space</span><span>📚 Education</span><span>🎮 Gaming</span><span>🌿 Nature & Wellness</span></div>
-    <div class="note"><strong>Fresh every day:</strong> AYMP combines current global coverage with original discovery content. External headlines are presented as links to their sources; always check the original source for full context.</div>
+  <main class="hub">
+    <header class="hero"><div class="eyebrow">AYMP GLOBAL DISCOVERY</div><h1>🌍 TODAY'S AMAZING WORLD</h1><p>One place for the world's most interesting discoveries — amazing facts, global stories, learning, games, science, technology, space, nature, history, sports and entertainment.</p></header>
+    <section class="feature"><h2>✨ What do you want to discover today?</h2><p>Tap a button below. The content cards will show the selected topic.</p></section>
+    <nav class="hub-buttons" aria-label="Global Discovery categories">
+      <button class="hub-btn active" data-filter="all">🌍 All Discoveries</button><button class="hub-btn" data-filter="World Amazing News">🌎 World Amazing</button><button class="hub-btn" data-filter="Amazing Facts & Discoveries">🤯 Amazing Facts</button><button class="hub-btn" data-filter="Global Games">🎮 Global Games</button><button class="hub-btn" data-filter="Study & Education">📚 Study</button><button class="hub-btn" data-filter="AI & Technology">🤖 AI & Tech</button><button class="hub-btn" data-filter="Space & Science">🚀 Space</button><button class="hub-btn" data-filter="Nature & Wildlife">🌿 Nature</button><button class="hub-btn" data-filter="History & Culture">🏺 History</button><button class="hub-btn" data-filter="Sports World">⚽ Sports</button><button class="hub-btn" data-filter="Entertainment">🎬 Entertainment</button>
+    </nav>
+    <div id="aymp-global-content"></div>
+    <div class="note">🔄 Content changes daily. Live stories open their original source. AYMP daily games and discovery content are for entertainment and learning.</div>
   </main>
-  <script src="assets/js/aymp-growth.js?v=3" defer></script>
+  <script src="assets/js/aymp-growth.js?v=5" defer></script>
+  <script src="assets/js/aymp-global-daily-content.js?v=2" defer></script>
+  <script>
+  (function(){function init(){var buttons=[].slice.call(document.querySelectorAll('.hub-btn'));function apply(filter){buttons.forEach(function(b){b.classList.toggle('active',b.getAttribute('data-filter')===filter)});document.querySelectorAll('#aymp-trends .global-trending-card').forEach(function(card){if(filter==='all'){card.classList.remove('hidden-card');return}var text=(card.textContent||'').toLowerCase();card.classList.toggle('hidden-card',text.indexOf(filter.toLowerCase())===-1)});var target=document.getElementById('aymp-trends');if(target)target.scrollIntoView({behavior:'smooth',block:'start'})}buttons.forEach(function(b){b.addEventListener('click',function(){apply(b.getAttribute('data-filter'))})})}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init()})();
+  </script>
 </body>
 </html>
