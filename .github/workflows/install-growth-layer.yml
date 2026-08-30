@@ -17,7 +17,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Ensure growth, discovery images, daily content, live global scripts and Game Zone are loaded
+      - name: Ensure AYMP growth layers are loaded
         shell: bash
         run: |
           python3 - <<'PY'
@@ -25,18 +25,19 @@ jobs:
           import re
           p = Path('index.html')
           text = p.read_text(encoding='utf-8')
-          growth = '<!-- AYMP-GROWTH-LAYER -->'
-          images = '<!-- AYMP-DAILY-DISCOVERY-IMAGES -->'
-          daily = '<!-- AYMP-GLOBAL-DAILY-CONTENT -->'
-          live = '<!-- AYMP-LIVE-GLOBAL-UPGRADE -->'
-          game = '<!-- AYMP-GAME-ZONE-ENTRY -->'
-          text = re.sub(r'\s*<!-- AYMP-GROWTH-LAYER -->\s*<script src="assets/js/aymp-growth.js\?v=[^"]+"></script>', '', text)
-          text = re.sub(r'\s*<!-- AYMP-DAILY-DISCOVERY-IMAGES -->\s*<script src="assets/js/aymp-daily-discovery-images.js\?v=[^"]+"></script>', '', text)
-          text = re.sub(r'\s*<!-- AYMP-GLOBAL-DAILY-CONTENT -->\s*<script src="assets/js/aymp-global-daily-content.js\?v=[^"]+"></script>', '', text)
-          text = re.sub(r'\s*<!-- AYMP-LIVE-GLOBAL-UPGRADE -->\s*<script src="assets/js/aymp-live-global-upgrade.js\?v=[^"]+"></script>', '', text)
-          text = re.sub(r'\s*<!-- AYMP-GAME-ZONE-ENTRY -->\s*<script src="assets/js/aymp-game-entry.js\?v=[^"]+"></script>', '', text)
-          tag = '\n  ' + growth + '\n  <script src="assets/js/aymp-growth.js?v=6"></script>\n  ' + images + '\n  <script src="assets/js/aymp-daily-discovery-images.js?v=2"></script>\n  ' + daily + '\n  <script src="assets/js/aymp-global-daily-content.js?v=1"></script>\n  ' + live + '\n  <script src="assets/js/aymp-live-global-upgrade.js?v=2"></script>\n  ' + game + '\n  <script src="assets/js/aymp-game-entry.js?v=1"></script>\n'
-          text = text.replace('</body>', tag + '</body>', 1)
+          layers = [
+            ('AYMP-GROWTH-LAYER','assets/js/aymp-growth.js?v=6'),
+            ('AYMP-DAILY-DISCOVERY-IMAGES','assets/js/aymp-daily-discovery-images.js?v=2'),
+            ('AYMP-GLOBAL-DAILY-CONTENT','assets/js/aymp-global-daily-content.js?v=1'),
+            ('AYMP-LIVE-GLOBAL-UPGRADE','assets/js/aymp-live-global-upgrade.js?v=2'),
+            ('AYMP-GAME-ZONE-ENTRY','assets/js/aymp-game-entry.js?v=1'),
+            ('AYMP-TOKEN-DISPLAY','assets/js/aymp-token-display.js?v=1'),
+          ]
+          for marker, src in layers:
+            text = re.sub(r'\s*<!-- '+re.escape(marker)+r' -->\s*<script src="'+re.escape(src.split('?')[0])+r'\?v=[^"]+"></script>', '', text)
+          tags = ''.join('\n  <!-- '+m+' -->\n  <script src="'+src+'"></script>\n' for m,src in layers)
+          if '</body>' in text and '<!-- AYMP-TOKEN-DISPLAY -->' not in text:
+            text = text.replace('</body>', tags + '</body>', 1)
           p.write_text(text, encoding='utf-8')
           PY
 
@@ -44,13 +45,13 @@ jobs:
         shell: bash
         run: |
           if git diff --quiet -- index.html; then
-            echo "Discovery layers already installed."
+            echo "AYMP layers already installed."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@github.com"
           git add index.html
-          git commit -m "Add visible AYMP Game Zone entry"
+          git commit -m "Add AYMP token display to homepage"
           git fetch origin main
           git rebase origin/main
           git push origin HEAD:main
