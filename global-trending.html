@@ -18,15 +18,15 @@
 <body>
   <main class="hub">
     <header class="hero"><div class="eyebrow">AYMP GLOBAL DISCOVERY</div><h1>🌍 TODAY'S AMAZING WORLD</h1><p>One place for the world's most interesting discoveries — amazing facts, global stories, learning, games, science, technology, space, nature, history, sports and entertainment.</p></header>
-    <section class="feature"><h2>✨ What do you want to discover today?</h2><p>Tap a button below. The content cards will show the selected topic.</p></section>
+    <section class="feature"><h2>✨ What do you want to discover today?</h2><p>Tap a button below. Live stories appear when a source is available; useful daily discovery content remains available if a live feed is unavailable.</p></section>
     <nav class="hub-buttons" aria-label="Global Discovery categories">
       <button class="hub-btn active" data-filter="all">🌍 All Discoveries</button><button class="hub-btn" data-filter="World Amazing News">🌎 World Amazing</button><button class="hub-btn" data-filter="Amazing Facts & Discoveries">🤯 Amazing Facts</button><button class="hub-btn" data-filter="Global Games">🎮 Global Games</button><button class="hub-btn" data-filter="Study & Education">📚 Study</button><button class="hub-btn" data-filter="AI & Technology">🤖 AI & Tech</button><button class="hub-btn" data-filter="Space & Science">🚀 Space</button><button class="hub-btn" data-filter="Nature & Wildlife">🌿 Nature</button><button class="hub-btn" data-filter="History & Culture">🏺 History</button><button class="hub-btn" data-filter="Sports World">⚽ Sports</button><button class="hub-btn" data-filter="Entertainment">🎬 Entertainment</button>
     </nav>
-    <div id="aymp-global-content"></div>
-    <div class="note">🔄 Content changes daily. Live stories open their original source. AYMP daily games and discovery content are for entertainment and learning.</div>
+    <div id="aymp-trends" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;min-height:80px"><div style="grid-column:1/-1;text-align:center;padding:25px;color:#ddd">🌍 Preparing today's global discoveries…</div></div>
+    <div class="note">🔄 Live stories are refreshed when available. If a live source fails, AYMP shows daily discovery content instead of leaving an empty or permanent loading card.</div>
   </main>
-  <script src="assets/js/aymp-growth.js?v=5" defer></script>
-  <script src="assets/js/aymp-global-daily-content.js?v=2" defer></script>
+  <script src="assets/js/aymp-live-global-upgrade.js?v=3" defer></script>
+  <script src="assets/js/aymp-global-daily-content.js?v=3" defer></script>
   <script>
   (function(){function init(){var buttons=[].slice.call(document.querySelectorAll('.hub-btn'));function apply(filter){buttons.forEach(function(b){b.classList.toggle('active',b.getAttribute('data-filter')===filter)});document.querySelectorAll('#aymp-trends .global-trending-card').forEach(function(card){if(filter==='all'){card.classList.remove('hidden-card');return}var text=(card.textContent||'').toLowerCase();card.classList.toggle('hidden-card',text.indexOf(filter.toLowerCase())===-1)});var target=document.getElementById('aymp-trends');if(target)target.scrollIntoView({behavior:'smooth',block:'start'})}buttons.forEach(function(b){b.addEventListener('click',function(){apply(b.getAttribute('data-filter'))})})}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init()})();
   </script>
