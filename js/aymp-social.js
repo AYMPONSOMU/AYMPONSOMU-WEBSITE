@@ -65,9 +65,18 @@
   var css=document.createElement('style');
   css.textContent='.aymp-social-bar{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:18px auto 4px;padding:10px}.aymp-social-bar button{cursor:pointer;border:1px solid rgba(255,215,0,.55);border-radius:20px;padding:8px 12px;background:rgba(10,25,55,.92);color:#fff;font-weight:600;font-family:inherit}.aymp-social-bar button:hover{transform:translateY(-1px);box-shadow:0 0 10px rgba(255,215,0,.35)}@media(max-width:600px){.aymp-social-bar{gap:5px}.aymp-social-bar button{font-size:12px;padding:8px 9px}}';
   document.head.appendChild(css);
+  function loadGrowth(){
+    if(document.querySelector('script[data-aymp-global-social-growth]')) return;
+    var s=document.createElement('script');
+    s.src='assets/js/aymp-global-social-growth.js?v=1';
+    s.defer=true;
+    s.setAttribute('data-aymp-global-social-growth','1');
+    document.body.appendChild(s);
+  }
   function start(){
     init();
     addGameZone();
+    loadGrowth();
     var observer=new MutationObserver(function(){init();addGameZone()});
     observer.observe(document.body,{childList:true,subtree:true});
     if(!document.querySelector('script[data-aymp-global-daily-content]')){
