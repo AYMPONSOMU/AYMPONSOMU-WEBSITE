@@ -23,8 +23,9 @@
     style.id='aymp-discovery-world-style';
     style.textContent='#aymp-discovery-world{padding:68px 20px;background:linear-gradient(135deg,#071326,#17102c 55%,#08251f);border-top:1px solid rgba(255,215,0,.22);border-bottom:1px solid rgba(255,215,0,.18);color:#fff}.aymp-dw-wrap{max-width:1200px;margin:auto}.aymp-dw-kicker{text-align:center;font-size:12px;letter-spacing:3px;color:#d8c58a;font-weight:800}.aymp-discovery-world h2{text-align:center;font:800 40px Georgia,serif;color:#ffd86b;margin:8px 0 12px}.aymp-dw-intro{max-width:800px;margin:0 auto 30px;text-align:center;color:#d6dbe5;line-height:1.75}.aymp-dw-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.aymp-dw-card{min-height:205px;padding:23px;border-radius:22px;background:rgba(255,255,255,.055);border:1px solid rgba(255,215,0,.16);box-shadow:0 12px 35px rgba(0,0,0,.2)}.aymp-dw-card:hover{transform:translateY(-4px);border-color:rgba(255,215,0,.5)}.aymp-dw-icon{font-size:38px}.aymp-dw-label{margin-top:8px;color:#8ee7ff;font-size:11px;font-weight:800;letter-spacing:1.5px}.aymp-dw-card h3{margin:8px 0;color:#fff;font-size:22px}.aymp-dw-card p{margin:0;color:#bfc7d4;line-height:1.6}.aymp-dw-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:26px}.aymp-dw-actions a{padding:11px 16px;border-radius:22px;background:#ffd86b;color:#111;text-decoration:none;font-weight:800}.aymp-dw-actions a:nth-child(2){background:#8ee7ff}.aymp-dw-actions a:nth-child(3){background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,215,0,.35)}.aymp-dw-note{text-align:center;color:#8e99aa;font-size:12px;margin-top:18px}@media(max-width:750px){.aymp-dw-grid{grid-template-columns:1fr}.aymp-discovery-world h2{font-size:31px}.aymp-dw-card{min-height:auto}}';
     document.head.appendChild(style);
-    var footer=document.querySelector('footer');
-    if(footer&&footer.parentNode) footer.parentNode.insertBefore(section,footer); else document.body.appendChild(section);
+    var hero=document.querySelector('header');
+    if(hero&&hero.parentNode) hero.parentNode.insertBefore(section,hero.nextSibling);
+    else document.body.appendChild(section);
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
 })();
