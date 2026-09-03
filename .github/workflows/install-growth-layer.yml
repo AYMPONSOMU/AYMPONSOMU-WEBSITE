@@ -39,6 +39,9 @@ jobs:
           text = re.sub(r'\s*<!-- '+re.escape(old[0])+r' -->\s*<script src="'+re.escape(old[1])+r'\?v=[^"]+"></script>', '', text)
           for marker, src in layers:
             text = re.sub(r'\s*<!-- '+re.escape(marker)+r' -->\s*<script src="'+re.escape(src.split('?')[0])+r'\?v=[^"]+"></script>', '', text)
+          # Repair the two malformed horoscope anchors without changing their destination or visible text.
+          text = text.replace('<a class="btn" <a href="daily-horoscope.html" class="gold-button">', '<a class="btn" href="daily-horoscope.html">')
+          text = text.replace('<a class="btn" <a href="weekly-horoscope.html" class="gold-button">', '<a class="btn" href="weekly-horoscope.html">')
           tags = ''.join('\n  <!-- '+m+' -->\n  <script src="'+src+'"></script>\n' for m,src in layers)
           if '</body>' in text:
             text = text.replace('</body>', tags + '</body>', 1)
@@ -49,13 +52,13 @@ jobs:
         shell: bash
         run: |
           if git diff --quiet -- index.html; then
-            echo "AYMP layers already installed."
+            echo "AYMP layers already installed and homepage needs no repair."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@github.com"
           git add index.html
-          git commit -m "Clean up duplicate homepage content layer"
+          git commit -m "Repair malformed homepage horoscope links"
           git fetch origin main
           git rebase origin/main
           git push origin HEAD:main
