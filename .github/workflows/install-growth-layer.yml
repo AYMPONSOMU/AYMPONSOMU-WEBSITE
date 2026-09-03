@@ -33,6 +33,7 @@ jobs:
             ('AYMP-GAME-ZONE-ENTRY','assets/js/aymp-game-entry.js?v=1'),
             ('AYMP-DISCOVERY-WORLD','assets/js/aymp-discovery-world.js?v=1'),
             ('AYMP-TOKEN-ECONOMY','assets/js/aymp-token-economy.js?v=1'),
+            ('AYMP-AUTO-GLOBAL-SHARING','assets/js/aymp-auto-global-sharing-v1.js?v=1'),
           ]
           for marker, src in layers:
             text = re.sub(r'\s*<!-- '+re.escape(marker)+r' -->\s*<script src="'+re.escape(src.split('?')[0])+r'\?v=[^"]+"></script>', '', text)
@@ -52,7 +53,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@github.com"
           git add index.html
-          git commit -m "Integrate AYMP Discovery World and token economy"
+          git commit -m "Integrate AYMP Discovery World, token economy and auto sharing"
           git fetch origin main
           git rebase origin/main
           git push origin HEAD:main
