@@ -31,12 +31,13 @@ jobs:
             ('AYMP-GLOBAL-DAILY-CONTENT','assets/js/aymp-global-daily-content.js?v=1'),
             ('AYMP-LIVE-GLOBAL-UPGRADE','assets/js/aymp-live-global-upgrade.js?v=2'),
             ('AYMP-GAME-ZONE-ENTRY','assets/js/aymp-game-entry.js?v=1'),
-            ('AYMP-TOKEN-DISPLAY','assets/js/aymp-token-display.js?v=1'),
+            ('AYMP-DISCOVERY-WORLD','assets/js/aymp-discovery-world.js?v=1'),
+            ('AYMP-TOKEN-ECONOMY','assets/js/aymp-token-economy.js?v=1'),
           ]
           for marker, src in layers:
             text = re.sub(r'\s*<!-- '+re.escape(marker)+r' -->\s*<script src="'+re.escape(src.split('?')[0])+r'\?v=[^"]+"></script>', '', text)
           tags = ''.join('\n  <!-- '+m+' -->\n  <script src="'+src+'"></script>\n' for m,src in layers)
-          if '</body>' in text and '<!-- AYMP-TOKEN-DISPLAY -->' not in text:
+          if '</body>' in text:
             text = text.replace('</body>', tags + '</body>', 1)
           p.write_text(text, encoding='utf-8')
           PY
@@ -51,7 +52,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@github.com"
           git add index.html
-          git commit -m "Add AYMP token display to homepage"
+          git commit -m "Integrate AYMP Discovery World and token economy"
           git fetch origin main
           git rebase origin/main
           git push origin HEAD:main
