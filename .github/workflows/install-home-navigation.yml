@@ -1,10 +1,7 @@
 name: Install AYMP Home Navigation
 
+# One-time maintenance workflow. Navigation is already installed on the homepage.
 on:
-  push:
-    branches: [main]
-    paths-ignore:
-      - 'index.html'
   workflow_dispatch:
 
 permissions:
