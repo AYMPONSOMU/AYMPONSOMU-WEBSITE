@@ -1,10 +1,7 @@
 name: Add Siddha Wellness to Homepage
 
+# One-time maintenance workflow. The Siddha section is already installed on the homepage.
 on:
-  push:
-    branches: [main]
-    paths-ignore:
-      - 'index.html'
   workflow_dispatch:
 
 permissions:
@@ -83,7 +80,6 @@ jobs:
               if end == -1:
                   raise SystemExit('Existing Siddha section marker found but closing section was not found; homepage was not modified.')
               end += len(end_tag)
-              # Include the existing Siddha script if present, up to </script>.
               script_end = text.find('</script>', end)
               if script_end != -1:
                   between = text[end:script_end + len('</script>')]
