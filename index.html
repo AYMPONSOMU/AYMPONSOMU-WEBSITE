@@ -412,6 +412,154 @@ cursor:pointer;
 color:gold;
 
       }
+  
+    /* AYMP RESPONSIVE LAYOUT STABILIZER */
+    html{
+      width:100%;
+      min-width:0;
+      -webkit-text-size-adjust:100%;
+    }
+    body{
+      width:100%;
+      min-width:0;
+      overflow-x:hidden;
+    }
+    img,video,iframe,canvas{
+      max-width:100%;
+      height:auto;
+    }
+    .container,.hero,.about-grid,.cards,.yantra-gallery,.free-box,.popup-content,.guidance-content{
+      min-width:0;
+    }
+    .hero{
+      width:min(1200px,100%);
+      margin:0 auto;
+      padding:0;
+    }
+    .hero-content h1{
+      font-size:clamp(30px,5.5vw,55px);
+      line-height:1.2;
+      overflow-wrap:anywhere;
+    }
+    .section-title{
+      font-size:clamp(28px,5vw,40px);
+      line-height:1.25;
+      overflow-wrap:anywhere;
+    }
+    .free-box h2{
+      font-size:clamp(28px,5vw,40px);
+      line-height:1.25;
+    }
+    .buttons,.social-links{
+      width:100%;
+    }
+    .btn,.aymp-btn{
+      max-width:100%;
+      text-align:center;
+      overflow-wrap:anywhere;
+    }
+
+    @media (max-width:900px){
+      header{
+        min-height:auto;
+        padding:56px 16px 40px;
+      }
+      section{
+        padding:64px 16px;
+      }
+      .hero{
+        gap:28px;
+      }
+      .hero-image img{
+        max-width:min(500px,100%);
+      }
+      .card{
+        padding:24px;
+      }
+      .free-box{
+        padding:32px 20px;
+      }
+    }
+
+    @media (max-width:600px){
+      body{
+        line-height:1.55;
+      }
+      header{
+        padding:44px 14px 32px;
+      }
+      section{
+        padding:48px 14px;
+      }
+      .hero-content h2{
+        font-size:clamp(18px,4.5vw,21px);
+      }
+      .hero-content p{
+        font-size:16px;
+      }
+      .buttons{
+        flex-direction:column;
+        align-items:stretch;
+      }
+      .buttons .btn,
+      .buttons .aymp-btn{
+        width:100%;
+        white-space:normal;
+      }
+      .social-links{
+        flex-direction:column;
+        align-items:stretch;
+      }
+      .social-links .btn{
+        width:100%;
+      }
+      .cards,
+      .yantra-gallery{
+        grid-template-columns:1fr;
+      }
+      .card{
+        padding:22px 18px;
+      }
+      .free-box{
+        border-radius:22px;
+        padding:28px 16px;
+      }
+      .whatsapp{
+        right:12px;
+        bottom:12px;
+        padding:13px 17px;
+        font-size:14px;
+      }
+      .popup-content,
+      .guidance-content{
+        width:calc(100% - 24px);
+        margin:18px auto;
+        padding:22px 16px;
+      }
+    }
+
+    @media (orientation:landscape) and (max-height:600px){
+      header{
+        min-height:auto;
+        padding:24px 20px;
+      }
+      .hero{
+        gap:28px;
+      }
+      section{
+        padding:42px 20px;
+      }
+      .hero-content h1{
+        font-size:clamp(26px,4vw,44px);
+      }
+      .hero-image img{
+        max-height:70vh;
+        width:auto;
+        max-width:100%;
+        object-fit:contain;
+      }
+    }
+
   </style>
 </head>
 <body>
