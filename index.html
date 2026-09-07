@@ -594,6 +594,21 @@ color:gold;
 .aymp-channel-status{display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;color:#ddd;font-size:14px}
 .aymp-channel-status b{color:#ffd700}
 
+
+/* AYMP YOUTUBE COMPLETE CONTENT HUB */
+.aymp-complete-hub{max-width:1200px;margin:30px auto 0;padding:20px;border-radius:24px;border:1px solid rgba(255,215,0,.25);background:rgba(255,255,255,.035)}
+.aymp-complete-hub h3{font-family:'Cinzel',serif;color:#ffd700;text-align:center;font-size:28px;margin-bottom:10px}
+.aymp-complete-hub p{text-align:center;color:#ddd;margin:0 auto 18px;max-width:800px}
+.aymp-content-tabs{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:18px}
+.aymp-content-tabs button{border:1px solid rgba(255,215,0,.35);background:#111b35;color:#fff;padding:10px 18px;border-radius:999px;cursor:pointer;font-weight:700}
+.aymp-content-tabs button.active{background:linear-gradient(45deg,#c9a227,#ffdf6b);color:#111}
+.aymp-content-panel{display:none}.aymp-content-panel.active{display:block}
+.aymp-channel-frame{width:100%;min-height:420px;border:0;border-radius:16px;background:#02040b}
+.aymp-shorts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.aymp-short-card{aspect-ratio:9/16;background:#02040b;border-radius:16px;overflow:hidden}
+.aymp-short-card iframe{width:100%;height:100%;border:0}
+@media(max-width:600px){.aymp-channel-frame{min-height:520px}.aymp-complete-hub{padding:14px}}
+
 </style>
 </head>
 <body>
@@ -641,6 +656,28 @@ color:gold;
       </div>
     </div>
   </section>
+
+<div class="aymp-complete-hub" id="aymp-complete-hub">
+  <h3>📺 Explore All AYMPONSOMU Content</h3>
+  <p>Videos, Shorts and the full public channel experience in one place.</p>
+  <div class="aymp-content-tabs">
+    <button class="active" data-aymp-tab="channel">🎬 All Videos</button>
+    <button data-aymp-tab="shorts">📱 Shorts</button>
+    <button data-aymp-tab="channelpage">🌐 Full Channel</button>
+  </div>
+  <div class="aymp-content-panel active" data-aymp-panel="channel">
+    <iframe class="aymp-channel-frame" src="https://www.youtube.com/embed?listType=user_uploads&list=UCHn5AYK-Bm6KC2n0YaOlZ0A&rel=0" title="AYMPONSOMU all public uploads" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+  </div>
+  <div class="aymp-content-panel" data-aymp-panel="shorts">
+    <div class="aymp-shorts-grid">
+      <div class="aymp-short-card"><iframe src="https://www.youtube.com/embed/q5txnaNBZmc?rel=0&playsinline=1" title="AYMPONSOMU Short" loading="lazy" allowfullscreen></iframe></div>
+      <div class="aymp-short-card"><iframe src="https://www.youtube.com/embed/DEVhfJ9amhk?rel=0&playsinline=1" title="AYMPONSOMU video" loading="lazy" allowfullscreen></iframe></div>
+    </div>
+  </div>
+  <div class="aymp-content-panel" data-aymp-panel="channelpage">
+    <iframe class="aymp-channel-frame" src="https://www.youtube.com/@aymponsomu" title="AYMPONSOMU YouTube channel" loading="lazy"></iframe>
+  </div>
+</div>
 <section class="aymp-video-hub" id="aymp-video-hub" aria-label="AYMP Astrology and Siddha Video Hub">
   <div class="hub-wrap">
     <div class="hub-head">
