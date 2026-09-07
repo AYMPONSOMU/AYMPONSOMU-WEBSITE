@@ -588,6 +588,12 @@ color:gold;
 .aymp-youtube-actions a{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;padding:13px 22px;border-radius:999px;font-weight:700;background:linear-gradient(45deg,#c9a227,#ffdf6b);color:#111}
 @media(max-width:760px){.aymp-video-grid{grid-template-columns:1fr}.aymp-video-hub{padding:36px 12px}}
 
+
+/* AYMP YOUTUBE CHANNEL AUTOMATION */
+.aymp-channel-live{max-width:1200px;margin:18px auto 0;padding:0 20px}
+.aymp-channel-status{display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;color:#ddd;font-size:14px}
+.aymp-channel-status b{color:#ffd700}
+
 </style>
 </head>
 <body>
@@ -641,7 +647,12 @@ color:gold;
       <h2>🎬 AYMP Knowledge Video Hub</h2>
       <p>Explore AYMPONSOMU videos covering astrology, Siddha knowledge and global learning. Videos can be watched directly on the website and the channel remains one tap away for the latest uploads and live sessions.</p>
     </div>
-    <div class="aymp-video-grid">
+    <div class="aymp-video-card" style="margin:0 0 22px">
+<h3>🆕 Latest AYMPONSOMU Upload</h3>
+<p>Automatically checks the AYMPONSOMU channel feed for the newest available upload.</p>
+<div class="aymp-video-frame"><iframe id="aymp-latest-video" src="https://www.youtube.com/embed/DEVhfJ9amhk?rel=0&playsinline=1" title="Latest AYMPONSOMU video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+<div class="aymp-channel-status"><b id="aymp-video-status">Latest video</b><span>AYMPONSOMU channel</span></div>
+</div><div class="aymp-video-grid">
       <article class="aymp-video-card">
         <h3>🔮 Astrology Videos</h3>
         <p>AYMP astrology explanations, zodiac guidance and learning videos.</p>
