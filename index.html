@@ -560,6 +560,17 @@ color:gold;
       }
     }
 
+  
+    /* AYMP HOMEPAGE FEATURED GLOBAL VIDEO */
+    .aymp-home-video{padding:42px 20px 24px}
+    .aymp-home-video .video-shell{max-width:1100px;margin:auto;padding:18px;border-radius:26px;background:linear-gradient(135deg,rgba(26,31,69,.92),rgba(61,35,82,.92));border:1px solid rgba(255,215,0,.38);box-shadow:0 0 35px rgba(255,215,0,.16)}
+    .aymp-home-video .video-kicker{display:block;text-align:center;color:#cfc6a0;letter-spacing:3px;font-size:12px;font-weight:700}
+    .aymp-home-video h2{font-family:'Cinzel',serif;text-align:center;color:#ffd700;font-size:clamp(26px,5vw,44px);margin:8px 0}
+    .aymp-home-video p{text-align:center;color:#dedede;max-width:760px;margin:0 auto 16px}
+    .aymp-home-video .video-frame{aspect-ratio:16/9;background:#02040b;border-radius:18px;overflow:hidden}
+    .aymp-home-video video{display:block;width:100%;height:100%;object-fit:cover;background:#02040b}
+    @media(max-width:600px){.aymp-home-video{padding:28px 12px 18px}.aymp-home-video .video-shell{padding:12px;border-radius:18px}.aymp-home-video .video-frame{border-radius:13px}}
+
   </style>
 </head>
 <body>
@@ -593,6 +604,21 @@ color:gold;
     </div>
   </div>
 </header>
+
+  <section class="aymp-home-video" aria-label="AYMP Global Trending Video">
+    <div class="video-shell">
+      <span class="video-kicker">AYMP GLOBAL TRENDING</span>
+      <h2>🌍 Watch The World In Motion</h2>
+      <p>A featured AYMP global visual experience from the AYMP Daily Wonder universe.</p>
+      <div class="video-frame">
+        <video controls playsinline preload="metadata">
+          <source src="assets/videos/AYMP_Global_Trending_Landscape_16x9.mp4" type="video/mp4">
+          Your browser does not support HTML5 video.
+        </video>
+      </div>
+    </div>
+  </section>
+
 
 <section>
   <div class="container">
