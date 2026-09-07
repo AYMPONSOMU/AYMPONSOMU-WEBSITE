@@ -571,7 +571,24 @@ color:gold;
     .aymp-home-video video{display:block;width:100%;height:100%;object-fit:cover;background:#02040b}
     @media(max-width:600px){.aymp-home-video{padding:28px 12px 18px}.aymp-home-video .video-shell{padding:12px;border-radius:18px}.aymp-home-video .video-frame{border-radius:13px}}
 
-  </style>
+  
+/* AYMP YOUTUBE VIDEO HUB */
+.aymp-video-hub{padding:52px 20px}
+.aymp-video-hub .hub-wrap{max-width:1200px;margin:auto}
+.aymp-video-hub .hub-head{text-align:center;margin-bottom:22px}
+.aymp-video-hub .hub-head h2{font-family:'Cinzel',serif;color:#ffd700;font-size:clamp(28px,5vw,46px);margin:0 0 8px}
+.aymp-video-hub .hub-head p{color:#ddd;max-width:800px;margin:auto}
+.aymp-video-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.aymp-video-card{background:rgba(255,255,255,.055);border:1px solid rgba(255,215,0,.24);border-radius:22px;padding:16px;overflow:hidden}
+.aymp-video-card h3{color:#ffd700;margin:4px 0 10px;font-size:22px}
+.aymp-video-card p{color:#d7d7d7;font-size:14px;margin:0 0 12px}
+.aymp-video-frame{aspect-ratio:16/9;border-radius:15px;overflow:hidden;background:#02040b}
+.aymp-video-frame iframe{width:100%;height:100%;border:0;display:block}
+.aymp-youtube-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+.aymp-youtube-actions a{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;padding:13px 22px;border-radius:999px;font-weight:700;background:linear-gradient(45deg,#c9a227,#ffdf6b);color:#111}
+@media(max-width:760px){.aymp-video-grid{grid-template-columns:1fr}.aymp-video-hub{padding:36px 12px}}
+
+</style>
 </head>
 <body>
 <div id="google_translate_element" style="text-align:right;padding:10px;"></div>
@@ -618,6 +635,35 @@ color:gold;
       </div>
     </div>
   </section>
+<section class="aymp-video-hub" id="aymp-video-hub" aria-label="AYMP Astrology and Siddha Video Hub">
+  <div class="hub-wrap">
+    <div class="hub-head">
+      <h2>🎬 AYMP Knowledge Video Hub</h2>
+      <p>Explore AYMPONSOMU videos covering astrology, Siddha knowledge and global learning. Videos can be watched directly on the website and the channel remains one tap away for the latest uploads and live sessions.</p>
+    </div>
+    <div class="aymp-video-grid">
+      <article class="aymp-video-card">
+        <h3>🔮 Astrology Videos</h3>
+        <p>AYMP astrology explanations, zodiac guidance and learning videos.</p>
+        <div class="aymp-video-frame">
+          <iframe src="https://www.youtube.com/embed?listType=user_uploads&list=aymponsomu&rel=0&playsinline=1" title="AYMPONSOMU Astrology videos" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      </article>
+      <article class="aymp-video-card">
+        <h3>🌿 Siddha Knowledge Videos</h3>
+        <p>Educational Siddha, herbs, traditional knowledge and wellness content from AYMPONSOMU.</p>
+        <div class="aymp-video-frame">
+          <iframe src="https://www.youtube.com/embed?listType=user_uploads&list=aymponsomu&rel=0&playsinline=1" title="AYMPONSOMU Siddha knowledge videos" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      </article>
+    </div>
+    <div class="aymp-youtube-actions">
+      <a href="https://www.youtube.com/@aymponsomu" target="_blank" rel="noopener noreferrer">▶ Visit AYMPONSOMU on YouTube</a>
+      <a href="https://www.youtube.com/@aymponsomu?sub_confirmation=1" target="_blank" rel="noopener noreferrer">🔔 Subscribe for New Videos</a>
+    </div>
+  </div>
+</section>
+
 
 
 <section>
